@@ -46,22 +46,31 @@
       padding: 40px 20px;
     }
 
-    .links a {
-      display: inline-block;
-      margin: 12px;
-      padding: 14px 25px;
+    .link-card {
+      display: inline-flex;
+      align-items: center;
       background-color: #9146FF;
-      color: #fff;
-      font-weight: bold;
+      color: white;
       text-decoration: none;
-      border-radius: 30px;
-      transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      padding: 12px 20px;
+      margin: 10px;
+      border-radius: 12px;
+      transition: 0.3s ease;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .links a:hover {
+    .link-card:hover {
       background-color: #772ce8;
       transform: scale(1.05);
+    }
+
+    .link-card img {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+      border-radius: 4px;
     }
 
     section {
@@ -87,6 +96,7 @@
 <body>
 
   <header>
+    <!-- Substituir por teu logo real -->
     <img src="https://via.placeholder.com/150?text=Seu+Logo" alt="Logo do Canal" class="logo">
     <h1>Osecaadegas95</h1>
     <p>Streamer apaixonado por games, comunidade e vibes positivas. Sempre ao vivo com conteúdo divertido, jogos variados e interação real com o chat. Vem fazer parte da família!</p>
@@ -94,7 +104,11 @@
 
   <section class="links">
     <h2>🔗 Links Importantes</h2>
-    <a href="http://twitch.tv/osecaadegas95" target="_blank">Twitch</a>
+    <a href="http://twitch.tv/osecaadegas95" target="_blank" class="link-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Twitch_glitch_logo.svg" alt="Twitch Logo" />
+      <span>Assiste na Twitch</span>
+    </a>
+    <!-- Podes adicionar outros links aqui da mesma forma -->
   </section>
 
   <section>
