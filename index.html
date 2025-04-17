@@ -8,20 +8,23 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ffffff;
-      background: linear-gradient(135deg, #1e3c72, #2a5298, #6f42c1);
-      background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
+      /* Updated background properties */
+      background-image: url('https://i.imgur.com/BFpN0nD.png');
+      background-size: cover; /* Ensures the background covers the whole page */
+      background-position: center; /* Centers the background image */
+      background-repeat: no-repeat; /* Prevents the background from repeating */
+      background-attachment: fixed; /* Optional: Keeps the background fixed during scroll */
       text-align: center;
     }
 
-    @keyframes gradientAnimation {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+    /* Removed @keyframes gradientAnimation as the background is now an image */
 
     header {
       padding: 50px 20px;
+      background-color: rgba(0, 0, 0, 0.5); /* Added a semi-transparent background for better text readability */
+      border-radius: 12px;
+      margin: 20px;
+      display: inline-block; /* Adjusts header size to content */
     }
 
     img.logo {
@@ -35,6 +38,7 @@
       font-size: 42px;
       color: #fff;
       margin: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Added text shadow for better readability */
     }
 
     p {
@@ -42,11 +46,17 @@
       margin: auto;
       font-size: 18px;
       line-height: 1.5;
+       text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Added text shadow for better readability */
     }
 
-    .links {
-      padding: 40px 20px;
-    }
+     .links, section {
+        padding: 30px 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Added a semi-transparent background */
+        border-radius: 12px;
+        margin: 20px auto; /* Center sections and add space */
+        max-width: 90%; /* Limit width for better layout */
+     }
+
 
     .link-card {
       display: inline-flex;
@@ -75,10 +85,6 @@
       border-radius: 4px;
     }
 
-    section {
-      padding: 50px 20px;
-    }
-
     ul {
       list-style: none;
       padding: 0;
@@ -87,18 +93,24 @@
 
     iframe {
       width: 90%;
+      max-width: 800px; /* Added max-width for responsiveness */
       height: 700px;
       border: none;
       border-radius: 12px;
       margin-top: 20px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.3);
     }
+
+    h2 {
+         text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Added text shadow */
+    }
+
   </style>
 </head>
 <body>
 
   <header>
-    <img src="https://i.imgur.com/VIa4xqt.gif" alt="Logo do Canal" class="logo">
+    <img src="https://i.imgur.com/iQSFtuJ.gif" alt="Logo do Canal" class="logo">
     <h1>Osecaadegas95</h1>
     <p>Streamer apaixonado por games, comunidade e vibes positivas. Sempre ao vivo com conteúdo divertido, jogos variados e interação real com o chat. Vem fazer parte da família!</p>
   </header>
