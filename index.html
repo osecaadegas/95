@@ -8,23 +8,22 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ffffff;
-      /* Updated background properties */
       background-image: url('https://i.imgur.com/BFpN0nD.png');
-      background-size: cover; /* Ensures the background covers the whole page */
-      background-position: center; /* Centers the background image */
-      background-repeat: no-repeat; /* Prevents the background from repeating */
-      background-attachment: fixed; /* Optional: Keeps the background fixed during scroll */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       text-align: center;
     }
 
-    /* Removed @keyframes gradientAnimation as the background is now an image */
-
     header {
       padding: 50px 20px;
-      background-color: rgba(0, 0, 0, 0.5); /* Added a semi-transparent background for better text readability */
+      background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for contrast */
       border-radius: 12px;
       margin: 20px;
-      display: inline-block; /* Adjusts header size to content */
+      display: inline-block;
+      max-width: 90%;
+      box-sizing: border-box; /* Include padding in width calculation */
     }
 
     img.logo {
@@ -38,30 +37,36 @@
       font-size: 42px;
       color: #fff;
       margin: 10px 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Added text shadow for better readability */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
 
     p {
       max-width: 700px;
-      margin: auto;
+      margin: 10px auto; /* Added margin-bottom */
       font-size: 18px;
       line-height: 1.5;
-       text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Added text shadow for better readability */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
 
      .links, section {
         padding: 30px 20px;
-        background-color: rgba(0, 0, 0, 0.5); /* Added a semi-transparent background */
+        background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for contrast */
         border-radius: 12px;
-        margin: 20px auto; /* Center sections and add space */
-        max-width: 90%; /* Limit width for better layout */
+        margin: 20px auto;
+        max-width: 90%;
+        box-sizing: border-box; /* Include padding in width calculation */
      }
+
+    .links p { /* Style for the description text in the links section */
+        margin-top: 20px; /* Add space above the description */
+        font-size: 16px; /* Slightly smaller font size */
+    }
 
 
     .link-card {
       display: inline-flex;
       align-items: center;
-      background-color: #9146FF;
+      background-color: #9146FF; /* Default purple color */
       color: white;
       text-decoration: none;
       padding: 12px 20px;
@@ -71,19 +76,34 @@
       font-weight: bold;
       font-size: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      max-width: 90%; /* Prevent button overflow on small screens */
+      box-sizing: border-box;
     }
 
+     /* Specific style for the new BuranCasino button if needed, otherwise it uses .link-card */
+    .buran-link {
+        /* background-color: #someOtherColor; */ /* Uncomment to give it a unique color */
+    }
+
+
     .link-card:hover {
-      background-color: #772ce8;
+      background-color: #772ce8; /* Darker purple on hover */
       transform: scale(1.05);
     }
 
     .link-card img {
-      width: 32px;
-      height: 32px;
+      width: 32px; /* Fixed width */
+      height: 32px; /* Fixed height */
       margin-right: 10px;
       border-radius: 4px;
+      object-fit: cover; /* Ensures image covers the area without distortion */
     }
+
+     .link-card span {
+        text-align: left; /* Align text within the button */
+        flex-grow: 1; /* Allow text to take available space */
+     }
+
 
     ul {
       list-style: none;
@@ -93,7 +113,7 @@
 
     iframe {
       width: 90%;
-      max-width: 800px; /* Added max-width for responsiveness */
+      max-width: 800px;
       height: 700px;
       border: none;
       border-radius: 12px;
@@ -102,7 +122,7 @@
     }
 
     h2 {
-         text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Added text shadow */
+         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
 
   </style>
@@ -121,6 +141,11 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Twitch_glitch_logo.svg" alt="Twitch Logo" />
       <span>Assiste na Twitch</span>
     </a>
+    <a href="https://brn.fynkelto.com/?mid=213417_1551916" target="_blank" class="link-card buran-link">
+      <img src="https://i.imgur.com/0ckoDq3.jpeg" alt="BuranCasino Logo" />
+      <span>Junta te a nós no BuranCasino .</span>
+    </a>
+    <p>Abre Ticket no discord para mais informaçoes .</p>
   </section>
 
   <section>
