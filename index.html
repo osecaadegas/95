@@ -1,144 +1,472 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Osecaadegas95 - Página Oficial</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ffffff;
-      background-image: url('https://i.imgur.com/BFpN0nD.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>osecaadegas95</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif; /* Replace with your desired font */
+            background-color: #0f172a; /* Dark blue background */
+            color: #e2e8f0; /* Light text color */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    header {
-      padding: 50px 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      margin: 20px;
-      display: inline-block;
-      max-width: 90%;
-      box-sizing: border-box;
-    }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    img.logo {
-      max-width: 200px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-    h1 {
-      font-size: 42px;
-      color: #fff;
-      margin: 10px 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-    }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
-    p {
-      max-width: 700px;
-      margin: 10px auto;
-      font-size: 18px;
-      line-height: 1.5;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    }
+        /* Header */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #1e293b; /* Slightly lighter dark blue */
+            border-bottom: 1px solid #334155;
+        }
 
-    .links, section {
-      padding: 30px 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      margin: 20px auto;
-      max-width: 90%;
-      box-sizing: border-box;
-    }
+        .site-header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #f0f0f0; /* Example logo color */
+        }
 
-    .links p {
-      margin-top: 20px;
-      font-size: 16px;
-    }
+        /* Main Container */
+        .site-container {
+            display: flex;
+            flex-grow: 1;
+        }
 
-    .link-card {
-      display: inline-flex;
-      align-items: center;
-      background-color: #9146FF;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      margin: 10px;
-      border-radius: 12px;
-      transition: 0.3s ease;
-      font-weight: bold;
-      font-size: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      max-width: 90%;
-      box-sizing: border-box;
-    }
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background-color: #1e293b;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #334155;
+        }
 
-    .link-card:hover {
-      background-color: #772ce8;
-      transform: scale(1.05);
-    }
+        .sidebar .main-nav ul li a {
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            color: #cbd5e1;
+            font-size: 0.95em;
+        }
+        .sidebar .main-nav ul li a:hover,
+        .sidebar .main-nav ul li a.active {
+            background-color: #334155;
+            color: white;
+        }
+        .sidebar .main-nav ul li a i { /* For icons */
+            font-size: 1.5em; /* Adjust as needed */
+            vertical-align: middle;
+            margin-right: 20px;
+        }
 
-    .link-card img {
-      width: 53px; /* Tamanho das imagens */
-      height: 53px; /* Tamanho das imagens */
-      margin-right: 10px;
-      border-radius: 4px;
-      object-fit: cover;
-    }
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
+           /*  padding: 30px; */
+            /* Remove or comment out the next line: */
+            overflow-y: auto;
+        }
 
-    .link-card span {
-      text-align: left;
-      flex-grow: 1;
-    }
+        .offers-section .offers-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .offers-section .offers-header p:first-child {
+            color: #60a5fa; /* Light blue accent */
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            margin-bottom: 0;
+        }
+        .offers-section .offers-header h1 {
+            font-size: 2.8em;
+            color: white;
+            margin: 5px 0;
+            letter-spacing: 1px;
+        }
+        .offers-section .offers-header p:last-child {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      font-size: 18px;
-    }
-  </style>
+        /* Offers Grid */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 25px;
+        }
+
+        .offer-card {
+            background-color: #1e3a5f; /* Card background - distinct from main */
+            border-radius: 10px;
+            overflow: hidden; /* Ensures child elements conform to border radius */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #3b5998; /* Border for card */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Subtle shadow */
+        }
+
+        .offer-card .offer-card-header {
+            padding: 15px;
+            /* background-color: rgba(0,0,0,0.1); Optional: slightly different header bg */
+        }
+        .offer-card .offer-card-header .provider-logo {
+            height: 30px; /* Adjust as needed */
+            display: block;
+        }
+        .offer-card .offer-card-header .provider-name,
+        .offer-card .offer-card-header .provider-name-stelario {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+        }
+        .offer-card .offer-card-header .provider-name-stelario {
+            /* Specific styling if needed, e.g. Stelario has a unique font/style */
+            /* font-family: 'StelarioFont', sans-serif; */
+        }
+
+
+        .offer-card .offer-card-body {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            position: relative; /* For positioning elements like main image if needed */
+        }
+        .offer-card .offer-card-body .offer-image {
+            max-width: 80%;
+            margin-bottom: 15px;
+            border-radius: 8px; /* If images have rounded corners */
+        }
+        .offer-card .offer-details .offer-percentage,
+        .offer-card .offer-details .offer-freespins {
+            font-size: 2em; /* Large text for main offer */
+            font-weight: bold;
+            color: #f59e0b; /* Example: Amber color for emphasis */
+            margin: 5px 0;
+        }
+        .offer-card .offer-details .offer-freespins {
+             color: #34d399; /* Example: Green for freespins */
+        }
+
+        .offer-card .offer-details .offer-condition {
+            font-size: 0.9em;
+            color: #a0aec0;
+            margin-bottom: 10px;
+        }
+        .offer-card .offer-details small {
+            font-size: 0.8em;
+            color: #718096;
+            display: block;
+            margin-top: -5px;
+            margin-bottom:15px;
+        }
+
+        .offer-card .offer-details .offer-icons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        .offer-card .offer-details .offer-icons span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #4a5568; /* Placeholder for icons */
+            border-radius: 3px;
+            font-size: 0.7em;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .offer-card .offer-card-footer {
+            display: flex;
+            padding: 15px;
+            background-color: rgba(0,0,0,0.15); /* Slightly darker footer */
+        }
+        .offer-card .claim-button {
+            flex-grow: 1;
+            background-color: #3fce06; /* Green button */
+            color: rgb(255, 255, 255);
+            padding: 12px 15px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .offer-card .claim-button:hover {
+            background-color: #059669;
+        }
+        .offer-card .claim-button.orange { /* For orange buttons */
+            background-color: #f59e0b;
+        }
+        .offer-card .claim-button.orange:hover {
+            background-color: #d97706;
+        }
+
+
+        .offer-card .info-button {
+            background-color: #4a5568; /* Dark grey for info */
+            color: white;
+            width: 40px; /* Adjust as needed for square-ish button */
+            height: auto;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-weight: bold;
+            font-style: italic;
+            transition: background-color 0.3s ease;
+        }
+        .offer-card .info-button:hover {
+            background-color: #2d3748;
+        }
+         .offer-card .info-button.orange { /* For orange info buttons */
+            background-color: #c05621; /* Darker orange */
+        }
+        .offer-card .info-button.orange:hover {
+            background-color: #9c4221;
+        }
+
+
+        /* Footer Styles */
+        .site-footer {
+            background: #181e2a;
+            border-top: 2px solid #334155;
+            color: #e2e8f0;
+            padding: 32px 0 0 0;
+            margin-top: 40px;
+            box-shadow: 0 -2px 16px rgba(0,0,0,0.25);
+            width: 100%;
+        }
+        .site-footer .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .site-footer .footer-brand {
+            margin-bottom: 8px;
+        }
+        .site-footer .footer-logo {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #60a5fa;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        .site-footer .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .site-footer .footer-link {
+            color: #e2e8f0;
+            font-size: 1em;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .site-footer .footer-link:hover {
+            color: #f59e0b;
+        }
+        .site-footer .footer-bottom {
+            border-top: 1px solid #334155;
+            margin-top: 24px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 0.95em;
+            color: #94a3b8;
+            background: rgba(20, 24, 36, 0.85);
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Add FontAwesome or other icon library if you want actual icons */
+        /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'); */
+        /* Then use <i class="fas fa-home"></i> for example */
+
+    </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="logo">O Seca Adegas 95</div>
+    </header>
+    <div class="site-container">
+        <aside class="sidebar">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="active"><i>🏠</i> Home</a></li>
+                    <li><a href="https://streamelements.com/osecaadegas95/store"><i>🛒</i> Loja Twitch</a></li>
+                    <li><a href="https://discord.gg/X5dy6Fdwzk"><i>💻</i> Discord</a></li>
+                    <li><a href="https://www.twitch.tv/osecaadegas95"><i>🔴</i> Stream</a></li>
+                    <li><a href="https://www.tiktok.com/@osecaadegas95"><i>🎵</i> TikTok</a></li>
+                    <li><a href="#telegram"><i>📱</i>Telegram</a></li>
+                    <li><a href="https://www.instagram.com/osecaadegas/"><i>📸</i> Instagram</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-  <header>
-    <img src="https://i.imgur.com/iQSFtuJ.gif" alt="Logo do Canal" class="logo">
-    <h1>Osecaadegas95</h1>
-    <p>Streamer apaixonado por games, comunidade e vibes positivas. Sempre ao vivo com conteúdo divertido, jogos variados e interação real com o chat. Vem fazer parte da família!</p>
-  </header>
+        <main class="main-content">
+            <section class="offers-section">
+                <div class="offers-header">
+                    <p>Tudo o que precisas esta aqui</p>
+                    <h1>OFERTAS</h1>
+                    <p>Regista te e utiliza os codigos e tens 10% de cashback da minha parte</p>
+                </div>
 
-  <section class="links">
-    <h2>🔗 Links Importantes🔗</h2>
-    <a href="http://twitch.tv/osecaadegas95" target="_blank" class="link-card">
-      <img src="https://fbi.cults3d.com/uploaders/14733316/illustration-file/e1dcdfca-8e2c-487d-9131-5d2e71cf120b/gih%20tw.gif" alt="Twitch Logo" />
-      <span>Twitch</span>
-    </a>
-    <a href="https://brn.fynkelto.com/?mid=213417_1551916" target="_blank" class="link-card">
-      <img src="https://i.imgur.com/0ckoDq3.jpeg" alt="Buran Logo" />
-      <span>Buran Casino</span>
-    </a>
-    <a href="https://streamelements.com/osecaadegas95/store" target="_blank" class="link-card">
-      <span>🛒Loja Twitch🛒</span>
-    </a>
-    <a href="https://discord.gg/X5dy6Fdwzk" target="_blank" class="link-card">
-      <img src="https://logowik.com/content/uploads/images/discord-new-20218785.jpg" alt="Discord Logo" />
-      <span>Junta-te ao Discord</span>
-    </a>
-    <p>Abre Ticket no discord para mais informaçoes.</p>
-  </section>
+                <div class="offers-grid">
+                    <div class="offer-card">
+                        <div class="offer-card-header">
+                            <img src="https://i.imgur.com/NidDJ8q.png" alt="Empire Drop Logo" class="provider-logo">
+                        </div>
+                        <div class="offer-card-body">
+                            <img src="https://i.imgur.com/zyaMuMh.png" alt="Empire Drop Offer" class="offer-image">
+                            <div class="offer-details">
+                                <p class="offer-percentage">+100%</p>
+                                <p class="offer-condition">on the first deposit</p>
+                                <div class="offer-icons"><span>🎲</span><span>💰</span><span>⚡</span><span>🎁</span></div>
+                            </div>
+                        </div>
+                        <div class="offer-card-footer">
+                            <a href="https://empiredrop.com?r=seca" class="claim-button">CLAIM OFFER</a>
+                        </div>
+                    </div>
 
-  <section>
-    <h2>📅 Próximos Eventos</h2>
-    <ul>
-      <li>🕹️ Evento 1 - em breve...</li>
-      <li>🎉 Evento 2 - em breve...</li>
-    </ul>
-  </section>
+                    <div class="offer-card">
+                        <div class="offer-card-header">
+                            <img src="https://i.imgur.com/kCD163n.png" alt="Buran casino" class="provider-logo">
+                        </div>
+                        <div class="offer-card-body">
+                            <img src="https://i.imgur.com/ghTzhyX.jpeg" alt="Buran casino" class="offer-image">
+                            <div class="offer-details">
+                                <p class="offer-percentage">Reembolso 1 dep </p>
+                                <p class="offer-percentage">1 deposito ate 20€ </p>
+                                <p class="offer-condition">+15% de cashback para perdas superiores a 100€ semanalmente</p>
+                                <div class="offer-icons"><span>🎰</span><span>✨</span><span>💸</span><span>🎉</span></div>
+                            </div>
+                        </div>
+                        <div class="offer-card-footer">
+                            <a href="https://brn.fynkelto.com/?mid=213417_1551916" class="claim-button">CLAIM OFFER</a>
+                        </div>
+                    </div>
 
+                    <div class="offer-card">
+                        <div class="offer-card-header">
+                            <img src="https://i.imgur.com/FNfNFhh.png" alt="Arena" class="provider-logo">
+                        </div>
+                        <div class="offer-card-body">
+                             <img src="https://i.imgur.com/6yzyiIL.png" alt="ABI" class="offer-image">
+                            <div class="offer-details">
+                                <p class="offer-freespins">Code:secaadegas</p>
+                                <p class="offer-condition">utiliza o meu codigo para recompensas ingame</p>
+                                </div>
+                        </div>
+                        <div class="offer-card-footer">
+                             <a href="https://arenabreakout.com/#/" class="claim-button green">Download the Game</a>
+                            <a href="https://www.arenabreakoutinfinite.com/creatorcode/index.html?lang=pt-BR" class="claim-button orange">Creator code input</a>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-card-header">
+                             <span class="provider-name">Lebull</span>
+                        </div>
+                        <div class="offer-card-body">
+                             <img src="https://via.placeholder.com/200x120/f87171/FFFFFF?text=Lebull+Art" alt="Lebull Offer" class="offer-image">
+                            <div class="offer-details">
+                                <p class="offer-percentage">+100%</p>
+                                <p class="offer-condition">up to €400</p>
+                                <div class="offer-icons"><span>🐂</span><span>💰</span><span>⚡</span><span>🎁</span></div>
+                            </div>
+                        </div>
+                        <div class="offer-card-footer">
+                             <a href="YOUR_LEBULL_OFFER_URL" class="claim-button orange">CLAIM OFFER</a>
+                            <a href="#lebull-info" class="info-button orange">i</a>
+                        </div>
+                    </div>
+
+                     <div class="offer-card">
+                        <div class="offer-card-header">
+                             <img src="https://via.placeholder.com/150x30/a78bfa/FFFFFF?text=EmpireDrop" alt="EmpireDrop Logo" class="provider-logo">
+                        </div>
+                        <div class="offer-card-body">
+                             <img src="https://via.placeholder.com/200x120/8b5cf6/FFFFFF?text=Empire+Art" alt="EmpireDrop Offer" class="offer-image">
+                            <div class="offer-details">
+                                <p class="offer-percentage">+200%</p>
+                                <p class="offer-condition">UP TO €5000</p>
+                                <small>First Deposit Bonus</small>
+                                 <div class="offer-icons"><span>👑</span><span>💎</span><span>💸</span><span>🚀</span></div>
+                            </div>
+                        </div>
+                        <div class="offer-card-footer">
+                             <a href="YOUR_EMPIREDROP_OFFER_URL" class="claim-button">CLAIM OFFER</a>
+                            <a href="#empiredrop-info" class="info-button">i</a>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-card-header">
+                             <img src="https://via.placeholder.com/130x30/fbbf24/000000?text=SET+FLARE" alt="Set Flare Logo" class="provider-logo">
+                        </div>
+                        <div class="offer-card-body">
+                            <img src="https://via.placeholder.com/200x120/f59e0b/FFFFFF?text=SetFlare+Art" alt="Set Flare Offer" class="offer-image">
+                            <div class="offer-details">
+                                <p class="offer-freespins">125 FREESPINS</p>
+                                <p class="offer-condition">without deposit</p>
+                                 <div class="offer-icons"><span>🔥</span><span>🎰</span><span>🎁</span><span>💯</span></div>
+                            </div>
+                        </div>
+                        <div class="offer-card-footer">
+                             <a href="YOUR_SETFLARE_OFFER_URL" class="claim-button orange">CLAIM OFFER</a>
+                            <a href="#setflare-info" class="info-button orange">i</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="footer-logo">O Seca Adegas 95</a>
+            </div>
+            <div class="footer-links">
+                <a href="#home" class="footer-link">Home</a>
+                <a href="#leaderboard" class="footer-link">Leaderboard</a>
+                <a href="https://discord.gg/X5dy6Fdwzk" class="footer-link">Discord</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2023 O Seca Adegas 95. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
