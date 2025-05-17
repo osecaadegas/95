@@ -343,6 +343,14 @@
     .offers-grid {
         grid-template-columns: 1fr;
     }
+    .embed-desktop {
+        display: none !important;
+    }
+    .embed-mobile {
+        display: block !important;
+        width: 100% !important;
+        height: 200px !important;
+    }
 }
     </style>
 </head>
@@ -537,6 +545,11 @@
                     </div>
                 </div>-->
             </section>
+
+            <!-- Desktop embed -->
+            <iframe class="embed-desktop" src="https://i.imgur.com/x63eO7o.png" ...></iframe>
+            <!-- Mobile embed -->
+            <iframe class="embed-mobile" src="https://i.imgur.com/x63eO7o.png" ...></iframe>
         </main>
     </div>
     <footer class="site-footer">
