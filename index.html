@@ -352,12 +352,47 @@
         height: 200px !important;
     }
 }
+
+/* Hide sidebar and show toggle button on mobile */
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        height: 100%;
+        width: 240px;
+        background: #1e293b;
+        z-index: 1000;
+        transition: left 0.3s;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.3);
+    }
+    .sidebar.active {
+        left: 0;
+    }
+    .sidebar-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 2em;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    .site-header {
+        position: relative;
+    }
+}
+/* Hide toggle button on desktop */
+.sidebar-toggle {
+    display: none;
+}
     </style>
 </head>
 
 <body>
     <header class="site-header">
         <div class="logo">O Seca Adegas 95</div>
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Abrir menu">&#9776;</button>
     </header>
     <div class="site-container">
         <aside class="sidebar">
@@ -559,5 +594,10 @@
             </div>
         </div>
     </footer>
+    <script>
+document.getElementById('sidebar-toggle').addEventListener('click', function() {
+    document.querySelector('.sidebar').classList.toggle('active');
+});
+</script>
 </body>
 </html>
