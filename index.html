@@ -298,21 +298,23 @@
             }
             .sidebar {
                 position: fixed !important;
-                left: -260px !important;
                 top: 0 !important;
+                left: 0 !important;
                 height: 100vh !important;
                 width: 240px !important;
                 background: #1e293b !important;
                 z-index: 1000 !important;
-                transition: left 0.3s cubic-bezier(.4,0,.2,1) !important;
                 box-shadow: 2px 0 16px rgba(0,0,0,0.25) !important;
                 border-right: 1px solid #334155 !important;
                 border-bottom: none !important;
                 padding: 20px !important;
                 display: flex !important;
+                flex-direction: column !important;
+                transform: translateX(-100%);
+                transition: transform 0.35s cubic-bezier(.4,0,.2,1);
             }
             .sidebar.active {
-                left: 0 !important;
+                transform: translateX(0);
             }
             .sidebar-toggle {
                 display: block !important;
@@ -334,7 +336,43 @@
                 height: 275px !important;
             }
             .offers-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+                padding: 0 6px !important;
+            }
+            .offer-card {
+                margin: 0 auto !important;
+                max-width: 340px !important;
+                padding: 0 !important;
+            }
+            .offer-card .offer-card-header,
+            .offer-card .offer-card-body,
+            .offer-card .offer-card-footer {
+                padding: 10px !important;
+            }
+            .offer-card .offer-card-body .offer-image {
+                max-width: 90% !important;
+                margin-bottom: 10px !important;
+            }
+            .offer-card .offer-details .offer-percentage,
+            .offer-card .offer-details .offer-freespins {
+                font-size: 1.3em !important;
+            }
+            .offer-card .offer-details .offer-condition {
+                font-size: 0.85em !important;
+            }
+            .offer-card .offer-details .offer-icons span {
+                width: 26px !important;
+                height: 26px !important;
+                font-size: 1.2em !important;
+                line-height: 26px !important;
+            }
+            .offer-card .claim-button,
+            .offer-card .claim-button.orange,
+            .offer-card .claim-button.green {
+                padding: 10px 8px !important;
+                font-size: 0.95em !important;
+                margin-right: 6px !important;
             }
             .embed-desktop {
                 display: block !important;
@@ -374,6 +412,9 @@
         }
         @media (max-width: 900px) {
             .media-row {
+                display: none !important;
+            }
+            .arena-desktop-btn {
                 display: none !important;
             }
         }
@@ -526,8 +567,9 @@
                             </div>
                         </div>
                         <div class="offer-card-footer">
-                            <a href="https://arenabreakout.com/#/" class="claim-button green">Download the Game</a>
+                            <a href="https://arenabreakout.com/#/" class="claim-button green arena-desktop-btn">Download the Game</a>
                             <a href="https://www.arenabreakoutinfinite.com/creatorcode/index.html?lang=pt-BR" class="claim-button orange">Creator code input</a>
+                            <a href="#" class="claim-button" id="arena-mobile-btn" style="display:none;">Download Mobile</a>
                         </div>
                     </div>
                     <!-- More offer cards can go here -->
@@ -559,6 +601,37 @@
                 sidebar.classList.remove('active');
                 document.body.classList.remove('sidebar-open');
             }
+        });
+
+        // Show Arena Breakout mobile button only on mobile and set correct link
+        function showArenaMobileBtn() {
+            var btn = document.getElementById('arena-mobile-btn');
+            if (!btn) return;
+            if (window.innerWidth <= 900) {
+                btn.style.display = 'inline-block';
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+        window.addEventListener('resize', showArenaMobileBtn);
+        window.addEventListener('DOMContentLoaded', showArenaMobileBtn);
+
+        // Redirect to correct store on click
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('arena-mobile-btn');
+            if (!btn) return;
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                if (/android/i.test(userAgent)) {
+                    window.location.href = "https://arenabreakout.com/download?platform=android";
+                } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    window.location.href = "https://arenabreakout.com/download?platform=ios";
+                } else {
+                    // fallback: show both options
+                    window.location.href = "https://arenabreakout.com/download";
+                }
+            });
         });
     </script>
 </body>
