@@ -8,341 +8,450 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0f172a">
     <style>
-        /* Global Styles */
+        /* ===== Discreet & Neat Blue Shades Theme ===== */
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
-            display: flex;
-            flex-direction: column;
+            background: linear-gradient(135deg, #16213e 60%, #274472 100%);
+            color: #eaf6fb;
+            font-family: 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
+            margin: 0;
+            letter-spacing: 0.02em;
             cursor: url('https://i.imgur.com/XkbXjMD.png') 24 24 , auto;
         }
-        a {
+        a, .footer-link {
+            color: #6ec1e4;
             text-decoration: none;
-            color: inherit;
+            transition: color 0.2s, text-shadow 0.2s;
+            text-shadow: 0 0 6px #6ec1e455;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        a:hover, .footer-link:hover {
+            color: #eaf6fb;
+            text-shadow: 0 0 12px #6ec1e4, 0 0 8px #eaf6fb;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
         /* Header */
         .site-header {
+            background: linear-gradient(90deg, #16213e 70%, #6ec1e4 100%);
+            border-bottom: 2px solid #6ec1e4;
+            box-shadow: 0 4px 24px #6ec1e433, 0 2px 12px #000a;
+            padding: 18px 36px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            background-color: #1e293b;
-            border-bottom: 1px solid #334155;
+            justify-content: flex-start;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .site-header .logo {
-            font-size: 1.5em;
+        .logo {
+            margin-left: 24px;
+            font-size: 2.2em;
             font-weight: bold;
-            color: #f0f0f0;
-        }
-
-        /* Main Container */
-        .site-container {
-            display: flex;
-            flex-grow: 1;
+            color: #6ec1e4;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 16px #6ec1e488, 0 0 2px #eaf6fb;
+            filter: drop-shadow(0 0 8px #6ec1e455);
         }
 
         /* Sidebar */
         .sidebar {
             width: 240px;
-            background-color: #1e293b;
-            padding: 20px;
+            background: linear-gradient(180deg, #16213e 80%, #6ec1e4 120%);
+            padding: 24px 18px;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid #334155;
+            border-right: 2px solid #6ec1e4;
+            box-shadow: 2px 0 32px #6ec1e433, 2px 0 16px #000a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+        }
+        .sidebar.active {
+            transform: translateX(0);
         }
         .sidebar .main-nav ul li a {
-            display: block;
-            padding: 10px 15px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            color: #cbd5e1;
-            font-size: 0.95em;
+            color: #6ec1e4;
+            background: rgba(22,33,62,0.7);
+            border-left: 4px solid transparent;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
         }
         .sidebar .main-nav ul li a:hover,
         .sidebar .main-nav ul li a.active {
-            background-color: #334155;
-            color: white;
+            background: #6ec1e4;
+            color: #16213e;
+            border-left: 4px solid #eaf6fb;
+            box-shadow: 0 2px 12px #6ec1e455;
         }
         .sidebar .main-nav ul li a i {
             font-size: 1.5em;
-            vertical-align: middle;
-            margin-right: 20px;
+            margin-right: 18px;
+            filter: drop-shadow(0 0 2px #6ec1e4);
+        }
+        .sidebar-close {
+            display: none;
+            background: none;
+            border: none;
+            color: #6ec1e4;
+            font-size: 2em;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-bottom: 18px;
+            margin-right: 0;
+            z-index: 1101;
+            transition: color 0.2s;
+        }
+        .sidebar.active .sidebar-close {
+            display: block;
+        }
+        .sidebar-toggle {
+            background: linear-gradient(90deg, #16213e 60%, #6ec1e4 100%);
+            color: #6ec1e4;
+            border: 2px solid #6ec1e4;
+            box-shadow: 0 2px 12px #6ec1e455;
+            border-radius: 8px;
+            padding: 6px 16px 6px 6px;
+            font-size: 2.2em;
+            cursor: pointer;
+            margin-right: 0;
+            margin-left: 0;
+            z-index: 1100;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .sidebar-toggle:hover, .sidebar-toggle:focus {
+            background: #6ec1e4;
+            color: #16213e;
+            box-shadow: 0 0 16px #6ec1e499;
         }
 
-        /* Main Content Area */
+        /* Main Container */
+        .site-container {
+            display: block;
+            justify-content: unset;
+            align-items: unset;
+            width: auto;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .sidebar.active ~ .main-content,
+        body.sidebar-open .main-content {
+            /* Optional: add overlay or shift content if desired */
+        }
         .main-content {
-            flex-grow: 1;
-            overflow-y: auto;
+            background: linear-gradient(135deg, #16213e 60%, #274472 100%);
+            box-shadow: 0 4px 32px #6ec1e411;
+            border-radius: 18px;
+            margin: 0;
+            max-width: none;
+            width: auto;
+            box-sizing: border-box;
+            padding: 32px 24px 0 24px;
         }
 
+        /* Offers Section */
         .offers-section .offers-header {
             text-align: center;
             margin-bottom: 40px;
         }
         .offers-section .offers-header p:first-child {
-            color: #60a5fa;
+            color: #6ec1e4;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.9em;
+            font-size: 1.1em;
             margin-bottom: 0;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #6ec1e455;
         }
         .offers-section .offers-header h1 {
-            font-size: 2.8em;
-            color: white;
-            margin: 5px 0;
-            letter-spacing: 1px;
+            font-size: 3.2em;
+            color: #6ec1e4;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 24px #6ec1e488, 0 2px 12px #000;
+            margin-bottom: 0.2em;
         }
         .offers-section .offers-header p:last-child {
-            color: #94a3b8;
-            font-size: 0.9em;
+            color: #a3b9d7;
+            font-size: 1.1em;
+            text-shadow: 0 2px 8px #000a;
         }
 
         /* Offers Grid */
         .offers-grid {
+            background: linear-gradient(135deg, #274472 60%, #16213e 100%);
+            border-radius: 18px;
+            box-shadow: 0 4px 32px #6ec1e422;
+            padding: 24px 0;
+            margin-top: 24px;
+            overflow-x: visible !important;
+            overflow-y: visible !important;
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            justify-items: center;
+            align-items: stretch;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            max-width: 1100px;
+            box-sizing: border-box;
         }
         .offer-card {
-            background-color: #1e3a5f;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #16213e 80%, #6ec1e422 100%);
+            border-radius: 14px;
+            border: 2px solid #6ec1e4;
+            box-shadow: 0 4px 18px #000a, 0 0 0 2px #6ec1e433;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+            width: 100%;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 1px solid #3b5998;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .offer-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px #6ec1e466, 0 0 0 2px #6ec1e488;
+            border-color: #eaf6fb;
         }
         .offer-card .offer-card-header {
-            padding: 15px;
+            padding: 18px;
+            background: #16213e;
+            border-bottom: 1px solid #6ec1e444;
         }
-        .offer-card .offer-card-header .provider-logo {
-            height: 45px;
+        .offer-card .provider-logo {
+            height: 48px;
             display: block;
-        }
-        .offer-card .offer-card-header .provider-name,
-        .offer-card .offer-card-header .provider-name-stelario {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: white;
+            filter: drop-shadow(0 0 12px #6ec1e499);
+            margin: 0 auto;
         }
         .offer-card .offer-card-body {
-            padding: 20px;
+            padding: 24px 18px;
             text-align: center;
             flex-grow: 1;
-            position: relative;
+            background: #16213e;
         }
         .offer-card .offer-card-body .offer-image {
             max-width: 80%;
-            margin-bottom: 15px;
-            border-radius: 8px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            border: 2px solid #6ec1e444;
+            box-shadow: 0 2px 12px #6ec1e455;
         }
         .offer-card .offer-details .offer-percentage,
         .offer-card .offer-details .offer-freespins {
-            font-size: 2em;
-            font-weight: bold;
-            color: #f59e0b;
-            margin: 5px 0;
+            color: #6ec1e4;
+            text-shadow: 0 2px 8px #000, 0 0 8px #6ec1e455;
         }
         .offer-card .offer-details .offer-freespins {
-            color: #34d399;
+            color: #eaf6fb;
+            text-shadow: 0 2px 8px #6ec1e499;
         }
         .offer-card .offer-details .offer-condition {
-            font-size: 0.9em;
-            color: #a0aec0;
-            margin-bottom: 10px;
-        }
-        .offer-card .offer-details small {
-            font-size: 0.8em;
-            color: #718096;
-            display: block;
-            margin-top: -5px;
-            margin-bottom: 15px;
+            color: #a3b9d7;
         }
         .offer-card .offer-details .offer-icons {
-            margin-top: 10px;
+            margin-top: 12px;
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
         .offer-card .offer-details .offer-icons span {
             display: inline-block;
-            width: 32px;
-            height: 32px;
-            background-color: #4a5568;
-            border-radius: 3px;
-            font-size: 1.6em;
-            line-height: 32px;
+            width: 36px;
+            height: 36px;
+            background: #6ec1e433;
+            border-radius: 5px;
+            font-size: 1.7em;
+            line-height: 36px;
             text-align: center;
+            color: #6ec1e4;
+            box-shadow: 0 1px 4px #6ec1e422;
         }
         .offer-card .offer-card-footer {
             display: flex;
-            padding: 15px;
-            background-color: rgba(0,0,0,0.15);
+            padding: 18px;
+            background: #16213e;
+            border-top: 1px solid #6ec1e444;
+            gap: 10px;
         }
-        .offer-card .claim-button {
-            flex-grow: 1;
-            background-color: #3fce06;
-            color: rgb(255, 255, 255);
-            padding: 12px 15px;
-            text-align: center;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-right: 10px;
-            transition: background-color 0.3s ease;
-        }
-        .offer-card .claim-button:hover {
-            background-color: #059669;
+        .offer-card .claim-button,
+        .offer-card .claim-button.orange,
+        .offer-card .claim-button.green {
+            background: linear-gradient(90deg, #6ec1e4 60%, #274472 100%);
+            color: #16213e;
+            box-shadow: 0 2px 8px #6ec1e444;
         }
         .offer-card .claim-button.orange {
-            background-color: #f59e0b;
+            background: linear-gradient(90deg, #4fa3d1 60%, #6ec1e4 100%);
         }
-        .offer-card .claim-button.orange:hover {
-            background-color: #d97706;
+        .offer-card .claim-button.green {
+            background: linear-gradient(90deg, #a3b9d7 60%, #6ec1e4 100%);
         }
-        .offer-card .info-button {
-            background-color: #4a5568;
-            color: white;
-            width: 40px;
-            height: auto;
-            padding: 12px 0;
+        .offer-card .claim-button:hover,
+        .offer-card .claim-button.orange:hover,
+        .offer-card .claim-button.green:hover {
+            background: #eaf6fb;
+            color: #16213e;
+            box-shadow: 0 4px 16px #6ec1e466;
+        }
+
+        /* Offers Section */
+        .offers-section .offers-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .offers-section .offers-header p:first-child {
+            color: #6ec1e4;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1em;
+            margin-bottom: 0;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #6ec1e455;
+        }
+        .offers-section .offers-header h1 {
+            font-size: 3.2em;
+            color: #6ec1e4;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 24px #6ec1e488, 0 2px 12px #000;
+            margin-bottom: 0.2em;
+        }
+        .offers-section .offers-header p:last-child {
+            color: #a3b9d7;
+            font-size: 1.1em;
+            text-shadow: 0 2px 8px #000a;
+        }
+
+        /* Media Row */
+        .media-row {
+            display: flex !important;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 36px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            background: linear-gradient(90deg, #16213e 80%, #6ec1e422 100%);
+            border-radius: 18px;
+            box-shadow: 0 2px 16px #6ec1e422;
+            padding: 18px 0;
+        }
+        .youtube-embed {
+            width: 500px !important;
+            height: 320px !important;
+            max-width: 98vw;
+            border-radius: 45px;
+            flex-shrink: 0;
+            margin: 0;
+            box-shadow: 0 2px 16px #6ec1e433;
+            border: 2px solid #6ec1e444;
+            background: #274472;
+        }
+        .stream-center {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 5px;
-            font-weight: bold;
-            font-style: italic;
-            transition: background-color 0.3s ease;
+            flex-shrink: 0;
         }
-        .offer-card .info-button:hover {
-            background-color: #2d3748;
-        }
-        .offer-card .info-button.orange {
-            background-color: #c05621;
-        }
-        .offer-card .info-button.orange:hover {
-            background-color: #9c4221;
+        .stream-center iframe {
+            width: 645px;
+            height: 350px;
+            border-radius: 20px;
+            display: block;
+            flex-shrink: 0;
+            margin: 0;
+            box-shadow: 0 2px 16px #6ec1e433;
+            border: 2px solid #6ec1e444;
+            background: #274472;
         }
 
-        /* Footer Styles */
+        /* Footer Bar */
         .site-footer {
-            background: #181e2a;
-            border-top: 2px solid #334155;
-            color: #e2e8f0;
-            padding: 32px 0 0 0;
-            margin-top: 40px;
-            box-shadow: 0 -2px 16px rgba(0,0,0,0.25);
             width: 100%;
+            background: linear-gradient(90deg, #16213e 80%, #6ec1e4 100%);
+            border-top: 2px solid #6ec1e4;
+            color: #6ec1e4;
+            box-shadow: 0 -2px 16px #000a;
+            padding: 0;
+            margin-top: 40px;
+            position: relative;
+            left: 0;
+            bottom: 0;
         }
-        .site-footer .footer-content {
-            max-width: 1100px;
+        .footer-bar {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 18px 24px 10px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 18px;
         }
-        .site-footer .footer-brand {
-            margin-bottom: 8px;
-        }
-        .site-footer .footer-logo {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #60a5fa;
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-        .site-footer .footer-links {
+        .footer-links {
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
             justify-content: center;
+            margin-bottom: 10px;
         }
-        .site-footer .footer-link {
-            color: #e2e8f0;
+        .footer-link {
+            color: #6ec1e4;
             font-size: 1em;
             text-decoration: none;
             transition: color 0.2s;
         }
-        .site-footer .footer-link:hover {
-            color: #f59e0b;
+        .footer-link:hover {
+            color: #eaf6fb;
+            text-decoration: underline;
         }
-        .site-footer .footer-bottom {
-            border-top: 1px solid #334155;
-            margin-top: 24px;
-            padding: 16px 0;
-            text-align: center;
+        .footer-legal {
+            color: #a3b9d7;
             font-size: 0.95em;
-            color: #94a3b8;
-            background: rgba(20, 24, 36, 0.85);
-            border-radius: 0 0 12px 12px;
+            text-align: center;
+            max-width: 900px;
         }
-
-        /* Responsive adjustments */
+        .footer-legal a {
+            color: #6ec1e4;
+            text-decoration: underline;
+        }
+        @media (max-width: 1200px) {
+            .media-row {
+                gap: 16px;
+                padding: 10px 0;
+            }
+            .youtube-embed, .stream-center iframe {
+                width: 340px !important;
+                height: 220px !important;
+            }
+        }
         @media (max-width: 900px) {
-            .site-container {
-                flex-direction: row !important;
-            }
-            .sidebar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                height: 100vh !important;
-                width: 240px !important;
-                background: #1e293b !important;
-                z-index: 1000 !important;
-                box-shadow: 2px 0 16px rgba(0,0,0,0.25) !important;
-                border-right: 1px solid #334155 !important;
-                border-bottom: none !important;
-                padding: 20px !important;
-                display: flex !important;
+            .media-row {
                 flex-direction: column !important;
-                transform: translateX(-100%);
-                transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+                gap: 18px;
+                overflow-x: hidden;
+                padding: 0;
             }
-            .sidebar.active {
-                transform: translateX(0);
+            .youtube-embed, .stream-center iframe {
+                width: 98vw !important;
+                height: 220px !important;
             }
-            .sidebar-toggle {
-                display: block !important;
-                background: none;
-                border: none;
-                color: #f0f0f0;
-                font-size: 2em;
-                cursor: pointer;
-                margin-left: 0;
-                z-index: 1100;
-            }
-            .main-content {
-                padding: 0 !important;
-            }
-            .offers-section iframe {
-                width: 400px !important;
-                min-width: 300px !important;
-                max-width: 100% !important;
-                height: 275px !important;
-            }
-            .offers-grid {
-                grid-template-columns: 1fr !important;
-                gap: 14px !important;
+            .main-content, .offers-grid {
                 padding: 0 6px !important;
             }
             .offer-card {
-                margin: 0 auto !important;
                 max-width: 340px !important;
+                margin: 0 auto !important;
                 padding: 0 !important;
             }
             .offer-card .offer-card-header,
@@ -350,90 +459,133 @@
             .offer-card .offer-card-footer {
                 padding: 10px !important;
             }
-            .offer-card .offer-card-body .offer-image {
-                max-width: 90% !important;
-                margin-bottom: 10px !important;
-            }
-            .offer-card .offer-details .offer-percentage,
-            .offer-card .offer-details .offer-freespins {
-                font-size: 1.3em !important;
-            }
-            .offer-card .offer-details .offer-condition {
-                font-size: 0.85em !important;
-            }
-            .offer-card .offer-details .offer-icons span {
-                width: 26px !important;
-                height: 26px !important;
-                font-size: 1.2em !important;
-                line-height: 26px !important;
-            }
-            .offer-card .claim-button,
-            .offer-card .claim-button.orange,
-            .offer-card .claim-button.green {
-                padding: 10px 8px !important;
-                font-size: 0.95em !important;
-                margin-right: 6px !important;
-            }
-            .embed-desktop {
-                display: block !important;
-            }
-            .embed-mobile {
-                display: none !important;
-            }
-            .site-header {
-                position: static !important;
-            }
+            #arena-mobile-btn {
+        display: inline-block !important;
+    }
+        }
+        /* Reduce YouTube video size so all fit in a single row with the stream preview */
+        @media (min-width: 901px) {
             .youtube-embed {
-                display: block !important;
+                width: 320px !important;
+                height: 180px !important;
+                max-width: 95vw;
+                border-radius: 30px;
+                flex-shrink: 0;
+                margin: 0;
+            }
+            .stream-center iframe {
+                width: 480px;
+                height: 270px;
+                border-radius: 20px;
+                flex-shrink: 0;
+                margin: 0;
             }
             .media-row {
-                display: flex !important;
+                gap: 24px;
             }
-            body.sidebar-open {
-                overflow: hidden;
-            }
-        }
-        .sidebar-toggle {
-            display: none;
-        }
-        .media-row {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 24px;
-            margin-bottom: 32px;
-            flex-wrap: nowrap;
-        }
-        .media-row iframe {
-            max-width: 100%;
-            height: 275px;
-            flex: 1 1 350px;
-            min-width: 300px;
+            #arena-mobile-btn {
+        display: none !important;
+    }
         }
         @media (max-width: 900px) {
-            .media-row {
+            .youtube-embed {
                 display: none !important;
             }
-            .arena-desktop-btn {
-                display: none !important;
+            .stream-center {
+                display: flex !important;
             }
+        }
+        ::-webkit-scrollbar {
+            height: 8px;
+            background: #16213e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6ec1e488;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
+    <div id="age-gate-overlay" style="
+    position:fixed;
+    z-index:9999;
+    top:0;left:0;width:100vw;height:100vh;
+    background:rgba(22,33,62,0.98);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+">
+    <div style="
+        background:linear-gradient(135deg,#16213e 80%,#274472 100%);
+        border:2px solid #6ec1e4;
+        border-radius:22px;
+        padding:40px 24px 32px 24px;
+        box-shadow:0 4px 32px #6ec1e488, 0 2px 12px #000a;
+        max-width:94vw;
+        min-width:260px;
+        text-align:center;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    ">
+        <h2 style="
+            color:#6ec1e4;
+            margin-bottom:18px;
+            font-size:2em;
+            letter-spacing:1px;
+            text-shadow:0 2px 16px #6ec1e488,0 0 2px #eaf6fb;
+        ">Are you 18 or older?</h2>
+        <p style="
+            color:#eaf6fb;
+            margin-bottom:28px;
+            font-size:1.1em;
+            text-shadow:0 2px 8px #000a;
+        ">
+            You must be at least 18 years old to access this website.<br>Please confirm your age.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:340px;">
+            <button id="age-yes" style="
+                background:linear-gradient(90deg,#6ec1e4 60%,#274472 100%);
+                color:#16213e;
+                font-weight:bold;
+                font-size:1.2em;
+                padding:14px 0;
+                border:none;
+                border-radius:10px;
+                cursor:pointer;
+                box-shadow:0 2px 8px #ffd70044;
+                margin-bottom:0;
+                width:100%;
+                transition:background 0.2s,color 0.2s,box-shadow 0.2s;
+            ">Yes, I am 18 or older</button>
+            <button id="age-no" style="
+                background:#16213e;
+                color:#6ec1e4;
+                font-weight:bold;
+                font-size:1.2em;
+                padding:14px 0;
+                border:2px solid #6ec1e4;
+                border-radius:10px;
+                cursor:pointer;
+                box-shadow:0 2px 8px #6ec1e422;
+                width:100%;
+                transition:background 0.2s,color 0.2s,box-shadow 0.2s;
+            ">No</button>
+        </div>
+    </div>
+</div>
     <header class="site-header">
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Open menu">&#9776;</button>
         <div class="logo">O Seca Adegas 95</div>
-        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Abrir menu">&#9776;</button>
     </header>
     <div class="site-container">
         <aside class="sidebar">
+            <button id="sidebar-close" class="sidebar-close" aria-label="Close menu">&times;</button>
             <nav class="main-nav">
                 <ul>
                     <li><a href="#home" class="active"><i>🏠</i> Home</a></li>
-                    <li><a href="https://streamelements.com/osecaadegas95/store"><i>🛒</i> Loja Twitch</a></li>
+                    <li><a href="https://streamelements.com/osecaadegas95/store"><i>🛒</i> Twitch Store</a></li>
                     <li><a href="https://discord.gg/X5dy6Fdwzk"><i>💻</i> Discord</a></li>
                     <li><a href="https://www.twitch.tv/osecaadegas95"><i>🔴</i> Stream</a></li>
-                    <li><a href="https://www.youtube.com/@osecaadegas95"><i>▶</i>  Youtube</a></li>
+                    <li><a href="https://www.youtube.com/@osecaadegas95"><i>▶</i> Youtube</a></li>
                     <li><a href="https://www.tiktok.com/@osecaadegas95"><i>🎵</i> TikTok</a></li>
                     <li><a href="#telegram"><i>📱</i> Telegram</a></li>
                     <li><a href="https://www.instagram.com/osecaadegas/"><i>📸</i> Instagram</a></li>
@@ -449,61 +601,47 @@
         <main class="main-content">
             <section class="offers-section">
                 <div class="offers-header">
-                    <p>Tudo o que precisas esta aqui</p>
-                    <h1>OFERTAS</h1>
-                    <p>Regista te e utiliza os codigos e tens 15% de cashback da minha parte</p>
+                    <p>Everything you need is here</p>
+                    <h1>OFFERS</h1>
+                    <p>Register and use the codes to get 15% cashback from me</p>
                 </div>
                 <!-- Videos and livestream side by side on desktop only -->
                 <div class="media-row">
-                    <iframe
-                        class="youtube-embed"
-                        width="400"
-                        height="275"
-                        src="https://www.youtube.com/embed/MSDCgOyojzs?autoplay=1&mute=1&loop=1&playlist=MSDCgOyojzs&controls=0&modestbranding=1"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        style="border-radius:45px;">
-                    </iframe>
-                    <iframe
-                        class="youtube-embed"
-                        width="400"
-                        height="275"
-                        src="https://www.youtube.com/embed/rqsRv8NLBI8?autoplay=1&mute=1&loop=1&playlist=rqsRv8NLBI8&controls=0&modestbranding=1"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        style="border-radius:45px;">
-                    </iframe>
-                    <iframe
-                        src="https://player.twitch.tv/?channel=osecaadegas95&parent=osecaadegas.github.io"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        scrolling="no"
-                        width="645"
-                        height="350"
-                        style="border-radius:20px;">
-                    </iframe>
-                    <iframe
-                        class="youtube-embed"
-                        width="400"
-                        height="275"
-                        src="https://www.youtube.com/embed/fpeMxO_0JWs?autoplay=1&mute=1&loop=1&playlist=fpeMxO_0JWs&controls=0&modestbranding=1"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        style="border-radius:45px;">
-                    </iframe>
-                    <iframe
-                        class="youtube-embed"
-                        width="400"
-                        height="275"
-                        src="https://www.youtube.com/embed/CWyercezn-g?autoplay=1&mute=1&loop=1&playlist=CWyercezn-g&controls=0&modestbranding=1"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        style="border-radius:45px;">
-                    </iframe>
+                    <div class="youtube-column">
+                        <iframe class="youtube-embed"
+                            width="400" height="275"
+                            src="https://www.youtube.com/embed/MSDCgOyojzs?autoplay=1&mute=1&loop=1&playlist=MSDCgOyojzs&controls=0&modestbranding=1"
+                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:45px;">
+                        </iframe>
+                        <iframe class="youtube-embed"
+                            width="400" height="275"
+                            src="https://www.youtube.com/embed/rqsRv8NLBI8?autoplay=1&mute=1&loop=1&playlist=rqsRv8NLBI8&controls=0&modestbranding=1"
+                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:45px;">
+                        </iframe>
+                    </div>
+                    <div class="stream-center">
+                        <iframe
+                            src="https://player.twitch.tv/?channel=osecaadegas95&parent=osecaadegas.github.io"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            scrolling="no"
+                            width="645"
+                            height="350"
+                            style="border-radius:20px;">
+                        </iframe>
+                    </div>
+                    <div class="youtube-column">
+                        <iframe class="youtube-embed"
+                            width="400" height="275"
+                            src="https://www.youtube.com/embed/fpeMxO_0JWs?autoplay=1&mute=1&loop=1&playlist=fpeMxO_0JWs&controls=0&modestbranding=1"
+                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:45px;">
+                        </iframe>
+                        <iframe class="youtube-embed"
+                            width="400" height="275"
+                            src="https://www.youtube.com/embed/CWyercezn-g?autoplay=1&mute=1&loop=1&playlist=CWyercezn-g&controls=0&modestbranding=1"
+                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:45px;">
+                        </iframe>
+                    </div>
                 </div>
                 <div class="offers-grid">
                     <div class="offer-card">
@@ -534,9 +672,8 @@
                         <div class="offer-card-body">
                             <img src="https://i.imgur.com/ghTzhyX.jpeg" alt="Buran casino" class="offer-image">
                             <div class="offer-details">
-                                <p class="offer-percentage">Reembolso 1 dep </p>
-                                <p class="offer-percentage">1 deposito ate 20€ </p>
-                                <p class="offer-condition">+15% de cashback para perdas superiores a 100€ semanalmente</p>
+                                <p class="offer-percentage">1st deposit cashback up to 20€</p>
+                                <p class="offer-condition">+15% cashback for losses over 100€ weekly</p>
                                 <div class="offer-icons">
                                     <span>🎰</span>
                                     <span>✨</span>
@@ -556,8 +693,8 @@
                         <div class="offer-card-body">
                             <img src="https://i.imgur.com/6yzyiIL.png" alt="ABI" class="offer-image">
                             <div class="offer-details">
-                                <p class="offer-freespins">Code:secaadegas</p>
-                                <p class="offer-condition">utiliza o meu codigo para recompensas ingame</p>
+                                <p class="offer-freespins">Code: secaadegas</p>
+                                <p class="offer-condition">use my code for in-game rewards</p>
                                 <div class="offer-icons">
                                     <span>💻</span>
                                     <span>💽</span>
@@ -578,28 +715,53 @@
         </main>
     </div>
     <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-bottom">
-                &copy; 2023 O Seca Adegas 95. Todos os direitos reservados.
+        <div class="footer-bar">
+            <div class="footer-links">
+                <a href="#terms" class="footer-link">Terms &amp; Conditions</a>
+                <a href="#privacy" class="footer-link">Privacy Policy</a>
+                <a href="#responsible" class="footer-link">Responsible Gaming</a>
+                <a href="#affiliate" class="footer-link">Affiliate Disclosure</a>
+                <a href="#contact" class="footer-link">Contact</a>
+            </div>
+            <div class="footer-legal">
+                <p>
+                    This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
+                    All offers are subject to terms and conditions of the respective casino.
+                    If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.
+                </p>
+                <p>
+                    &copy; 2023 O Seca Adegas 95. All rights reserved.
+                </p>
             </div>
         </div>
     </footer>
     <script>
-        document.getElementById('sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.body.classList.toggle('sidebar-open');
+        document.getElementById('sidebar-toggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.querySelector('.sidebar').classList.add('active');
+            document.body.classList.add('sidebar-open');
+            document.getElementById('sidebar-toggle').style.display = 'none';
+        });
+        document.getElementById('sidebar-close').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.querySelector('.sidebar').classList.remove('active');
+            document.body.classList.remove('sidebar-open');
+            document.getElementById('sidebar-toggle').style.display = 'block';
         });
         // Optional: close sidebar when clicking outside
         document.addEventListener('click', function(e) {
             const sidebar = document.querySelector('.sidebar');
             const toggle = document.getElementById('sidebar-toggle');
+            const closeBtn = document.getElementById('sidebar-close');
             if (
                 sidebar.classList.contains('active') &&
                 !sidebar.contains(e.target) &&
-                e.target !== toggle
+                e.target !== toggle &&
+                e.target !== closeBtn
             ) {
                 sidebar.classList.remove('active');
                 document.body.classList.remove('sidebar-open');
+                toggle.style.display = 'block';
             }
         });
 
@@ -633,6 +795,27 @@
                 }
             });
         });
+
+        // Age gate logic
+        function hideAgeGate() {
+            document.getElementById('age-gate-overlay').style.display = 'none';
+            // Remove localStorage so the question appears every visit
+            localStorage.removeItem('ageVerified');
+        }
+        function showAgeGate() {
+            document.getElementById('age-gate-overlay').style.display = 'flex';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            showAgeGate();
+            document.getElementById('age-yes').onclick = hideAgeGate;
+            document.getElementById('age-no').onclick = function() {
+                window.location.href = "https://www.google.com/search?q=responsible+gaming";
+            };
+        });
     </script>
+
+
+</html>
+</body>
 </body>
 </html>
