@@ -16,7 +16,6 @@
             min-height: 100vh;
             margin: 0;
             letter-spacing: 0.02em;
-            cursor: url('https://i.imgur.com/XkbXjMD.png') 24 24 , auto;
         }
         a, .footer-link {
             color: #6ec1e4;
@@ -50,7 +49,59 @@
             text-shadow: 0 2px 16px #6ec1e488, 0 0 2px #eaf6fb;
             filter: drop-shadow(0 0 8px #6ec1e455);
         }
-
+        .lang-switcher {
+            position: absolute;
+            right: 36px;
+            top: 18px;
+            display: flex;
+            align-items: center;
+            z-index: 2000;
+            gap: 8px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        .switch input { display: none; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #6ec1e4;
+            border-radius: 24px;
+            transition: .4s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background: #16213e;
+            border-radius: 50%;
+            transition: .4s;
+        }
+        .switch input:checked + .slider {
+            background: #16213e;
+        }
+        .switch input:checked + .slider:before {
+            transform: translateX(24px);
+            background: #6ec1e4;
+        }
+        .lang-label {
+            font-size: 1em;
+            color: #6ec1e4;
+            font-weight: bold;
+            user-select: none;
+        }
+        #lang-pt { opacity: 1; }
+        #lang-en { opacity: 0.5; }
+        #lang-toggle:checked ~ #lang-pt { opacity: 0.5; }
+        #lang-toggle:checked ~ #lang-en { opacity: 1; }
+        @media (max-width: 600px) {
+            .lang-switcher { right: 12px; top: 12px; }
+        }
         /* Sidebar */
         .sidebar {
             width: 240px;
@@ -574,7 +625,22 @@
 </div>
     <header class="site-header">
         <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Open menu">&#9776;</button>
-        <div class="logo">O Seca Adegas</div>
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="https://i.imgur.com/8E3ucNx.png" alt="Logo" style="height: 48px; width: 48px; border-radius: 8px; box-shadow: 0 2px 8px #6ec1e488;" />
+            osecaadegas
+        </div>
+        <div class="lang-switcher">
+    <span class="lang-label" id="lang-en" style="font-size:1.1em;line-height:1;">
+        <img src="https://flagcdn.com/gb.svg" alt="English" style="height: 1em; vertical-align: middle;">
+    </span>
+    <label class="switch">
+        <input type="checkbox" id="lang-toggle">
+        <span class="slider"></span>
+    </label>
+    <span class="lang-label" id="lang-pt" style="font-size:1.1em;line-height:1;">
+        <img src="https://flagcdn.com/pt.svg" alt="Português" style="height: 1em; vertical-align: middle;">
+    </span>
+</div>
     </header>
     <div class="site-container">
         <aside class="sidebar">
@@ -592,7 +658,7 @@
                 </ul>
                 <iframe
                     style="display:block; border-radius:0; width:100%; min-width:400; margin-left:0;"
-                    src="https://open.spotify.com/embed/playlist/0idYlreucV6xzIYUw7lEja?utm_source=generator"
+                    src="https://open.spotify.com/embed/playlist/0idYlreucV6xzIYUw7lEja?utm_source=generatortheme=0"
                     height="400" frameborder="0" allowfullscreen=""
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy">
                 </iframe>
@@ -601,9 +667,9 @@
         <main class="main-content">
             <section class="offers-section">
                 <div class="offers-header">
-                    <p>Everything you need is here</p>
-                    <h1>OFFERS</h1>
-                    <p>Register and use the codes to get 15% cashback from me</p>
+                    <p data-i18n="everything_here">Everything you need is here</p>
+                    <h1 data-i18n="offers">OFFERS</h1>
+                    <p data-i18n="register_cashback">Register and use the codes to get 15% cashback from me</p>
                 </div>
                 <!-- Videos and livestream side by side on desktop only -->
                 <div class="media-row">
@@ -651,8 +717,8 @@
                         <div class="offer-card-body">
                             <img src="https://i.imgur.com/zyaMuMh.png" alt="Empire Drop Offer" class="offer-image">
                             <div class="offer-details">
-                                <p class="offer-percentage">+100%</p>
-                                <p class="offer-condition">on the first deposit</p>
+                                <p class="offer-percentage" data-i18n="empire_percent">+100%</p>
+                                <p class="offer-condition" data-i18n="empire_condition">on the first deposit</p>
                                 <div class="offer-icons">
                                     <span>🎲</span>
                                     <span>💰</span>
@@ -672,8 +738,8 @@
                         <div class="offer-card-body">
                             <img src="https://i.imgur.com/ghTzhyX.jpeg" alt="Buran casino" class="offer-image">
                             <div class="offer-details">
-                                <p class="offer-percentage">1st deposit cashback up to 20€</p>
-                                <p class="offer-condition">+15% cashback for losses over 100€ weekly</p>
+                                <p class="offer-percentage" data-i18n="buran_percent">1st deposit cashback up to 20€</p>
+                                <p class="offer-condition" data-i18n="buran_condition">+15% cashback for losses over 100€ weekly</p>
                                 <div class="offer-icons">
                                     <span>🎰</span>
                                     <span>✨</span>
@@ -693,8 +759,8 @@
                         <div class="offer-card-body">
                             <img src="https://i.imgur.com/6yzyiIL.png" alt="ABI" class="offer-image">
                             <div class="offer-details">
-                                <p class="offer-freespins">Code: secaadegas</p>
-                                <p class="offer-condition">use my code for in-game rewards</p>
+                                <p class="offer-freespins" data-i18n="arena_code">Code: secaadegas</p>
+                                <p class="offer-condition" data-i18n="arena_condition">use my code for in-game rewards</p>
                                 <div class="offer-icons">
                                     <span>💻</span>
                                     <span>💽</span>
@@ -810,6 +876,97 @@
                 window.location.href = "https://www.google.com/search?q=responsible+gaming";
             };
         });
+
+
+const translations = {
+    en: {
+        everything_here: "Everything you need is here",
+        offers: "OFFERS",
+        register_cashback: "Register and use the codes to get 15% cashback from me",
+        empire_percent: "+100%",
+        empire_condition: "on the first deposit",
+        buran_percent: "1st deposit cashback up to 20€",
+        buran_condition: "+15% cashback for losses over 100€ weekly",
+        arena_code: "Code: secaadegas",
+        arena_condition: "use my code for in-game rewards",
+        claim_offer: "CLAIM OFFER",
+        download_game: "Download the Game",
+        creator_code: "Creator code input",
+        download_mobile: "Download Mobile",
+        yes_18: "Yes, I am 18 or older",
+        no: "No",
+        terms: "Terms & Conditions",
+        responsible: "Responsible Gaming",
+        contact: "Contact",
+        legal1: `This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
+            All offers are subject to terms and conditions of the respective casino.
+            If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.`,
+        copyright: "&copy; 2025 osecaadegas95. All rights reserved."
+    },
+    pt: {
+        everything_here: "Tudo o que precisas está aqui",
+        offers: "OFERTAS",
+        register_cashback: "Regista-te e usa os códigos para receber 15% cashback de mim",
+        empire_percent: "+100%",
+        empire_condition: "no primeiro depósito",
+        buran_percent: "Cashback no 1º depósito até 20€",
+        buran_condition: "+15% cashback por perdas acima de 100€ por semana",
+        arena_code: "Código: secaadegas",
+        arena_condition: "usa o meu código para recompensas no jogo",
+        claim_offer: "RECEBER OFERTA",
+        download_game: "Descarregar o Jogo",
+        creator_code: "Inserir código de criador",
+        download_mobile: "Descarregar Mobile",
+        yes_18: "Sim, tenho 18 ou mais anos",
+        no: "Não",
+        terms: "Termos & Condições",
+        responsible: "Jogo Responsável",
+        contact: "Contacto",
+        legal1: `Este site é um afiliado e não é um operador de jogos. Ofertas apenas para maiores de 18 anos. Jogue com responsabilidade.
+            Todas as ofertas estão sujeitas aos termos e condições do respetivo casino.
+            Se tem problemas com o jogo, visite <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> ou o serviço de apoio local.`,
+        copyright: "&copy; 2025 osecaadegas95. Todos os direitos reservados."
+    }
+};
+
+function setLanguage(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+    // Update button values if needed
+    document.getElementById('age-yes').innerText = translations[lang].yes_18;
+    document.getElementById('age-no').innerText = translations[lang].no;
+    // Update footer links
+    document.querySelector('.footer-link[href*="terms"]').innerText = translations[lang].terms;
+    document.querySelector('.footer-link[href*="begambleaware"]').innerText = translations[lang].responsible;
+    document.querySelector('.footer-link[href="#contact"]').innerText = translations[lang].contact;
+    // Update legal text
+    document.querySelector('.footer-legal p').innerHTML = translations[lang].legal1;
+    document.querySelector('.footer-legal p + p').innerHTML = translations[lang].copyright;
+    // Update offer buttons
+    document.querySelectorAll('.claim-button').forEach(btn => {
+        if (btn.classList.contains('green')) btn.innerText = translations[lang].download_game;
+        else if (btn.classList.contains('orange')) btn.innerText = translations[lang].creator_code;
+        else if (btn.id === 'arena-mobile-btn') btn.innerText = translations[lang].download_mobile;
+        else btn.innerText = translations[lang].claim_offer;
+    });
+    // Update slider label opacity
+    document.getElementById('lang-pt').style.opacity = lang === 'pt' ? '1' : '0.5';
+    document.getElementById('lang-en').style.opacity = lang === 'en' ? '1' : '0.5';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Default to EN
+    setLanguage('en');
+    const toggle = document.getElementById('lang-toggle');
+    toggle.addEventListener('change', function() {
+        setLanguage(this.checked ? 'pt' : 'en');
+    });
+});
     </script>
 
 
