@@ -236,21 +236,16 @@
             margin-top: 24px;
             overflow-x: visible !important;
             overflow-y: visible !important;
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-            max-width: 100vw;
-            box-sizing: border-box;
-            justify-items: center;
-            align-items: stretch;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 28px;
             margin-left: auto;
             margin-right: auto;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1600px; /* Increased for wider cards */
             box-sizing: border-box;
+            justify-items: stretch;
+            align-items: stretch;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 cards per row, each wider */
+            gap: 40px; /* More space between cards */
         }
         .offer-card {
             background: linear-gradient(135deg, #16213e 80%, #6ec1e422 100%);
@@ -260,11 +255,12 @@
             transition: transform 0.2s, box-shadow 0.2s;
             min-width: 0;
             max-width: 100%;
-            box-sizing: border-box;
             width: 100%;
+            margin: 0;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            justify-content: stretch;
         }
         .offer-card:hover {
             transform: translateY(-6px) scale(1.03);
@@ -289,11 +285,17 @@
             background: #16213e;
         }
         .offer-card .offer-card-body .offer-image {
-            max-width: 80%;
+            width: 300px;
+            height: 300px;
+            max-width: 100%;
+            object-fit: cover;
             margin-bottom: 18px;
             border-radius: 10px;
             border: 2px solid #6ec1e444;
             box-shadow: 0 2px 12px #6ec1e455;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         .offer-card .offer-details .offer-percentage,
         .offer-card .offer-details .offer-freespins {
@@ -396,7 +398,7 @@
             box-sizing: border-box;
             background: linear-gradient(90deg, #16213e 80%, #6ec1e422 100%);
             border-radius: 18px;
-            box-shadow: 0 2px 16px #6ec1e422;
+            box-shadow: 0 2px 16px #6ec1e433;
             padding: 18px 0;
         }
         .youtube-embed {
@@ -505,14 +507,6 @@
                 margin: 0 auto !important;
                 padding: 0 !important;
             }
-            .offer-card .offer-card-header,
-            .offer-card .offer-card-body,
-            .offer-card .offer-card-footer {
-                padding: 10px !important;
-            }
-            #arena-mobile-btn {
-        display: inline-block !important;
-    }
         }
         /* Reduce YouTube video size so all fit in a single row with the stream preview */
         @media (min-width: 901px) {
@@ -535,8 +529,8 @@
                 gap: 24px;
             }
             #arena-mobile-btn {
-        display: none !important;
-    }
+                display: none !important;
+            }
         }
         @media (max-width: 900px) {
             .youtube-embed {
@@ -553,6 +547,32 @@
         ::-webkit-scrollbar-thumb {
             background: #6ec1e488;
             border-radius: 8px;
+        }
+
+        /* --- FORCE OFFERS TO STACK ON MOBILE --- */
+        @media (max-width: 900px) {
+            .offers-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 18px !important;
+                max-width: 100vw !important;
+                width: 100% !important;
+                padding: 0 6px !important;
+                box-sizing: border-box !important;
+            }
+            .offer-card {
+                width: 100% !important;
+                max-width: 340px !important;
+                margin: 0 auto 18px auto !important;
+                padding: 0 !important;
+            }
+        }
+        .sidebar iframe[src*="open.spotify.com"] {
+            filter: hue-rotate(175deg) saturate(2.5) brightness(1.1) contrast(1.1);
+            background: #16213e !important;
+            border-radius: 18px !important;
+            border: 2px solid #6ec1e444 !important;
+            box-shadow: 0 2px 12px #6ec1e433 !important;
         }
     </style>
 </head>
@@ -728,7 +748,7 @@
                             </div>
                         </div>
                         <div class="offer-card-footer">
-                            <a href="https://empiredrop.com?r=seca" class="claim-button">CLAIM OFFER</a>
+                            <a href="#" class="claim-button" id="empire-claim-btn">CLAIM OFFER</a>
                         </div>
                     </div>
                     <div class="offer-card">
@@ -775,7 +795,28 @@
                             <a href="#" class="claim-button" id="arena-mobile-btn" style="display:none;">Download Mobile</a>
                         </div>
                     </div>
-                    <!-- More offer cards can go here -->
+                    <!-- Daily Scratch Card as an offer-card -->
+                    <div class="offer-card">
+    <div class="offer-card-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 18px;">
+        <!-- Logo on the left -->
+        <img src="https://i.imgur.com/8E3ucNx.png" alt="osecaadegas95 Logo" class="provider-logo" style="background:#fff; border-radius:8px;">
+        <!-- Scratch Card Title on the right -->
+        <h2 style="color:#6ec1e4; margin-bottom:0;" data-i18n="scratch_title">Daily Scratch Card</h2>
+    </div>
+    <div class="offer-card-body">
+        <!-- Offer image below the header, full width -->
+        <img src="https://i.imgur.com/X3Q1LEQ.png" alt="osecaadegas95 Scratch" class="offer-image">
+        <div class="scratch-message" style="margin-top:10px;color:#6ec1e4;font-weight:bold;font-size:1em;"></div>
+    </div>
+    <div class="offer-card-footer" style="flex-direction: column; align-items: center;">
+        <!-- Scratch card button at the bottom -->
+        <div class="scratch-card" style="position:relative; width:180px; height:60px; background:#16213e; border-radius:10px; box-shadow:0 2px 12px #6ec1e433; border:2px solid #6ec1e4; overflow:hidden; cursor:pointer; margin-bottom:10px;">
+            <div class="scratch-cover" style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#6ec1e4 60%,#274472 100%);color:#16213e;display:flex;align-items:center;justify-content:center;font-size:1em;font-weight:bold;letter-spacing:2px;z-index:2;transition:opacity 0.5s;">SCRATCH ME</div>
+            <div class="scratch-result" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1em;font-weight:bold;letter-spacing:2px;z-index:1;opacity:0;"></div>
+        </div>
+        <span class="scratch-try-footer" data-i18n="scratch_try" style="color:#a3b9d7; font-size:0.95em;">Try your luck every day!</span>
+    </div>
+</div>
                 </div>
             </section>
         </main>
@@ -800,6 +841,9 @@
         </div>
     </footer>
     <script>
+    // --- ALL JS LOGIC IN ONE DOMContentLoaded ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar logic
         document.getElementById('sidebar-toggle').addEventListener('click', function(e) {
             e.stopPropagation();
             document.querySelector('.sidebar').classList.add('active');
@@ -812,7 +856,6 @@
             document.body.classList.remove('sidebar-open');
             document.getElementById('sidebar-toggle').style.display = 'block';
         });
-        // Optional: close sidebar when clicking outside
         document.addEventListener('click', function(e) {
             const sidebar = document.querySelector('.sidebar');
             const toggle = document.getElementById('sidebar-toggle');
@@ -829,7 +872,7 @@
             }
         });
 
-        // Show Arena Breakout mobile button only on mobile and set correct link
+        // Arena Breakout mobile button logic
         function showArenaMobileBtn() {
             var btn = document.getElementById('arena-mobile-btn');
             if (!btn) return;
@@ -840,12 +883,9 @@
             }
         }
         window.addEventListener('resize', showArenaMobileBtn);
-        window.addEventListener('DOMContentLoaded', showArenaMobileBtn);
-
-        // Redirect to correct store on click
-        document.addEventListener('DOMContentLoaded', function() {
-            var btn = document.getElementById('arena-mobile-btn');
-            if (!btn) return;
+        showArenaMobileBtn();
+        var btn = document.getElementById('arena-mobile-btn');
+        if (btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -854,123 +894,297 @@
                 } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
                     window.location.href = "https://arenabreakout.com/download?platform=ios";
                 } else {
-                    // fallback: show both options
                     window.location.href = "https://arenabreakout.com/download";
                 }
             });
-        });
+        }
 
         // Age gate logic
         function hideAgeGate() {
             document.getElementById('age-gate-overlay').style.display = 'none';
-            // Remove localStorage so the question appears every visit
             localStorage.removeItem('ageVerified');
         }
         function showAgeGate() {
             document.getElementById('age-gate-overlay').style.display = 'flex';
         }
-        document.addEventListener('DOMContentLoaded', function() {
-            showAgeGate();
-            document.getElementById('age-yes').onclick = hideAgeGate;
-            document.getElementById('age-no').onclick = function() {
-                window.location.href = "https://www.google.com/search?q=responsible+gaming";
-            };
+        showAgeGate();
+        document.getElementById('age-yes').onclick = hideAgeGate;
+        document.getElementById('age-no').onclick = function() {
+            window.location.href = "https://www.google.com/search?q=responsible+gaming";
+        };
+
+        // Empire Drop button
+        var empireBtn = document.getElementById('empire-claim-btn');
+        if (empireBtn) {
+            empireBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://empiredrop.com?r=seca', '_blank');
+            });
+        }
+
+        // --- SCRATCH CARD LOGIC WITH TRANSLATION ---
+        const SCRATCH_KEY = "scratchCardLastPlay";
+        let SCRATCH_LANG = document.documentElement.lang || "en";
+
+        function canScratchToday() {
+            const last = localStorage.getItem(SCRATCH_KEY);
+            if (!last) return true;
+            const lastDate = new Date(parseInt(last, 10));
+            const now = new Date();
+            return (
+                lastDate.getFullYear() !== now.getFullYear() ||
+                lastDate.getMonth() !== now.getMonth() ||
+                lastDate.getDate() !== now.getDate()
+            );
+        }
+        function getScratchWaitTime() {
+            const last = localStorage.getItem(SCRATCH_KEY);
+            if (!last) return "";
+            const lastDate = new Date(parseInt(last, 10));
+            const nextPlay = new Date(lastDate);
+            nextPlay.setHours(24, 0, 0, 0);
+            const now = new Date();
+            let diff = nextPlay - now;
+            if (diff < 0) diff = 0;
+            const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
+            const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
+            const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+            return `${hours}:${minutes}:${seconds}`;
+        }
+        function setScratchPlayed() {
+            localStorage.setItem(SCRATCH_KEY, Date.now().toString());
+        }
+        function showScratchResult(win, cardSection) {
+            const lang = SCRATCH_LANG;
+            const result = cardSection.querySelector('.scratch-result');
+            result.innerHTML = win ? translations[lang].scratch_win : translations[lang].scratch_lose;
+            result.style.opacity = 1;
+            cardSection.querySelector('.scratch-cover').style.opacity = 0;
+            cardSection.querySelector('.scratch-card').style.pointerEvents = 'none';
+            cardSection.querySelector('.scratch-message').innerText = win
+                ? translations[lang].scratch_congrats
+                : translations[lang].scratch_noluck;
+            if (!win) updateScratchWait(cardSection);
+        }
+        function updateScratchWait(cardSection) {
+            const waitElem = cardSection.querySelector('.scratch-wait');
+            if (!waitElem) return;
+            if (canScratchToday()) {
+                waitElem.innerText = "";
+                return;
+            }
+            function tick() {
+                const time = getScratchWaitTime();
+                if (time === "00:00:00") {
+                    waitElem.innerText = "";
+                    return;
+                }
+                waitElem.innerText = SCRATCH_LANG === "pt"
+                    ? `Podes jogar novamente em: ${time}`
+                    : `You can play again in: ${time}`;
+                setTimeout(tick, 1000);
+            }
+            tick();
+        }
+        function animateScratch(cardSection) {
+            const cover = cardSection.querySelector('.scratch-cover');
+            if (!cover) return;
+            let canvas = cardSection.querySelector('.scratch-canvas');
+            if (!canvas) {
+                canvas = document.createElement('canvas');
+                canvas.className = 'scratch-canvas';
+                canvas.width = cover.offsetWidth;
+                canvas.height = cover.offsetHeight;
+                canvas.style.position = 'absolute';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.style.width = '100%';
+                canvas.style.height = '100%';
+                canvas.style.zIndex = '3';
+                canvas.style.pointerEvents = 'none';
+                cover.parentElement.appendChild(canvas);
+            }
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#6ec1e4';
+            ctx.globalAlpha = 0.8;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            let progress = 0;
+            function draw() {
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, canvas.height / 2, progress, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.restore();
+                progress += 12;
+                if (progress < Math.max(canvas.width, canvas.height)) {
+                    requestAnimationFrame(draw);
+                } else {
+                    setTimeout(() => {
+                        canvas.remove();
+                    }, 250);
+                }
+            }
+            draw();
+        }
+
+        // SCRATCH CARD INIT
+        document.querySelectorAll('.offer-card').forEach(cardSection => {
+            const card = cardSection.querySelector('.scratch-card');
+            const cover = cardSection.querySelector('.scratch-cover');
+            const message = cardSection.querySelector('.scratch-message');
+            let waitElem = cardSection.querySelector('.scratch-wait');
+            if (!card || !cover || !message) return;
+            if (!waitElem) {
+                waitElem = document.createElement('div');
+                waitElem.className = "scratch-wait";
+                waitElem.style.cssText = "margin-top:6px;color:#ffd700;font-size:0.98em;font-weight:bold;";
+                message.after(waitElem);
+            }
+            cover.innerText = translations[SCRATCH_LANG].scratch_me;
+            message.innerText = translations[SCRATCH_LANG].scratch_try;
+            cardSection.querySelector('h2').innerText = translations[SCRATCH_LANG].scratch_title;
+            if (!canScratchToday()) {
+                card.style.pointerEvents = 'none';
+                cover.style.opacity = 0.7;
+                cover.innerText = translations[SCRATCH_LANG].scratch_come_back;
+                message.innerText = translations[SCRATCH_LANG].scratch_already || "";
+                updateScratchWait(cardSection);
+            } else {
+                waitElem.innerText = "";
+                card.addEventListener('click', function handler() {
+                    card.removeEventListener('click', handler);
+                    animateScratch(cardSection);
+                    setTimeout(() => {
+                        const win = Math.floor(Math.random() * 100) === 0;
+                        showScratchResult(win, cardSection);
+                        setScratchPlayed();
+                        document.querySelectorAll('.scratch-card').forEach(c => c.style.pointerEvents = 'none');
+                        document.querySelectorAll('.scratch-cover').forEach(c => c.style.opacity = 0.7);
+                        document.querySelectorAll('.scratch-message').forEach(m => m.innerText = translations[SCRATCH_LANG].scratch_already || "");
+                        document.querySelectorAll('.offer-card').forEach(updateScratchWait);
+                    }, 700);
+                });
+            }
         });
 
-
-const translations = {
-    en: {
-        everything_here: "Everything you need is here",
-        offers: "OFFERS",
-        register_cashback: "Register and use the codes to get 15% cashback from me",
-        empire_percent: "+100%",
-        empire_condition: "on the first deposit",
-        buran_percent: "1st deposit cashback up to 20€",
-        buran_condition: "+15% cashback for losses over 100€ weekly",
-        arena_code: "Code: secaadegas",
-        arena_condition: "use my code for in-game rewards",
-        claim_offer: "CLAIM OFFER",
-        download_game: "Download the Game",
-        creator_code: "Creator code input",
-        download_mobile: "Download Mobile",
-        yes_18: "Yes, I am 18 or older",
-        no: "No",
-        terms: "Terms & Conditions",
-        responsible: "Responsible Gaming",
-        contact: "Contact",
-        legal1: `This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
-            All offers are subject to terms and conditions of the respective casino.
-            If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.`,
-        copyright: "&copy; 2025 osecaadegas95. All rights reserved."
-    },
-    pt: {
-        everything_here: "Tudo o que precisas está aqui",
-        offers: "OFERTAS",
-        register_cashback: "Regista-te e usa os códigos para receber 15% cashback de mim",
-        empire_percent: "+100%",
-        empire_condition: "no primeiro depósito",
-        buran_percent: "Cashback no 1º depósito até 20€",
-        buran_condition: "+15% cashback por perdas acima de 100€ por semana",
-        arena_code: "Código: secaadegas",
-        arena_condition: "usa o meu código para recompensas no jogo",
-        claim_offer: "RECEBER OFERTA",
-        download_game: "Descarregar o Jogo",
-        creator_code: "Inserir código de criador",
-        download_mobile: "Descarregar Mobile",
-        yes_18: "Sim, tenho 18 ou mais anos",
-        no: "Não",
-        terms: "Termos & Condições",
-        responsible: "Jogo Responsável",
-        contact: "Contacto",
-        legal1: `Este site é um afiliado e não é um operador de jogos. Ofertas apenas para maiores de 18 anos. Jogue com responsabilidade.
-            Todas as ofertas estão sujeitas aos termos e condições do respetivo casino.
-            Se tem problemas com o jogo, visite <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> ou o serviço de apoio local.`,
-        copyright: "&copy; 2025 osecaadegas95. Todos os direitos reservados."
-    }
-};
-
-function setLanguage(lang) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
+        // --- LANGUAGE SWITCHER ---
+        const langToggle = document.getElementById('lang-toggle');
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.getElementById('age-yes').innerText = translations[lang].yes_18;
+            document.getElementById('age-no').innerText = translations[lang].no;
+            document.querySelector('.footer-link[href*="terms"]').innerText = translations[lang].terms;
+            document.querySelector('.footer-link[href*="begambleaware"]').innerText = translations[lang].responsible;
+            document.querySelector('.footer-link[href="#contact"]').innerText = translations[lang].contact;
+            document.querySelector('.footer-legal p').innerHTML = translations[lang].legal1;
+            document.querySelector('.footer-legal p + p').innerHTML = translations[lang].copyright;
+            document.querySelectorAll('.claim-button').forEach(btn => {
+                if (btn.classList.contains('green')) btn.innerText = translations[lang].download_game;
+                else if (btn.classList.contains('orange')) btn.innerText = translations[lang].creator_code;
+                else if (btn.id === 'arena-mobile-btn') btn.innerText = translations[lang].download_mobile;
+                else btn.innerText = translations[lang].claim_offer;
+            });
+            document.getElementById('lang-pt').style.opacity = lang === 'pt' ? '1' : '0.5';
+            document.getElementById('lang-en').style.opacity = lang === 'en' ? '1' : '0.5';
+            // Scratch card translation
+            var scratchTitle = document.querySelector('.offer-card .scratch-card')?.parentElement.querySelector('h2');
+            if (scratchTitle) scratchTitle.innerText = translations[lang].scratch_title;
+            var scratchCover = document.querySelector('.scratch-cover');
+            if (scratchCover) scratchCover.innerText = translations[lang].scratch_me;
+            var scratchTry = document.querySelector('.scratch-message');
+            if (scratchTry) scratchTry.innerText = translations[lang].scratch_try;
+            if (!canScratchToday()) {
+                if (scratchCover) scratchCover.innerText = translations[lang].scratch_come_back;
+                if (scratchTry) scratchTry.innerText = translations[lang].scratch_already || "";
+            }
+            document.querySelectorAll('.scratch-try-footer').forEach(el => {
+                el.innerText = translations[lang].scratch_try;
+            });
         }
+        langToggle.addEventListener('change', function() {
+            SCRATCH_LANG = langToggle.checked ? "pt" : "en";
+            setLanguage(SCRATCH_LANG);
+            document.querySelectorAll('.offer-card').forEach(updateScratchWait);
+        });
+        setLanguage(SCRATCH_LANG);
     });
-    // Update button values if needed
-    document.getElementById('age-yes').innerText = translations[lang].yes_18;
-    document.getElementById('age-no').innerText = translations[lang].no;
-    // Update footer links
-    document.querySelector('.footer-link[href*="terms"]').innerText = translations[lang].terms;
-    document.querySelector('.footer-link[href*="begambleaware"]').innerText = translations[lang].responsible;
-    document.querySelector('.footer-link[href="#contact"]').innerText = translations[lang].contact;
-    // Update legal text
-    document.querySelector('.footer-legal p').innerHTML = translations[lang].legal1;
-    document.querySelector('.footer-legal p + p').innerHTML = translations[lang].copyright;
-    // Update offer buttons
-    document.querySelectorAll('.claim-button').forEach(btn => {
-        if (btn.classList.contains('green')) btn.innerText = translations[lang].download_game;
-        else if (btn.classList.contains('orange')) btn.innerText = translations[lang].creator_code;
-        else if (btn.id === 'arena-mobile-btn') btn.innerText = translations[lang].download_mobile;
-        else btn.innerText = translations[lang].claim_offer;
-    });
-    // Update slider label opacity
-    document.getElementById('lang-pt').style.opacity = lang === 'pt' ? '1' : '0.5';
-    document.getElementById('lang-en').style.opacity = lang === 'en' ? '1' : '0.5';
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Default to EN
-    setLanguage('en');
-    const toggle = document.getElementById('lang-toggle');
-    toggle.addEventListener('change', function() {
-        setLanguage(this.checked ? 'pt' : 'en');
-    });
-});
+    // --- TRANSLATIONS ---
+    const translations = {
+        en: {
+            everything_here: "Everything you need is here",
+            offers: "OFFERS",
+            register_cashback: "Register and use the codes to get 15% cashback from me",
+            empire_percent: "+100%",
+            empire_condition: "on the first deposit",
+            buran_percent: "1st deposit cashback up to 20€",
+            buran_condition: "+15% cashback for losses over 100€ weekly",
+            arena_code: "Code: secaadegas",
+            arena_condition: "use my code for in-game rewards",
+            claim_offer: "CLAIM OFFER",
+            download_game: "Download the Game",
+            creator_code: "Creator code input",
+            download_mobile: "Download Mobile",
+            yes_18: "Yes, I am 18 or older",
+            no: "No",
+            terms: "Terms & Conditions",
+            responsible: "Responsible Gaming",
+            contact: "Contact",
+            legal1: `This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
+                All offers are subject to terms and conditions of the respective casino.
+                If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.`,
+            copyright: "&copy; 2025 osecaadegas95. All rights reserved.",
+            scratch_title: "Daily Scratch Card",
+            scratch_me: "SCRATCH ME",
+            scratch_win: "🎉 YOU WIN! 🎉",
+            scratch_lose: "🙁 Try again tomorrow!",
+            scratch_congrats: "Congratulations! Come back tomorrow for another chance.",
+            scratch_noluck: "No luck today. Try again tomorrow!",
+            scratch_already: "",
+            scratch_come_back: "Come back tomorrow!",
+            scratch_try: "Try your luck every day!"
+        },
+        pt: {
+            everything_here: "Tudo o que precisas está aqui",
+            offers: "OFERTAS",
+            register_cashback: "Regista-te e usa os códigos para receber 15% cashback de mim",
+            empire_percent: "+100%",
+            empire_condition: "no primeiro depósito",
+            buran_percent: "Cashback no 1º depósito até 20€",
+            buran_condition: "+15% cashback por perdas acima de 100€ por semana",
+            arena_code: "Código: secaadegas",
+            arena_condition: "usa o meu código para recompensas no jogo",
+            claim_offer: "RECEBER OFERTA",
+            download_game: "Descarregar o Jogo",
+            creator_code: "Inserir código de criador",
+            download_mobile: "Descarregar Mobile",
+            yes_18: "Sim, tenho 18 ou mais anos",
+            no: "Não",
+            terms: "Termos & Condições",
+            responsible: "Jogo Responsável",
+            contact: "Contacto",
+            legal1: `Este site é um afiliado e não é um operador de jogos. Ofertas apenas para maiores de 18 anos. Jogue com responsabilidade.
+                Todas as ofertas estão sujeitas aos termos e condições do respetivo casino.
+                Se tem problemas com o jogo, visite <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> ou o serviço de apoio local.`,
+            copyright: "&copy; 2025 osecaadegas95. Todos os direitos reservados.",
+            scratch_title: "Raspadinha Diária",
+            scratch_me: "RASPA-ME",
+            scratch_win: "🎉 GANHASTE! 🎉",
+            scratch_lose: "🙁 Tenta novamente amanhã!",
+            scratch_congrats: "Parabéns! Volta amanhã para outra oportunidade.",
+            scratch_noluck: "Sem sorte hoje. Tenta novamente amanhã!",
+            scratch_already: "",
+            scratch_come_back: "Volta amanhã!",
+            scratch_try: "Tenta a tua sorte todos os dias!"
+        }
+    };
     </script>
-
-
-</html>
-</body>
 </body>
 </html>
