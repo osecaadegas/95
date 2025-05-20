@@ -574,6 +574,10 @@
             border: 2px solid #6ec1e444 !important;
             box-shadow: 0 2px 12px #6ec1e433 !important;
         }
+        .scratch-main-image,
+.scratch-reward-image {
+    transition: opacity 0.7s;
+}
     </style>
 </head>
 <body>
@@ -796,24 +800,22 @@
                         </div>
                     </div>
                     <!-- Daily Scratch Card as an offer-card -->
-                    <div class="offer-card">
+                    <div class="offer-card scratch-offer-card">
     <div class="offer-card-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 18px;">
-        <!-- Logo on the left -->
         <img src="https://i.imgur.com/8E3ucNx.png" alt="osecaadegas95 Logo" class="provider-logo" style="background:#fff; border-radius:8px;">
-        <!-- Scratch Card Title on the right -->
         <h2 style="color:#6ec1e4; margin-bottom:0;" data-i18n="scratch_title">Daily Scratch Card</h2>
     </div>
-    <div class="offer-card-body">
+    <div class="offer-card-body" style="position:relative;">
         <!-- Offer image below the header, full width -->
-        <img src="https://i.imgur.com/X3Q1LEQ.png" alt="osecaadegas95 Scratch" class="offer-image">
+        <div class="scratch-image-container" style="position:relative; width:300px; height:300px; margin:0 auto;">
+            <img src="https://i.imgur.com/X3Q1LEQ.png" alt="osecaadegas95 Scratch" class="offer-image scratch-image" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;">
+            <!-- Canvas will be injected here -->
+            <img src="https://i.imgur.com/Nw7fGoH.jpeg" alt="Win" class="scratch-result-image scratch-win-image" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;">
+            <img src="https://i.imgur.com/WZx86in.png" alt="Lose" class="scratch-result-image scratch-lose-image" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;">
+        </div>
         <div class="scratch-message" style="margin-top:10px;color:#6ec1e4;font-weight:bold;font-size:1em;"></div>
     </div>
     <div class="offer-card-footer" style="flex-direction: column; align-items: center;">
-        <!-- Scratch card button at the bottom -->
-        <div class="scratch-card" style="position:relative; width:180px; height:60px; background:#16213e; border-radius:10px; box-shadow:0 2px 12px #6ec1e433; border:2px solid #6ec1e4; overflow:hidden; cursor:pointer; margin-bottom:10px;">
-            <div class="scratch-cover" style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#6ec1e4 60%,#274472 100%);color:#16213e;display:flex;align-items:center;justify-content:center;font-size:1em;font-weight:bold;letter-spacing:2px;z-index:2;transition:opacity 0.5s;">SCRATCH ME</div>
-            <div class="scratch-result" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1em;font-weight:bold;letter-spacing:2px;z-index:1;opacity:0;"></div>
-        </div>
         <span class="scratch-try-footer" data-i18n="scratch_try" style="color:#a3b9d7; font-size:0.95em;">Try your luck every day!</span>
     </div>
 </div>
@@ -956,14 +958,18 @@
         }
         function showScratchResult(win, cardSection) {
             const lang = SCRATCH_LANG;
-            const result = cardSection.querySelector('.scratch-result');
-            result.innerHTML = win ? translations[lang].scratch_win : translations[lang].scratch_lose;
-            result.style.opacity = 1;
-            cardSection.querySelector('.scratch-cover').style.opacity = 0;
-            cardSection.querySelector('.scratch-card').style.pointerEvents = 'none';
-            cardSection.querySelector('.scratch-message').innerText = win
-                ? translations[lang].scratch_congrats
-                : translations[lang].scratch_noluck;
+            const message = cardSection.querySelector('.scratch-message');
+            const winImg = cardSection.querySelector('.scratch-win-image');
+            const loseImg = cardSection.querySelector('.scratch-lose-image');
+            if (win) {
+                winImg.style.display = 'block';
+                loseImg.style.display = 'none';
+                message.innerText = translations[lang].scratch_congrats;
+            } else {
+                winImg.style.display = 'none';
+                loseImg.style.display = 'block';
+                message.innerText = translations[lang].scratch_noluck;
+            }
             if (!win) updateScratchWait(cardSection);
         }
         function updateScratchWait(cardSection) {
@@ -986,88 +992,140 @@
             }
             tick();
         }
-        function animateScratch(cardSection) {
-            const cover = cardSection.querySelector('.scratch-cover');
-            if (!cover) return;
-            let canvas = cardSection.querySelector('.scratch-canvas');
-            if (!canvas) {
-                canvas = document.createElement('canvas');
-                canvas.className = 'scratch-canvas';
-                canvas.width = cover.offsetWidth;
-                canvas.height = cover.offsetHeight;
-                canvas.style.position = 'absolute';
-                canvas.style.top = '0';
-                canvas.style.left = '0';
-                canvas.style.width = '100%';
-                canvas.style.height = '100%';
-                canvas.style.zIndex = '3';
-                canvas.style.pointerEvents = 'none';
-                cover.parentElement.appendChild(canvas);
-            }
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#6ec1e4';
-            ctx.globalAlpha = 0.8;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            let progress = 0;
-            function draw() {
-                ctx.save();
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath();
-                ctx.arc(canvas.width / 2, canvas.height / 2, progress, 0, 2 * Math.PI);
-                ctx.fill();
-                ctx.restore();
-                progress += 12;
-                if (progress < Math.max(canvas.width, canvas.height)) {
-                    requestAnimationFrame(draw);
-                } else {
-                    setTimeout(() => {
-                        canvas.remove();
-                    }, 250);
-                }
-            }
-            draw();
-        }
 
         // SCRATCH CARD INIT
         document.querySelectorAll('.offer-card').forEach(cardSection => {
-            const card = cardSection.querySelector('.scratch-card');
-            const cover = cardSection.querySelector('.scratch-cover');
+            const scratchContainer = cardSection.querySelector('.scratch-image-container');
+            const scratchImage = cardSection.querySelector('.scratch-image');
             const message = cardSection.querySelector('.scratch-message');
             let waitElem = cardSection.querySelector('.scratch-wait');
-            if (!card || !cover || !message) return;
+            if (!scratchContainer || !scratchImage || !message) return;
             if (!waitElem) {
                 waitElem = document.createElement('div');
                 waitElem.className = "scratch-wait";
                 waitElem.style.cssText = "margin-top:6px;color:#ffd700;font-size:0.98em;font-weight:bold;";
                 message.after(waitElem);
             }
-            cover.innerText = translations[SCRATCH_LANG].scratch_me;
             message.innerText = translations[SCRATCH_LANG].scratch_try;
             cardSection.querySelector('h2').innerText = translations[SCRATCH_LANG].scratch_title;
+            // Only allow scratch if not played today
             if (!canScratchToday()) {
-                card.style.pointerEvents = 'none';
-                cover.style.opacity = 0.7;
-                cover.innerText = translations[SCRATCH_LANG].scratch_come_back;
+                scratchImage.style.opacity = 0.3;
+                scratchContainer.style.pointerEvents = 'none';
                 message.innerText = translations[SCRATCH_LANG].scratch_already || "";
                 updateScratchWait(cardSection);
             } else {
                 waitElem.innerText = "";
-                card.addEventListener('click', function handler() {
-                    card.removeEventListener('click', handler);
-                    animateScratch(cardSection);
-                    setTimeout(() => {
-                        const win = Math.floor(Math.random() * 100) === 0;
-                        showScratchResult(win, cardSection);
-                        setScratchPlayed();
-                        document.querySelectorAll('.scratch-card').forEach(c => c.style.pointerEvents = 'none');
-                        document.querySelectorAll('.scratch-cover').forEach(c => c.style.opacity = 0.7);
-                        document.querySelectorAll('.scratch-message').forEach(m => m.innerText = translations[SCRATCH_LANG].scratch_already || "");
-                        document.querySelectorAll('.offer-card').forEach(updateScratchWait);
-                    }, 700);
-                });
+                scratchImage.style.opacity = 1;
+                scratchContainer.style.pointerEvents = 'auto';
+                // Remove any previous result images
+                cardSection.querySelector('.scratch-win-image').style.display = 'none';
+                cardSection.querySelector('.scratch-lose-image').style.display = 'none';
+
+                // SCRATCH CANVAS LOGIC
+                let isDrawing = false;
+                let lastPoint = null;
+                let canvas = scratchContainer.querySelector('.scratch-canvas');
+                if (canvas) canvas.remove();
+                canvas = document.createElement('canvas');
+                canvas.className = 'scratch-canvas';
+                canvas.width = scratchImage.offsetWidth;
+                canvas.height = scratchImage.offsetHeight;
+                canvas.style.position = 'absolute';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.style.width = '100%';
+                canvas.style.height = '100%';
+                canvas.style.zIndex = '10';
+                canvas.style.pointerEvents = 'auto';
+                scratchContainer.appendChild(canvas);
+
+                const ctx = canvas.getContext('2d');
+                // Draw a silver/gray overlay to scratch off
+                ctx.fillStyle = '#b0b0b0';
+                ctx.globalAlpha = 0.95;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Optional: Add "SCRATCH ME" text
+                ctx.globalAlpha = 1;
+                ctx.font = "bold 2em Arial";
+                ctx.fillStyle = "#444";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("SCRATCH ME", canvas.width / 2, canvas.height / 2);
+
+                function getPointerPos(e) {
+                    let rect = canvas.getBoundingClientRect();
+                    let x, y;
+                    if (e.touches) {
+                        x = e.touches[0].clientX - rect.left;
+                        y = e.touches[0].clientY - rect.top;
+                    } else {
+                        x = e.clientX - rect.left;
+                        y = e.clientY - rect.top;
+                    }
+                    return { x, y };
+                }
+
+                function eraseAt(x, y) {
+                    ctx.save();
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 24, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                function checkErased() {
+                    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let pixels = imageData.data;
+                    let transparent = 0;
+                    for (let i = 3; i < pixels.length; i += 4) {
+                        if (pixels[i] < 32) transparent++;
+                    }
+                    let percent = transparent / (canvas.width * canvas.height) * 100;
+                    return percent;
+                }
+
+                function finishScratch() {
+                    setScratchPlayed();
+                    scratchContainer.style.pointerEvents = 'none';
+                    scratchImage.style.opacity = 0;
+                    canvas.remove();
+                    const win = Math.floor(Math.random() * 100) === 0;
+                    showScratchResult(win, cardSection);
+                }
+
+                function pointerDown(e) {
+                    isDrawing = true;
+                    lastPoint = getPointerPos(e);
+                    eraseAt(lastPoint.x, lastPoint.y);
+                    e.preventDefault();
+                }
+                function pointerMove(e) {
+                    if (!isDrawing) return;
+                    let point = getPointerPos(e);
+                    eraseAt(point.x, point.y);
+                    lastPoint = point;
+                    if (checkErased() > 65) { // Require 65% to be scratched
+                        isDrawing = false;
+                        finishScratch();
+                    }
+                    e.preventDefault();
+                }
+                function pointerUp(e) {
+                    isDrawing = false;
+                    e.preventDefault();
+                }
+
+                canvas.addEventListener('mousedown', pointerDown);
+                canvas.addEventListener('mousemove', pointerMove);
+                canvas.addEventListener('mouseup', pointerUp);
+                canvas.addEventListener('mouseleave', pointerUp);
+                canvas.addEventListener('touchstart', pointerDown, { passive: false });
+                canvas.addEventListener('touchmove', pointerMove, { passive: false });
+                canvas.addEventListener('touchend', pointerUp, { passive: false });
             }
         });
-
         // --- LANGUAGE SWITCHER ---
         const langToggle = document.getElementById('lang-toggle');
         function setLanguage(lang) {
