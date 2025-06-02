@@ -1,1426 +1,1815 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>osecaadegas95</title>
-    <link rel="apple-touch-icon" href="icon.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0f172a">
-    <style>
-        /* ===== Modern Dashboard Theme: Grey & Blue ===== */
-        body {
-            background: linear-gradient(135deg, #16213e 60%, #274472 100%);
-            color: #eaf6fb;
-            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            letter-spacing: 0.01em;
-            box-sizing: border-box;
-        }
-        a, .footer-link {
-            color: #6ec1e4;
-            text-decoration: none;
-            transition: color 0.2s, text-shadow 0.2s;
-            text-shadow: 0 0 8px #6ec1e455;
-        }
-        a:hover, .footer-link:hover {
-            color: #eaf6fb;
-            text-shadow: 0 0 16px #6ec1e4, 0 0 8px #eaf6fb;
-        }
-        /* Navigation Bar */
-        .site-header {
-            background: linear-gradient(90deg, #16213e 70%, #6ec1e4 100%);
-            border-bottom: 2px solid #6ec1e4;
-            box-shadow: 0 6px 32px #6ec1e433, 0 2px 12px #000a;
-            padding: 18px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            margin-bottom: 36px;
-        }
-        .nav-left, .nav-center, .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-        .nav-center {
-            flex: 1;
-            justify-content: center;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 2.1em;
-            font-weight: 700;
-            color: #6ec1e4;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 24px #6ec1e488, 0 0 2px #eaf6fb;
-            filter: drop-shadow(0 0 12px #6ec1e455);
-        }
-        .logo img {
-            height: 44px;
-            width: 44px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px #6ec1e488;
-        }
-        .nav-link {
-            font-size: 1.1em;
-            color: #eaf6fb;
-            padding: 8px 18px;
-            border-radius: 18px;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            background: transparent;
-            box-shadow: 0 0 0 #0000;
-            font-weight: 500;
-            text-shadow: 0 0 8px #6ec1e455;
-        }
-        .nav-link:hover, .nav-link.active {
-            background: linear-gradient(90deg, #6ec1e4 0%, #16213e 100%);
-            color: #16213e;
-            box-shadow: 0 2px 16px #6ec1e488;
-        }
-        .cta-btn {
-            background: linear-gradient(90deg, #6ec1e4 0%, #16213e 100%);
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.1em;
-            padding: 10px 32px;
-            border: none;
-            border-radius: 24px;
-            cursor: pointer;
-            box-shadow: 0 2px 24px #6ec1e466, 0 0 8px #fff2;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            text-shadow: 0 0 12px #6ec1e4;
-        }
-        .cta-btn:hover {
-            background: linear-gradient(90deg, #16213e 0%, #6ec1e4 100%);
-            color: #16213e;
-            box-shadow: 0 4px 32px #6ec1e4bb;
-        }
-        .icon-btn {
-            background: none;
-            border: none;
-            color: #6ec1e4;
-            font-size: 2em;
-            cursor: pointer;
-            margin-right: 0;
-            margin-left: 0;
-            border-radius: 50%;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            box-shadow: 0 0 0 #0000;
-            padding: 6px;
-        }
-        .icon-btn:hover, .icon-btn:focus {
-            background: #6ec1e422;
-            color: #fff;
-            box-shadow: 0 0 12px #6ec1e488;
-        }
-        /* Language Switcher */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(22,33,62,0.7);
-            border-radius: 16px;
-            padding: 4px 12px;
-            box-shadow: 0 2px 8px #6ec1e433;
-        }
-        .lang-label {
-            font-size: 1em;
-            color: #6ec1e4;
-            font-weight: bold;
-            user-select: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        #lang-pt, #lang-en {
-            opacity: 0.7;
-        }
-        #lang-toggle:checked ~ #lang-pt { opacity: 0.7; }
-        #lang-toggle:checked ~ #lang-en { opacity: 1; }
-        .lang-label.active {
-            opacity: 1;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 22px;
-        }
-        .switch input { display: none; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #6ec1e4;
-            border-radius: 22px;
-            transition: .4s;
-            box-shadow: 0 0 8px #6ec1e488;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px; width: 16px;
-            left: 3px; bottom: 3px;
-            background: #16213e;
-            border-radius: 50%;
-            transition: .4s;
-        }
-        .switch input:checked + .slider {
-            background: #16213e;
-        }
-        .switch input:checked + .slider:before {
-            transform: translateX(22px);
-            background: #6ec1e4;
-        }
-        /* Sidebar (Dashboard style) */
-        .sidebar {
-            width: 260px;
-            background: linear-gradient(180deg, #16213e 80%, #6ec1e4 120%);
-            padding: 32px 18px;
-            display: flex;
-            flex-direction: column;
-            border-right: 2px solid #6ec1e4;
-            box-shadow: 4px 0 32px #6ec1e433, 2px 0 16px #000a;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            z-index: 1000;
-            transform: translateX(-100%);
-            transition: transform 0.35s cubic-bezier(.4,0,.2,1);
-            border-radius: 0 32px 32px 0;
-        }
-        .sidebar.active {
-            transform: translateX(0);
-        }
-        .sidebar .main-nav ul li a {
-            color: #6ec1e4;
-            background: rgba(22,33,62,0.7);
-            border-left: 4px solid transparent;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px #6ec1e433;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            font-weight: 500;
-            font-size: 1.08em;
-            text-shadow: 0 0 8px #6ec1e455;
-        }
-        .sidebar .main-nav ul li a:hover,
-        .sidebar .main-nav ul li a.active {
-            background: #6ec1e4;
-            color: #16213e;
-            border-left: 4px solid #eaf6fb;
-            box-shadow: 0 4px 16px #6ec1e499;
-        }
-        .sidebar .main-nav ul li a i {
-            font-size: 1.4em;
-            margin-right: 14px;
-            filter: drop-shadow(0 0 2px #6ec1e4);
-        }
-        .sidebar-close {
-            display: none;
-            background: none;
-            border: none;
-            color: #6ec1e4;
-            font-size: 2em;
-            cursor: pointer;
-            align-self: flex-end;
-            margin-bottom: 18px;
-            z-index: 1101;
-            transition: color 0.2s;
-        }
-        .sidebar.active .sidebar-close {
-            display: block;
-        }
-        .sidebar iframe[src*="open.spotify.com"] {
-            filter: hue-rotate(175deg) saturate(2.5) brightness(1.1) contrast(1.1);
-            background: #16213e !important;
-            border-radius: 18px !important;
-            border: 2px solid #6ec1e444 !important;
-            box-shadow: 0 2px 12px #6ec1e433 !important;
-        }
-        /* Main Container */
-        .site-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 100%;
-            margin: 0 auto;
-            box-sizing: border-box;
-            gap: 36px;
-        }
-        .main-content {
-            background: linear-gradient(135deg, #16213e 60%, #274472 100%);
-            box-shadow: 0 4px 32px #6ec1e411;
-            border-radius: 32px;
-            margin: 0;
-            max-width: 2000px;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 48px 36px 0 36px;
-            min-height: 80vh;
-            margin-bottom: 48px;
-        }
-        /* Offers Section */
-        .offers-section .offers-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        .offers-section .offers-header p:first-child {
-            color: #6ec1e4;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 1.2em;
-            margin-bottom: 0;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 12px #6ec1e455;
-        }
-        .offers-section .offers-header h1 {
-            font-size: 3.4em;
-            color: #6ec1e4;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 32px #6ec1e488, 0 2px 12px #000;
-            margin-bottom: 0.2em;
-        }
-        .offers-section .offers-header p:last-child {
-            color: #a3b9d7;
-            font-size: 1.15em;
-            text-shadow: 0 2px 12px #000a;
-        }
-        /* Offers Grid */
-        .offers-grid {
-            background: linear-gradient(135deg, #274472 60%, #16213e 100%);
-            border-radius: 24px;
-            box-shadow: 0 4px 32px #6ec1e422;
-            padding: 36px 0;
-            margin-top: 32px;
-            overflow-x: visible !important;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-            max-width: 1800px;
-            box-sizing: border-box;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            justify-items: stretch;
-            align-items: stretch;
-        }
-        .offer-card {
-            background: linear-gradient(135deg, #16213e 80%, #6ec1e422 100%);
-            border-radius: 18px;
-            border: 2px solid #6ec1e4;
-            box-shadow: 0 4px 24px #000a, 0 0 0 2px #6ec1e433;
-            color: #eaf6fb;
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            display: flex;
-            flex-direction: column;
-            min-height: 420px;
-            overflow: hidden;
-        }
-        .offer-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 8px 40px #6ec1e466, 0 0 0 2px #6ec1e488;
-            border-color: #eaf6fb;
-            background: linear-gradient(135deg, #6ec1e4 60%, #16213e 100%);
-            color: #16213e;
-        }
-        .offer-card .offer-card-header {
-            padding: 22px;
-            background: #16213e;
-            border-bottom: 1px solid #6ec1e444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .offer-card .provider-logo {
-            height: 52px;
-            display: block;
-            filter: drop-shadow(0 0 16px #6ec1e499);
-            margin: 0 auto;
-        }
-        .offer-card .offer-card-body {
-            padding: 32px 18px 18px 18px;
-            text-align: center;
-            flex-grow: 1;
-            background: #16213e;
-        }
-        .offer-card .offer-card-body .offer-image {
-            width: 260px;
-            height: 260px;
-            max-width: 100%;
-            object-fit: cover;
-            margin-bottom: 18px;
-            border-radius: 14px;
-            border: 2px solid #6ec1e444;
-            box-shadow: 0 2px 16px #6ec1e455;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .offer-card .offer-details .offer-percentage,
-        .offer-card .offer-details .offer-freespins {
-            color: #6ec1e4;
-            text-shadow: 0 2px 12px #000, 0 0 8px #6ec1e455;
-        }
-        .offer-card .offer-details .offer-freespins {
-            color: #eaf6fb;
-            text-shadow: 0 2px 12px #6ec1e499;
-        }
-        .offer-card .offer-details .offer-condition {
-            color: #a3b9d7;
-        }
-        .offer-card .offer-details .offer-icons {
-            margin-top: 14px;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-        .offer-card .offer-details .offer-icons span {
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            background: #6ec1e433;
-            border-radius: 7px;
-            font-size: 1.8em;
-            line-height: 38px;
-            text-align: center;
-            color: #6ec1e4;
-            box-shadow: 0 1px 6px #6ec1e422;
-        }
-        .offer-card .offer-card-footer {
-            display: flex;
-            padding: 22px;
-            background: #16213e;
-            border-top: 1px solid #6ec1e444;
-            gap: 12px;
-            justify-content: center;
-        }
-        .offer-card .claim-button,
-        .offer-card .claim-button.orange,
-        .offer-card .claim-button.green {
-            background: linear-gradient(90deg, #6ec1e4 60%, #16213e 100%);
-            color: #16213e;
-            box-shadow: 0 2px 12px #6ec1e444;
-            border-radius: 18px;
-            font-weight: bold;
-            font-size: 1.08em;
-            padding: 12px 28px;
-            border: none;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            text-shadow: 0 0 8px #fff;
-        }
-        .offer-card .claim-button.orange {
-            background: linear-gradient(90deg, #4fa3d1 60%, #6ec1e4 100%);
-        }
-        .offer-card .claim-button.green {
-            background: linear-gradient(90deg, #a3b9d7 60%, #6ec1e4 100%);
-        }
-        .offer-card .claim-button:hover,
-        .offer-card .claim-button.orange:hover,
-        .offer-card .claim-button.green:hover {
-            background: #eaf6fb;
-            color: #16213e;
-            box-shadow: 0 4px 24px #6ec1e466;
-        }
-        /* Media Row */
-        .media-row {
-            display: flex !important;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 36px;
-            margin-bottom: 44px;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            overflow-y: hidden;
-            width: 100%;
-            max-width: 100vw;
-            box-sizing: border-box;
-            background: linear-gradient(90deg, #16213e 80%, #6ec1e422 100%);
-            border-radius: 24px;
-            box-shadow: 0 2px 16px #6ec1e433;
-            padding: 22px 0;
-        }
-        .stream-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .stream-center iframe {
-            width: 480px;
-            height: 270px;
-            border-radius: 24px;
-            display: block;
-            flex-shrink: 0;
-            margin: 0;
-            box-shadow: 0 2px 16px #6ec1e433;
-            border: 2px solid #6ec1e444;
-            background: #16213e;
-        }
-        /* Footer Bar */
-        .site-footer {
-            width: 100%;
-            background: linear-gradient(90deg, #16213e 80%, #6ec1e4 100%);
-            border-top: 2px solid #6ec1e4;
-            color: #6ec1e4;
-            box-shadow: 0 -2px 24px #6ec1e488;
-            padding: 0;
-            margin-top: 48px;
-            position: relative;
-            left: 0;
-            bottom: 0;
-            border-radius: 32px 32px 0 0;
-        }
-        .footer-bar {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 32px 16px 32px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .footer-links {
-            display: flex;
-            gap: 32px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 12px;
-        }
-        .footer-link {
-            color: #6ec1e4;
-            font-size: 1.05em;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-link:hover {
-            color: #eaf6fb;
-            text-decoration: underline;
-        }
-        .footer-legal {
-            color: #a3b9d7;
-            font-size: 1em;
-            text-align: center;
-            max-width: 900px;
-        }
-        .footer-legal a {
-            color: #6ec1e4;
-            text-decoration: underline;
-        }
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .media-row {
-                gap: 18px;
-                padding: 12px 0;
-            }
-            .stream-center iframe {
-                width: 260px !important;
-                height: 140px !important;
-            }
-            .main-content, .offers-grid {
-                padding: 0 8px !important;
-            }
-        }
-        @media (max-width: 900px) {
-            .site-header {
-                flex-direction: column;
-                padding: 14px 8px;
-                gap: 12px;
-            }
-            .site-container {
-                flex-direction: column;
-                gap: 0;
-            }
-            .sidebar {
-                width: 90vw;
-                border-radius: 0 0 32px 32px;
-            }
-            .main-content {
-                padding: 12px 2vw 0 2vw;
-                border-radius: 24px;
-            }
-            .offers-grid {
-                grid-template-columns: 1fr !important;
-                gap: 18px !important;
-                max-width: 100vw !important;
-                width: 100% !important;
-                padding: 0 6px !important;
-                box-sizing: border-box !important;
-            }
-            .offer-card {
-                width: 100% !important;
-                max-width: 340px !important;
-                margin: 0 auto 18px auto !important;
-                padding: 0 !important;
-            }
-            .media-row {
-                flex-direction: column !important;
-                gap: 18px;
-                overflow-x: hidden;
-                padding: 0;
-            }
-            .stream-center iframe {
-                width: 98vw !important;
-                height: 140px !important;
-            }
-        }
-        @media (max-width: 700px) {
-    .offers-header {
-        flex-direction: column !important;
-        gap: 12px !important;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bonus Hunt Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sidebar-bg: linear-gradient(135deg, #232e4d 80%, #181f36 100%);
+      --sidebar-border: #3ec6ff;
+      --sidebar-card-bg: #232e4d;
+      --sidebar-label-bg: #3ec6ff;
+      --sidebar-label-color: #fff;
+      --sidebar-pill-bg: #181f36;
+      --sidebar-pill-bet: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);
+      --sidebar-pill-payout: linear-gradient(90deg, #5ce1e6cc 0%, #3ec6ffcc 100%);
+      --sidebar-pill-xwin: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);
+      --sidebar-progress-bar: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
     }
-    .offers-header .stream-preview iframe {
-        width: 98vw !important;
-        height: 260px !important;
+    body {
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #181f36 0%, #22305a 100%);
+      color: #e0f4ff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      padding-top: 64px;
     }
+    .container {
+      max-width: 2100px; /* was 1800px */
+      width: 99vw;       /* was 95vw */
+      margin: 32px auto 0 auto;
+      padding: 32px 32px 32px 32px;
+      background: rgba(24, 31, 54, 0.98);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 #3ec6ff33;
+    }
+    h1, h3 {
+      color: #3ec6ff;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+    }
+    label {
+      color: #3ec6ff;
+    }
+    input, button {
+      background: #232e4d;
+      color: #e0f4ff;
+      border: 1.5px solid #3ec6ff;
+      border-radius: 8px;
+    }
+    button {
+      background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #3ec6ff55;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #5ce1e6 0%, #3ec6ff 100%);
+      color: #fff;
+    }
+    table {
+      background: #232e4d;
+      box-shadow: 0 2px 12px #3ec6ff33;
+      width: 100%;
+      max-width: 1000px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    th {
+      background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+      color: #181f36;
+    }
+    td input[type="number"] {
+      width: 54px;
+      padding: 3px 4px;
+      font-size: 0.95em;
+    }
+    table td img {
+      width: 54px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 5px;
+      border: 1.5px solid #3ec6ff;
+      background: #181f36;
+      box-shadow: 0 1px 4px #3ec6ff33;
+      margin: 0 auto;
+      display: block;
+      padding: 1px;
+    }
+    .slot-display {
+      flex: 0 0 auto;
+      min-width: 900px;
+      max-width: 900px;
+      text-align: center;
+      margin-top: 0;
+      display: flex;
+      align-items: stretch;
+      height: 100%;
+      justify-content: center;
+    }
+    .slot-stack-container {
+      width: 1200px;
+      height: 700px;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      box-shadow: none;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .swipe-track {
+      display: flex;
+      transition: transform 1.5s cubic-bezier(.77,0,.18,1);
+      will-change: transform;
+      height: 680px;
+      align-items: center;
+    }
+    .slot-stack-slide {
+      width: 1200px;
+      height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      position: relative;
+      background: #232e4d;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #3ec6ff55, 0 0 0 4px #3ec6ff;
+      border: 2.5px solid #3ec6ff;
+      transition: opacity 0.7s;
+      opacity: 1;
+    }
+    .slot-corner-label {
+      position: absolute;
+      background: rgba(62, 198, 255, 0.92);
+      color: #181f36;
+      font-weight: 600;
+      font-size: 1em;
+      padding: 4px 16px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px #3ec6ff55;
+      z-index: 3;
+      pointer-events: none;
+      text-shadow: 0 1px 6px #fff4;
+      border: none;
+      letter-spacing: 0.5px;
+      opacity: 0.96;
+      backdrop-filter: blur(2px);
+      transition: background 0.2s;
+    }
+    .slot-corner-label.bet    { top: 12px; left: 12px; background: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);}
+    .slot-corner-label.payout { top: 12px; right: 12px; background: linear-gradient(90deg, #5ce1e6cc 0%, #3ec6ffcc 100%);}
+    .slot-corner-label.xwin   { bottom: 12px; right: 12px; background: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);}
+    #stats {
+      margin-top: 18px;
+      background: linear-gradient(135deg, #232e4d 0%, #22305a 100%);
+      border-radius: 14px;
+      padding: 22px 28px;
+      box-shadow: 0 2px 16px #3ec6ff22;
+      color: #e0f4ff;
+      font-size: 1.13em;
+      min-width: 340px;
+      max-width: 480px;
+      flex: 0 0 340px;
+      min-height: 260px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 0.1px;
+    }
+    #stats strong {
+      color: #3ec6ff;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      font-size: 1.08em;
+    }
+    #stats span {
+      font-weight: bold;
+      color: #3ec6ff;
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+    }
+    #stats p {
+      margin: 10px 0 8px 0;
+      font-size: 1.04em;
+      line-height: 1.5;
+    }
+    #stats .profit {
+      color: #1bbf7a;
+      font-weight: bold;
+      font-size: 1.08em;
+    }
+    #stats .loss {
+      color: #ff4e91;
+      font-weight: bold;
+      font-size: 1.08em;
+    }
+    @media (max-width: 900px) {
+      .stats-and-display {
+        flex-direction: column;
+        gap: 18px;
+        align-items: stretch;
+      }
+      .slot-display, #stats {
+        min-width: 0;
+        max-width: 100%;
+      }
+      .slot-stack-container {
+        min-height: 220px;
+      }
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 10px 2vw;
+      }
+      .slot-info {
+        padding: 10px 6vw;
+      }
+      #stats {
+        padding: 10px 4vw;
+      }
+      th, td {
+        padding: 8px 2px;
+      }
+    }
+    .stats-and-display {
+      display: flex;
+      flex-direction: row;
+      gap: 32px; /* was 48px, reduce gap */
+      align-items: flex-start;
+      justify-content: stretch; /* was flex-start */
+      margin-top: 36px;
+      width: 100%;
+    }
+    #stats {
+      min-width: 340px;
+      max-width: 480px;
+      flex: 0 0 340px;
+    }
+    .slot-management-panel {
+      flex: 2 1 0; /* was flex: 1 1 0; */
+      min-width: 700px; /* was 600px */
+      max-width: 1200px; /* was 950px */
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .add-slot-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .add-slot-grid input[type="text"],
+    .add-slot-grid input[type="url"],
+    .add-slot-grid input[type="number"] {
+      width: 340px;
+      font-size: 1.22em;
+      padding: 0 16px;
+      border-radius: 10px;
+      height: 48px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    #slotName {
+      width: 420px;
+    }
+    #slotBet,
+    #slotImage {
+      width: 340px;
+    }
+    .pill-btn {
+      background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+      color: #181f36;
+      font-weight: bold;
+      border: none;
+      border-radius: 999px;
+      padding: 0 22px;
+      height: 48px;
+      font-size: 1.08em;
+      box-shadow: 0 2px 8px #3ec6ff55;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .pill-btn:hover {
+      background: linear-gradient(90deg, #5ce1e6 0%, #3ec6ff 100%);
+      color: #fff;
+    }
+    #slotImage {
+      height: 48px;
+      font-size: 1.18em;
+      padding: 0 16px;
+      border-radius: 10px;
+      width: 260px;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin-left: 8px;
+      display: none;
+      transition: display 0.2s;
+    }
+    /* Sidebar styles */
+    .sidebar {
+      position: fixed;
+      top: 32px;
+      right: 32px;
+      width: 340px; /* was 340px */
+      height: 1230px;
+      background: var(--sidebar-bg);
+      box-shadow: 0 8px 32px 8px #3ec6ffaa, 0 2px 32px 0 #000a;
+      z-index: 10002;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 18px 0 18px;
+      overflow-y: auto;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      border-radius: 22px;
+      border: 2.5px solid var(--sidebar-border);
+      backdrop-filter: blur(4px);
+      transition: box-shadow 0.3s, top 0.3s, right 0.3s;
+    }
+    .sidebar-section {
+      margin-bottom: 18px;
+      background: var(--sidebar-card-bg);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 12px #3ec6ff33;
+      border: 1.5px solid var(--sidebar-border);
+    }
+    .sidebar-section.header {
+      background: linear-gradient(90deg, var(--sidebar-label-bg) 0%, #5ce1e6 100%);
+      color: var(--sidebar-label-color);
+      font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+      font-size: 1.18em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 16px #3ec6ff55;
+      border: none;
+    }
+    .sidebar-title {
+      font-size: 1.18em;
+    }
+    .sidebar-label {
+      color: var(--sidebar-label-bg);
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+      background: none;
+    }
+    .sidebar-value {
+      color: #fff;
+      font-size: 1.18em;
+      font-weight: bold;
+      margin-bottom: 0;
+      padding: 0;
+    }
+    .sidebar-row {
+      display: flex;
+      gap: 12px;
+    }
+    .sidebar-box {
+      flex: 1;
+      background: var(--sidebar-pill-bg);
+      border-radius: 8px;
+      padding: 4px 0;
+      text-align: center;
+    }
+    .sidebar-section.profit .sidebar-value {
+      color: #3ec6ff;
+    }
+    .sidebar-section.profit .sidebar-progress {
+      background: var(--sidebar-pill-bg);
+      border-radius: 8px;
+      height: 10px;
+      margin-top: 6px;
+      position: relative;
+      width: 100%;
+    }
+    .sidebar-progress-bar {
+      background: var(--sidebar-progress-bar);
+      height: 100%;
+      border-radius: 8px;
+      width: 0%;
+      transition: width 0.7s cubic-bezier(.77,0,.18,1);
+    }
+    .sidebar-progress-text {
+      position: absolute;
+      top: -16px;
+      right: 0;
+      color: #fff;
+      font-size: 0.85em;
+    }
+    .sidebar-section.best-worst .sidebar-label,
+    .sidebar-section.bonus-list .sidebar-label {
+      color: #fff;
+      background: var(--sidebar-label-bg);
+      border-radius: 8px;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 1em;
+      letter-spacing: 1px;
+    }
+    .sidebar-slot-card {
+      background: var(--sidebar-card-bg);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #3ec6ff55;
+      margin: 4px 0;
+      display: flex;
+      align-items: stretch;
+      height: 56px;
+      min-height: 56px;
+      max-height: 56px;
+      border: 1.5px solid var(--sidebar-border);
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow 0.2s;
+      flex: 0 0 56px;
+      width: calc(100% - 2px);
+      opacity: 1;
+      z-index: 1;
+    }
+    .sidebar-slot-card.best { border-left: 5px solid #1bbf7a; }
+    .sidebar-slot-card.worst { border-left: 5px solid #ff4e91; }
+    .sidebar-slot-img {
+      width: 48px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 2px solid #fff2;
+      background: var(--sidebar-pill-bg);
+    }
+    .sidebar-slot-info {
+      flex: 1;
+    }
+    .sidebar-slot-name {
+      color: var(--sidebar-label-bg);
+      font-size: 1em;
+      font-weight: bold;
+    }
+    .sidebar-slot-bet {
+      color: #fff;
+      font-size: 0.95em;
+    }
+    .sidebar-slot-payout {
+      color: #1bbf7a;
+      font-size: 1em;
+      font-weight: bold;
+    }
+    .sidebar-slot-x {
+      color: var(--sidebar-label-bg);
+      font-size: 0.95em;
+    }
+    .sidebar-section.bonus-list {
+      background: var(--sidebar-pill-bg);
+      padding: 10px 0 0 0;
+      border: 1.5px solid var(--sidebar-border);
+    }
+    .sidebar-bonus-list-card {
+      border: 1px solid var(--sidebar-border);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #3ec6ff33;
+      margin: 4px 0;
+      display: flex;
+      align-items: stretch;
+      height: 56px;
+      min-height: 56px;
+      max-height: 56px;
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow 0.2s;
+      flex: 0 0 56px;
+      width: calc(100% - 2px);
+      opacity: 1;
+      z-index: 1;
+    }
+    .sidebar-bonus-img-large {
+      width: 64px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px 0 0 8px;
+      border: none;
+      background: var(--sidebar-pill-bg);
+      display: block;
+    }
+    .sidebar-bonus-info-large {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+      justify-content: center;
+      padding: 0 14px;
+      height: 100%;
+    }
+    .sidebar-bonus-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      font-size: 0.92em;
+      flex-wrap: wrap;
+    }
+    .sidebar-bonus-pill {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.97em;
+      margin-right: 0;
+      margin-bottom: 0;
+      background: var(--sidebar-pill-bg);
+      color: #fff;
+      box-shadow: 0 1px 6px #3ec6ff33;
+      letter-spacing: 0.5px;
+      border: none;
+      text-shadow: 0 1px 6px #0004;
+      white-space: nowrap;
+    }
+    .sidebar-bonus-pill.bet {
+      background: var(--sidebar-pill-bet);
+      color: #181f36;
+    }
+    .sidebar-bonus-pill.payout {
+      background: var(--sidebar-pill-payout);
+      color: #181f36;
+    }
+    .sidebar-bonus-pill.xwin {
+      background: var(--sidebar-pill-xwin);
+      color: #181f36;
+    }
+    .sidebar-bonus-list-card.super-bonus {
+      border: 1.5px solid #ffb300 !important;
+      box-shadow: 0 0 12px #ffb30066, 0 2px 8px #3ec6ff55;
+      animation: superBonusShake 2s cubic-bezier(.36,.07,.19,.97) infinite;
+    }
+    .sidebar-bonus-carousel-frame {
+      width: 100%;
+      height: 270px;
+      overflow: hidden;
+      position: relative;
+    }
+    .sidebar-bonus-carousel-track {
+      display: flex;
+      flex-direction: column;
+      will-change: transform;
+    }
+    @keyframes superBonusShake {
+        0% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+        20%, 40%, 60%, 80% { transform: translateX(4px); }
+        100% { transform: translateX(0); }
+    }
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 1300px) {
+      .sidebar { width: 100vw; left: 0; right: 0; top: auto; bottom: 0; height: 60vh; max-width: 100vw; }
+    }
+    body.obs-mode .container,
+    body.obs-mode h1,
+    body.obs-mode .stats-and-display,
+    body.obs-mode #slotDisplay,
+    body.obs-mode footer {
+      display: none !important;
+    }
+    body.obs-mode .sidebar {
+      display: flex !important;
+    }
+    body.obs-mode #obsModeBtn {
+      display: block !important;
+    }
+    .topbar {
+      display: none !important;
+    }
+    .top-buttons {
+      position: fixed;
+      top: 24px;
+      left: 1050px;
+      z-index: 11000;
+      display: flex;
+      gap: 12px;
+    }
+    .top-buttons button {
+      background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+      color: #181f36;
+      font-weight: bold;
+      border: none;
+      border-radius: 999px;
+      padding: 7px 22px;
+      font-size: 1em;
+      box-shadow: 0 2px 8px #3ec6ff55;
+      letter-spacing: 1px;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .top-buttons button:hover {
+      background: linear-gradient(90deg, #5ce1e6 0%, #3ec6ff 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px #3ec6ff77;
+    }
+    .sidebar-best-worst-row {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 12px;
+    }
+    .sidebar-slot-card-large {
+      position: relative;
+      width: 110px;      /* was 140px */
+      height: 140px;     /* was 180px */
+      border-radius: 14px; /* was 16px */
+      overflow: hidden;
+      background: var(--sidebar-card-bg);
+      box-shadow: 0 2px 16px #3ec6ff55;
+      border: 3px solid var(--sidebar-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.2s;
+    }
+    .sidebar-slot-img-large {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px; /* was 14px */
+      display: block;
+    }
+    .sidebar-slot-corner-label {
+      position: absolute;
+      background: rgba(62, 198, 255, 0.92);
+      color: #181f36;
+      font-weight: 600;
+      font-size: 0.85em; /* was 0.98em */
+      padding: 2px 7px;  /* was 3px 10px */
+      border-radius: 8px; /* was 10px */
+      box-shadow: 0 2px 8px #3ec6ff55;
+      z-index: 3;
+      pointer-events: none;
+      text-shadow: 0 1px 6px #fff4;
+      border: none;
+      letter-spacing: 0.5px;
+      opacity: 0.96;
+      backdrop-filter: blur(2px);
+      transition: background 0.2s;
+    }
+    .sidebar-slot-corner-label.bet     { top: 6px; left: 8px; background: var(--sidebar-pill-bet);}
+    .sidebar-slot-corner-label.payout  { bottom: 8px; left: 8px; background: var(--sidebar-pill-payout);}
+    .sidebar-slot-corner-label.xwin    { bottom: 8px; right: 8px; background: var(--sidebar-pill-xwin);}
+    .sidebar-section.discord {
+      background: var(--sidebar-pill-bg) !important;
+      border: 2px solid var(--sidebar-border) !important;
+      box-shadow: 0 2px 16px #3ec6ff33 !important;
+    }
+    #discordOffersEditable {
+      background: var(--sidebar-card-bg) !important;
+      border-radius: 10px !important;
+      border: 1.5px solid var(--sidebar-border) !important;
+      color: #b6eaff !important;
+      font-size: 1.08em !important;
+      padding: 12px 14px !important;
+      box-shadow: 0 2px 12px #3ec6ff22 !important;
+      transition: border 0.2s, box-shadow 0.2s !important;
+        max-width: 260px !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        font-size: 0.78em !important;
+        min-height: 32px !important;
+        max-height: 38px !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+    }
+    #discordOffersEditable:focus {
+      border: 2px solid #5ce1e6 !important;
+      box-shadow: 0 0 8px #5ce1e6cc !important;
+    }
+    #discordOffersEditable .sidebar-label {
+      color: var(--sidebar-label-bg) !important;
+      font-weight: bold !important;
+      font-size: 1.08em !important;
+      letter-spacing: 1px !important;
+      margin-bottom: 6px !important;
+      display: inline-block !important;
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
+    }
+    #discordOffersEditable .sidebar-discord-text {
+      color: #fff !important;
+      font-size: 1em !important;
+      margin-top: 6px !important;
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
+      text-shadow: 0 1px 6px #0ff2 !important;
+    }
+    /* Sidebar Color Settings Card */
+    .sidebar-color-settings {
+      margin-bottom: 18px;
+      background: var(--sidebar-card-bg);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 12px #3ec6ff33;
+      border: 1.5px solid var(--sidebar-border);
+      max-width: 340px;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 38px !important; 
+    }
+    #sidebarSettingsToggle.sidebar-settings-pill {
+      position: absolute;
+      top: 1px;
+      left: 45%;
+      transform: translateX(-50%);
+      margin: 0;
+      width: 85%;
+      max-width: 280px;
+      z-index: 2;
+      box-sizing: border-box;
+    }
+    .sidebar-color-settings {
+      position: relative;
+      padding-top: 60px !important; /* Increase to fit the button and spacing */
+    }
+    #sidebarSettingsContent {
+      margin-top: 18px;
+    }
+    .sidebar-color-settings label {
+      font-size: 0.98em;
+      color: var(--sidebar-label-bg);
+      font-weight: 600;
+      gap: 6px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar-color-settings input[type="color"] {
+      border: none;
+      background: none;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      margin: 0 2px;
+      cursor: pointer;
+    }
+    .sidebar-color-settings button {
+      margin-top: 8px;
+      width: 100%;
+      font-size: 1em;
+      padding: 6px 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 2px 8px #3ec6ff33;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sidebar-color-settings button:hover {
+      background: linear-gradient(90deg, #5ce1e6 0%, #3ec6ff 100%);
+    }
+    /* --- Compact Sidebar Cards --- */
+/* --- Extra Compact Sidebar Cards --- */
+.sidebar-section.target,
+.sidebar-section.avg-be,
+.sidebar-section.profit {
+  padding: 4px 6px !important;
+  margin-bottom: 6px !important;
+  min-height: unset !important;
 }
 
-        /* Glow/Highlight for all interactive elements */
-        .offer-card, .main-content, .site-header, .sidebar, .media-row, .cta-btn, .claim-button, .footer-bar, .lang-switcher {
-            box-shadow: 0 0 24px #6ec1e422, 0 0 8px #fff2;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            height: 8px;
-            background: #16213e;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #6ec1e488;
-            border-radius: 8px;
-        }
-        /* Age Gate Overlay (modernized) */
-        #age-gate-overlay {
-            background: rgba(22,33,62,0.98);
-            backdrop-filter: blur(6px);
-        }
-        #age-gate-overlay > div {
-            background: linear-gradient(135deg, #16213e 80%, #274472 100%);
-            border: 2px solid #6ec1e4;
-            border-radius: 32px;
-            box-shadow: 0 4px 48px #6ec1e488, 0 2px 12px #000a;
-        }
-        #age-gate-overlay h2 {
-            color: #6ec1e4;
-            text-shadow: 0 2px 24px #6ec1e488,0 0 2px #eaf6fb;
-        }
-        #age-gate-overlay button {
-            font-family: inherit;
-            font-size: 1.1em;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px #6ec1e444;
-        }
-        /* Scratch Card Glow */
-        .scratch-image-container, .scratch-result-image, .scratch-image {
-            box-shadow: 0 0 24px #6ec1e444, 0 0 8px #fff2;
-        }
-    </style>
+.sidebar-label {
+  font-size: 0.85em !important;
+  margin-bottom: 1px !important;
+  padding: 1px 4px !important;
+}
+
+.sidebar-value {
+  font-size: 0.92em !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+.sidebar-row {
+  gap: 3px !important;
+}
+
+.sidebar-box {
+  padding: 2px 0 !important;
+}
+
+.sidebar-progress {
+  height: 5px !important;
+  margin-top: 1px !important;
+}
+
+.sidebar-progress-text {
+  font-size: 0.78em !important;
+  top: -15px !important;
+}
+.sidebar-settings-pill {
+  display: inline-block;
+  border: none;
+  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+  color: #181f36;
+  font-weight: bold;
+  font-size: 0.98em;
+  padding: 6px 18px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  min-width: 0;
+  min-height: 0;
+  line-height: 1.2;
+}
+.sidebar-settings-pill.active {
+  background: linear-gradient(90deg, #5ce1e6 0%, #3ec6ff 100%);
+  color: #fff;
+}
+.add-slot-grid input[type="text"],
+.add-slot-grid input[type="url"],
+.add-slot-grid input[type="number"] {
+  width: 340px;
+  font-size: 1.22em;
+  padding: 0 16px;
+  border-radius: 10px;
+  height: 48px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#slotName {
+  width: 420px;
+}
+
+#slotImage,
+#slotBet {
+  width: 340px;
+}
+
+#slotSuggestions {
+  position: relative;
+  width: 320px;
+  z-index: 1001;
+}
+
+#slotSuggestions > div {
+  position: absolute;
+  top: 52px; /* slightly below the input */
+  left: 0;
+  width: 100%;
+  background: #232e4d;
+  border: 1.5px solid #3ec6ff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px #3ec6ff33;
+  max-height: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+#slotSuggestions > div > div {
+  min-height: 48px;
+  font-size: 1.08em;
+  padding: 8px 12px 8px 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #3ec6ff22;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  transition: background 0.15s;
+}
+
+#slotSuggestions > div > div:last-child {
+  border-bottom: none;
+}
+
+#slotSuggestions > div > div:hover {
+  background: #2a3a5a;
+}
+
+#slotSuggestions img {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 1.5px solid #3ec6ff;
+  background: #181f36;
+  box-shadow: 0 1px 4px #3ec6ff33;
+}
+.slot-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.slot-row input[type="text"],
+.slot-row input[type="number"] {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
+}
+.add-slot-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 4px;
+}
+.add-slot-actions .pill-btn {
+  flex: 1 1 0;
+  min-width: 0;
+}
+  </style>
 </head>
 <body>
-    <div class="top-bar"></div>
-    <div id="age-gate-overlay" style="
-    position:fixed;
-    z-index:9999;
-    top:0;left:0;width:100vw;height:100vh;
-    background:rgba(40,48,60,0.98);
-    backdrop-filter:blur(6px);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-">
-    <div style="
-        background:linear-gradient(120deg,#232a34 80%,#6cb6f5 100%);
-        border:2px solid #6cb6f5;
-        border-radius:32px;
-        padding:40px 24px 32px 24px;
-        box-shadow:0 4px 48px #6cb6f588, 0 2px 12px #000a;
-        max-width:94vw;
-        min-width:260px;
-        text-align:center;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-    ">
-        <h2 style="
-            color:#6ec1e4;
-            margin-bottom:18px;
-            font-size:2em;
-            letter-spacing:1px;
-            text-shadow:0 2px 16px #6ec1e488,0 0 2px #eaf6fb;
-        ">Are you 18 or older?</h2>
-        <p style="
-            color:#eaf6fb;
-            margin-bottom:28px;
-            font-size:1.1em;
-            text-shadow:0 2px 8px #000a;
-        ">
-            You must be at least 18 years old to access this website.<br>Please confirm your age.
-        </p>
-        <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:340px;">
-            <button id="age-yes" style="
-                background:linear-gradient(90deg,#6cb6f5 60%,#232a34 100%);
-                color:#232a34;
-                font-weight:bold;
-                font-size:1.2em;
-                padding:14px 0;
-                border:none;
-                border-radius:12px;
-                cursor:pointer;
-                box-shadow:0 2px 8px #6cb6f544;
-                margin-bottom:0;
-                width:100%;
-                transition:background 0.2s,color 0.2s,box-shadow 0.2s;
-            ">Yes, I am 18 or older</button>
-            <button id="age-no" style="
-                background:#232a34;
-                color:#6cb6f5;
-                font-weight:bold;
-                font-size:1.2em;
-                padding:14px 0;
-                border:2px solid #6cb6f5;
-                border-radius:12px;
-                cursor:pointer;
-                box-shadow:0 2px 8px #6cb6f522;
-                width:100%;
-                transition:background 0.2s,color 0.2s,box-shadow 0.2s;
-            ">No</button>
-        </div>
-    </div>
+<div class="top-buttons">
+  <button id="homeBtn">🏠 Home</button>
+  <button id="obsModeBtn">OBS Mode</button>
 </div>
-    <header class="site-header">
-        <div class="nav-left">
-            <button id="sidebar-toggle" class="icon-btn" aria-label="Open menu">&#9776;</button>
-            <div class="logo">
-                <img src="https://i.imgur.com/8E3ucNx.png" alt="Logo" />
-                osecaadegas
-            </div>
-        </div>
-        <div class="nav-center">
-            <a href="https://osecaadegas.github.io/95/" class="nav-link"><i>🏠</i> Home</a>
-            <a href="https://osecaadegas.github.io/publictracker/" class="nav-link"><i>🏆</i> Bonus Hunt Tracker</a>
-        </div>
-        <div class="nav-right">
-            <div class="lang-switcher">
-                <span class="lang-label" id="lang-en">
-                    <img src="https://flagcdn.com/gb.svg" alt="English" style="height: 1em; vertical-align: middle;">
-                </span>
-                <label class="switch">
-                    <input type="checkbox" id="lang-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="lang-label" id="lang-pt">
-                    <img src="https://flagcdn.com/pt.svg" alt="Português" style="height: 1em; vertical-align: middle;">
-                </span>
-            </div>
-            <!-- Twitch Login Button START -->
-            <div id="twitch-login-area" style="display:flex;align-items:center;gap:10px;">
-              <button id="twitch-login-btn" style="background:#9147ff;color:#fff;font-weight:bold;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;box-shadow:0 2px 8px #9147ff88;">Login with Twitch</button>
-              <div id="twitch-user-info" style="display:none;align-items:center;gap:8px;">
-                <img id="twitch-user-avatar" src="" alt="Avatar" style="width:28px;height:28px;border-radius:50%;">
-                <span id="twitch-user-name" style="color:#fff;font-weight:bold;"></span>
-                <button id="twitch-logout-btn" style="background:#232a34;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;">Logout</button>
-              </div>
-              <span id="my-points" style="color:#ffd700;font-weight:bold;margin-left:16px;">Points: 0</span>
-            </div>
-        </div>
-    </header>
-    <div class="site-container">
-        <aside class="sidebar">
-            <button id="sidebar-close" class="sidebar-close" aria-label="Close menu">&times;</button>
-            <nav class="main-nav">
-                <iframe
-                    style="display:block; border-radius:0; width:100%; min-width:400; margin-left:0;"
-                    src="https://open.spotify.com/embed/playlist/0idYlreucV6xzIYUw7lEja?utm_source=generatortheme=0"
-                    height="400" frameborder="0" allowfullscreen=""
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy">
-                </iframe>
-                <ul>
-                    <li><a href="https://streamelements.com/osecaadegas95/store"><i>🛒</i> Twitch Store</a></li>
-                    <li><a href="https://discord.gg/X5dy6Fdwzk"><i>💻</i> Discord</a></li>
-                    <li><a href="https://www.twitch.tv/osecaadegas95"><i>🔴</i> Stream</a></li>
-                    <li><a href="https://www.youtube.com/@osecaadegas95"><i>▶</i> Youtube</a></li>
-                    <li><a href="https://www.tiktok.com/@osecaadegas95"><i>🎵</i> TikTok</a></li>
-                    <li><a href="https://t.me/osecadegas/1"><i>📱</i> Telegram</a></li>
-                    <li><a href="https://www.instagram.com/osecaadegas/"><i>📸</i> Instagram</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <main class="main-content">
-            <section class="offers-section">
-    <div class="offers-header" style="display: flex; align-items: center; justify-content: center; gap: 32px;">
-        <div class="stream-preview" style="flex-shrink:0;">
-            <iframe
-                src="https://player.twitch.tv/?channel=osecaadegas95&parent=osecaadegas.github.io"
-                frameborder="0"
-                allowfullscreen="true"
-                scrolling="no"
-                width="480"
-                height="256"
-                style="border-radius:12px; box-shadow:0 2px 16px #6cb6f533; border:2px solid #6cb6f544; background:#232a34;">
-            </iframe>
-        </div>
-        <div>
-            <p data-i18n="everything_here">Everything you need is here</p>
-            <h1 data-i18n="offers">OFFERS</h1>
-            <p data-i18n="register_cashback">Register and use the codes to get 15% cashback from me</p>
-        </div>
+  <div class="container">
+    <h1>Bonus Hunt Tracker</h1>
+    <div>
+      <label>Starting Money: <input type="number" id="startingMoney" /></label>
+      <label>Finishing Money: <input type="number" id="finishingMoney" /></label>
     </div>
-    <!-- Remove the old media-row stream preview below this line -->
-    <!-- ...existing code... -->
-    <!-- <div class="media-row"> ... </div> -->
-                <div class="offers-grid">
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/NidDJ8q.png" alt="Empire Drop Logo" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/zyaMuMh.png" alt="Empire Drop Offer" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-percentage" data-i18n="empire_percent">+100%</p>
-                                <p class="offer-condition" data-i18n="empire_condition">on the first deposit</p>
-                                <div class="offer-icons">
-                                    <span>🎲</span>
-                                    <span>💰</span>
-                                    <span>⚡</span>
-                                    <span>🎁</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="#" class="claim-button" id="empire-claim-btn">CLAIM OFFER</a>
-                        </div>
-                    </div>
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/5AcTAPU.jpeg" alt="Infinity Casino" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/5AcTAPU.jpeg" alt="Infinity Casino" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-percentage" data-i18n="infinity_percent">+100% +200 Free Spins</p>
-                                <p class="offer-condition" data-i18n="infinity_condition">+15% cashback for losses over 100€ monthly</p>
-                                <div class="offer-icons">
-                                    <span>🎰</span>
-                                    <span>✨</span>
-                                    <span>💸</span>
-                                    <span>🎉</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="https://casinoinfinity.link/h909d769e" class="claim-button">CLAIM OFFER</a>
-                        </div>
-                    </div>
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/kCD163n.png" alt="Buran casino" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/ghTzhyX.jpeg" alt="Buran casino" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-percentage" data-i18n="buran_percent">1st deposit cashback up to 20€</p>
-                                <p class="offer-condition" data-i18n="buran_condition">+15% cashback for losses over 100€ monthly</p>
-                                <div class="offer-icons">
-                                    <span>🎰</span>
-                                    <span>✨</span>
-                                    <span>💸</span>
-                                    <span>🎉</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="https://brn.fynkelto.com/?mid=213417_1551916" class="claim-button">CLAIM OFFER</a>
-                        </div>
-                    </div>
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/FNfNFhh.png" alt="Arena" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/6yzyiIL.png" alt="ABI" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-freespins" data-i18n="arena_code">Code: secaadegas</p>
-                                <p class="offer-condition" data-i18n="arena_condition">use my code for in-game rewards</p>
-                                <div class="offer-icons">
-                                    <span>💻</span>
-                                    <span>💽</span>
-                                    <span>💸</span>
-                                    <span>🎁</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="https://arenabreakout.com/#/" class="claim-button green arena-desktop-btn">Download the Game</a>
-                            <a href="https://www.arenabreakoutinfinite.com/creatorcode/index.html?lang=pt-BR" class="claim-button orange">Creator code input</a>
-                            <a href="#" class="claim-button" id="arena-mobile-btn" style="display:none;">Download Mobile</a>
-                        </div>
-                    </div>
-                    <!-- Daily Scratch Card as an offer-card -->
-                    <div class="offer-card scratch-offer-card">
-    <div class="offer-card-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 18px;">
-        <img src="https://i.imgur.com/8E3ucNx.png" alt="osecaadegas95 Logo" class="provider-logo" style="background:#fff; border-radius:8px;">
-        <h2 style="color:#6ec1e4; margin-bottom:0;" data-i18n="scratch_title">Daily Scratch Card</h2>
-    </div>
-    <div class="offer-card-body" style="position:relative;">
-        <!-- Offer image below the header, full width -->
-        <div class="scratch-image-container" style="position:relative; width:300px; height:300px; margin:0 auto;">
-            <img src="https://i.imgur.com/X3Q1LEQ.png" alt="osecaadegas95 Scratch" class="offer-image scratch-image" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;">
-            <!-- Canvas will be injected here -->
-            <img src="https://i.imgur.com/Nw7fGoH.jpeg" alt="Win" class="scratch-result-image scratch-win-image" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;">
-            <img src="https://i.imgur.com/WZx86in.png" alt="Lose" class="scratch-result-image scratch-lose-image" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;">
+    <div class="stats-and-display">
+      <div id="stats"></div>
+      <div class="slot-management-panel">
+        <h3>Add Slot</h3>
+        <div class="add-slot-grid">
+          <div class="slot-row">
+            <input type="text" id="slotName" placeholder="Slot Name" autocomplete="off" />
+            <input type="number" id="slotBet" placeholder="Bet Amount" />
+          </div>
+          <div id="slotSuggestions" style="position:relative;"></div>
+          <div class="add-slot-actions">
+          <button type="button" id="toggleImageUrlBtn" class="pill-btn">ADD URL</button>
+          <button class="pill-btn" onclick="addSlot()">Add Slot</button>
         </div>
-        <div class="scratch-message" style="margin-top:10px;color:#6ec1e4;font-weight:bold;font-size:1em;"></div>
-    </div>
-    <div class="offer-card-footer" style="flex-direction: column; align-items: center;">
-        <span class="scratch-try-footer" data-i18n="scratch_try" style="color:#a3b9d7; font-size:0.95em;">Try your luck every day!</span>
-    </div>
-</div>
-                </div>
-            </section>
-        </main>
-    </div>
-    <footer class="site-footer">
-        <div class="footer-bar">
-            <div class="footer-links">
-                <a href="https://osecaadegas.github.io/terms-and-condictions/" class="footer-link">Terms &amp; Conditions</a>
-                <a href="https://www.begambleaware.org/" class="footer-link">Responsible Gaming</a>
-                <a href="#contact" class="footer-link">Contact</a>
-            </div>
-            <div class="footer-legal">
-                <p>
-                    This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
-                    All offers are subject to terms and conditions of the respective casino.
-                    If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.
-                </p>
-                <p>
-                    &copy; 2025 osecaadegas95. All rights reserved.
-                </p>
-            </div>
+        <input type="url" id="slotImage" placeholder="Image URL" style="display:none;" />
+        <label style="margin:0;display:flex;align-items:center;justify-content:center;">
+          <input type="checkbox" id="slotSuperBonus" style="margin-right:6px;" /> Super Bonus
+        </label>
         </div>
-    </footer>
-    <!-- Twitch Login Button -->
-<div id="twitch-login-area" style="display:flex;align-items:center;gap:10px;">
-  <button id="twitch-login-btn" style="background:#9147ff;color:#fff;font-weight:bold;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;box-shadow:0 2px 8px #9147ff88;">Login with Twitch</button>
-  <div id="twitch-user-info" style="display:none;align-items:center;gap:8px;">
-    <img id="twitch-user-avatar" src="" alt="Avatar" style="width:28px;height:28px;border-radius:50%;">
-    <span id="twitch-user-name" style="color:#fff;font-weight:bold;"></span>
-    <button id="twitch-logout-btn" style="background:#232a34;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;">Logout</button>
+        <!-- Sidebar Color Settings Card -->
+        <div class="sidebar-color-settings sidebar-section" style="padding:0;">
+          <button id="sidebarSettingsToggle" class="sidebar-settings-pill" style="margin:14px 0 0 14px;">🎨 Sidebar Settings</button>
+          <div id="sidebarSettingsContent" style="display:none;padding:14px 16px;">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;">
+              <label>BG <input type="color" id="sidebarBgColor" /></label>
+              <label>Border <input type="color" id="sidebarBorderColor" /></label>
+              <label>Card <input type="color" id="sidebarCardColor" /></label>
+              <label>Label <input type="color" id="sidebarLabelColor" /></label>
+              <label>Pill <input type="color" id="sidebarPillColor" /></label>
+            </div>
+            <label style="width:100%;">
+              Banner Image URL
+              <input type="url" id="sidebarBannerUrl" placeholder="https://..." style="width:100%;margin-top:4px;" />
+            </label>
+            <label style="width:100%;">
+              Blue Bar Title
+              <input type="text" id="sidebarBlueBarTitle" placeholder="Enter blue bar title..." style="width:100%;margin-top:4px;" />
+            </label>
+            <label style="width:100%;">
+              Blue Bar Title Text Color
+              <input type="color" id="sidebarBlueBarTitleColor" style="width:100%;margin-top:4px;" />
+            </label>
+            <button id="resetSidebarColors">Reset Colors</button>
+          </div>
+        </div>
+        <div class="slideshow">
+          <img id="slotPreview" src="" alt="Slot Preview" />
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot Name</th>
+              <th>Bet</th>
+              <th>Payout</th>
+              <th>Super Bonus</th>
+              <th>Image Preview</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody id="slotTable"></tbody>
+        </table>
+      </div>
+      <div class="slot-display" id="slotDisplay"></div>
+    </div>
+  </div>
+ <div id="sidebar" class="sidebar">
+  <div class="sidebar-section header" style="display: flex; align-items: center; gap: 12px;">
+    <span id="sidebarBlueBarTitleDisplay" style="flex:1;text-align:center;font-size:1.1em;"></span>
+    <div id="huntTitleEditable" class="sidebar-title" contenteditable="true" spellcheck="false" style="outline:none;">
+      Bonus Hunt/Opening <span id="huntNumber">#1</span>
+    </div>
+  </div>
+  <div class="sidebar-section target">
+    <div class="sidebar-label">🎯 Target</div>
+    <div class="sidebar-value" id="sidebarTarget">0€</div>
+  </div>
+    <div class="sidebar-section avg-be">
+      <div class="sidebar-row">
+        <div class="sidebar-box">
+          <div class="sidebar-label">Avg</div>
+          <div class="sidebar-value" id="sidebarAvg">0x</div>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-label">BE</div>
+          <div class="sidebar-value" id="sidebarBE">0x</div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-section profit">
+      <div class="sidebar-label">💰 Profit</div>
+      <div class="sidebar-value" id="sidebarProfit">0€</div>
+      <div class="sidebar-progress">
+        <div class="sidebar-progress-bar" id="sidebarProgressBar"></div>
+        <div class="sidebar-progress-text" id="sidebarProgressText"></div>
+      </div>
+    </div>
+    <div class="sidebar-section best-worst">
+      <div class="sidebar-label">🏆 Best & Worst Slot</div>
+      <div id="sidebarBestSlot"></div>
+      <div id="sidebarWorstSlot"></div>
+    </div>
+    <div class="sidebar-section bonus-list">
+      <div class="sidebar-label">🎰 Bonus List</div>
+      <div class="sidebar-bonus-carousel-frame">
+        <div id="sidebarBonusList" class="sidebar-bonus-carousel-track"></div>
+      </div>
+    </div>
+  <div class="sidebar-section discord">
+    <div id="sidebarBannerImageContainer" style="width:100%;text-align:center;margin-bottom:10px;display:none;">
+      <img id="sidebarBannerImage" src="" alt="Banner" style="max-width:100%;max-height:200px;border-radius:8px;box-shadow:0 2px 8px #3ec6ff33;">
+    </div>
+    <div id="discordOffersEditable" contenteditable="true" spellcheck="false" style="min-height:48px;outline:none;">
+      <span class="sidebar-label">🎁 Discord Offers</span>
+      <div class="sidebar-discord-text">
+        Junta-te ao nosso Discord para estares a par das nossas ofertas exclusivas!
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; color:#3ec6ff; font-size:0.98em; margin:18px 0 8px 0; opacity:0.85;">
+    &copy; <a href="https://twitch.tv/osecaadegas95" target="_blank" style="color:#3ec6ff;text-decoration:none;">twitch.tv/osecaadegas95</a>. For public use, just want the credit for it.
   </div>
 </div>
-    <script>
-    // --- ALL JS LOGIC IN ONE DOMContentLoaded ---
-    document.addEventListener('DOMContentLoaded', function() {
-        // Sidebar logic
-        document.getElementById('sidebar-toggle').addEventListener('click', function(e) {
-            e.stopPropagation();
-            document.querySelector('.sidebar').classList.add('active');
-            document.body.classList.add('sidebar-open');
-            document.getElementById('sidebar-toggle').style.display = 'none';
-        });
-        document.getElementById('sidebar-close').addEventListener('click', function(e) {
-            e.stopPropagation();
-            document.querySelector('.sidebar').classList.remove('active');
-            document.body.classList.remove('sidebar-open');
-            document.getElementById('sidebar-toggle').style.display = 'block';
-        });
-        document.addEventListener('click', function(e) {
-            const sidebar = document.querySelector('.sidebar');
-            const toggle = document.getElementById('sidebar-toggle');
-            const closeBtn = document.getElementById('sidebar-close');
-            if (
-                sidebar.classList.contains('active') &&
-                !sidebar.contains(e.target) &&
-                e.target !== toggle &&
-                e.target !== closeBtn
-            ) {
-                sidebar.classList.remove('active');
-                document.body.classList.remove('sidebar-open');
-                toggle.style.display = 'block';
-            }
-        });
-
-        // Arena Breakout mobile button logic
-        function showArenaMobileBtn() {
-            var btn = document.getElementById('arena-mobile-btn');
-            if (!btn) return;
-            if (window.innerWidth <= 900) {
-                btn.style.display = 'inline-block';
-            } else {
-                btn.style.display = 'none';
-            }
-        }
-        window.addEventListener('resize', showArenaMobileBtn);
-        showArenaMobileBtn();
-        var btn = document.getElementById('arena-mobile-btn');
-        if (btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-                if (/android/i.test(userAgent)) {
-                    window.location.href = "https://arenabreakout.com/download?platform=android";
-                } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                    window.location.href = "https://arenabreakout.com/download?platform=ios";
-                } else {
-                    window.location.href = "https://arenabreakout.com/download";
-                }
-            });
-        }
-
-        // Age gate logic
-        function hideAgeGate() {
-            document.getElementById('age-gate-overlay').style.display = 'none';
-            sessionStorage.setItem('ageVerified', '1');
-        }
-        function showAgeGate() {
-            document.getElementById('age-gate-overlay').style.display = 'flex';
-        }
-        if (sessionStorage.getItem('ageVerified') === '1') {
-            hideAgeGate();
-        } else {
-            showAgeGate();
-        }
-        document.getElementById('age-yes').onclick = hideAgeGate;
-        document.getElementById('age-no').onclick = function() {
-            window.location.href = "https://www.google.com/search?q=responsible+gaming";
-        };
-
-        // Empire Drop button
-        var empireBtn = document.getElementById('empire-claim-btn');
-        if (empireBtn) {
-            empireBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open('https://empiredrop.com?r=seca', '_blank');
-            });
-        }
-
-        // --- SCRATCH CARD LOGIC WITH TRANSLATION ---
-        const SCRATCH_KEY = "scratchCardLastPlay";
-        let SCRATCH_LANG = document.documentElement.lang || "en";
-
-        function canScratchToday() {
-            const last = localStorage.getItem(SCRATCH_KEY);
-            if (!last) return true;
-            const lastDate = new Date(parseInt(last, 10));
-            const now = new Date();
-            return (
-                lastDate.getFullYear() !== now.getFullYear() ||
-                lastDate.getMonth() !== now.getMonth() ||
-                lastDate.getDate() !== now.getDate()
-            );
-        }
-        function getScratchWaitTime() {
-            const last = localStorage.getItem(SCRATCH_KEY);
-            if (!last) return "";
-            const lastDate = new Date(parseInt(last, 10));
-            const nextPlay = new Date(lastDate);
-            nextPlay.setHours(24, 0, 0, 0);
-            const now = new Date();
-            let diff = nextPlay - now;
-            if (diff < 0) diff = 0;
-            const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
-            const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
-            const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
-            return `${hours}:${minutes}:${seconds}`;
-        }
-        function setScratchPlayed() {
-            localStorage.setItem(SCRATCH_KEY, Date.now().toString());
-        }
-        function showScratchResult(win, cardSection) {
-            const lang = SCRATCH_LANG;
-            const message = cardSection.querySelector('.scratch-message');
-            const winImg = cardSection.querySelector('.scratch-win-image');
-            const loseImg = cardSection.querySelector('.scratch-lose-image');
-            if (win) {
-                winImg.style.display = 'block';
-                loseImg.style.display = 'none';
-                message.innerText = translations[lang].scratch_congrats;
-            } else {
-                winImg.style.display = 'none';
-                loseImg.style.display = 'block';
-                message.innerText = translations[lang].scratch_noluck;
-            }
-            if (!win) updateScratchWait(cardSection);
-        }
-        function updateScratchWait(cardSection) {
-            const waitElem = cardSection.querySelector('.scratch-wait');
-            if (!waitElem) return;
-            if (canScratchToday()) {
-                waitElem.innerText = "";
-                return;
-            }
-            function tick() {
-                const time = getScratchWaitTime();
-                if (time === "00:00:00") {
-                    waitElem.innerText = "";
-                    return;
-                }
-                waitElem.innerText = SCRATCH_LANG === "pt"
-                    ? `Podes jogar novamente em: ${time}`
-                    : `You can play again in: ${time}`;
-                setTimeout(tick, 1000);
-            }
-            tick();
-        }
-
-        // SCRATCH CARD INIT
-        document.querySelectorAll('.offer-card').forEach(cardSection => {
-            const scratchContainer = cardSection.querySelector('.scratch-image-container');
-            const scratchImage = cardSection.querySelector('.scratch-image');
-            const message = cardSection.querySelector('.scratch-message');
-            let waitElem = cardSection.querySelector('.scratch-wait');
-            if (!scratchContainer || !scratchImage || !message) return;
-            if (!waitElem) {
-                waitElem = document.createElement('div');
-                waitElem.className = "scratch-wait";
-                waitElem.style.cssText = "margin-top:6px;color:#ffd700;font-size:0.98em;font-weight:bold;";
-                message.after(waitElem);
-            }
-            message.innerText = translations[SCRATCH_LANG].scratch_try;
-            cardSection.querySelector('h2').innerText = translations[SCRATCH_LANG].scratch_title;
-            // Only allow scratch if not played today
-            if (!canScratchToday()) {
-                scratchImage.style.opacity = 0.3;
-                scratchContainer.style.pointerEvents = 'none';
-                message.innerText = translations[SCRATCH_LANG].scratch_already || "";
-                updateScratchWait(cardSection);
-            } else {
-                waitElem.innerText = "";
-                scratchImage.style.opacity = 1;
-                scratchContainer.style.pointerEvents = 'auto';
-                // Remove any previous result images
-                cardSection.querySelector('.scratch-win-image').style.display = 'none';
-                cardSection.querySelector('.scratch-lose-image').style.display = 'none';
-
-                // SCRATCH CANVAS LOGIC
-                let isDrawing = false;
-                let lastPoint = null;
-                let canvas = scratchContainer.querySelector('.scratch-canvas');
-                if (canvas) canvas.remove();
-                canvas = document.createElement('canvas');
-                canvas.className = 'scratch-canvas';
-                canvas.width = scratchImage.offsetWidth;
-                canvas.height = scratchImage.offsetHeight;
-                canvas.style.position = 'absolute';
-                canvas.style.top = '0';
-                canvas.style.left = '0';
-                canvas.style.width = '100%';
-                canvas.style.height = '100%';
-                canvas.style.zIndex = '10';
-                canvas.style.pointerEvents = 'auto';
-                scratchContainer.appendChild(canvas);
-
-                const ctx = canvas.getContext('2d');
-                // Draw a silver/gray overlay to scratch off
-                ctx.fillStyle = '#b0b0b0';
-                ctx.globalAlpha = 0.95;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                // Optional: Add "SCRATCH ME" text
-                ctx.globalAlpha = 1;
-                ctx.font = "bold 2em Arial";
-                ctx.fillStyle = "#444";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText("SCRATCH ME", canvas.width / 2, canvas.height / 2);
-
-                function getPointerPos(e) {
-                    let rect = canvas.getBoundingClientRect();
-                    let x, y;
-                    if (e.touches) {
-                        x = e.touches[0].clientX - rect.left;
-                        y = e.touches[0].clientY - rect.top;
-                    } else {
-                        x = e.clientX - rect.left;
-                        y = e.clientY - rect.top;
-                    }
-                    return { x, y };
-                }
-
-                function eraseAt(x, y) {
-                    ctx.save();
-                    ctx.globalCompositeOperation = 'destination-out';
-                    ctx.beginPath();
-                    ctx.arc(x, y, 24, 0, 2 * Math.PI);
-                    ctx.fill();
-                    ctx.restore();
-                }
-
-                function checkErased() {
-                    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    let pixels = imageData.data;
-                    let transparent = 0;
-                    for (let i = 3; i < pixels.length; i += 4) {
-                        if (pixels[i] < 32) transparent++;
-                    }
-                    let percent = transparent / (canvas.width * canvas.height) * 100;
-                    return percent;
-                }
-
-                function finishScratch() {
-                    setScratchPlayed();
-                    scratchContainer.style.pointerEvents = 'none';
-                    scratchImage.style.opacity = 0;
-                    canvas.remove();
-                    const win = Math.floor(Math.random() * 100) === 0;
-                    showScratchResult(win, cardSection);
-                }
-
-                function pointerDown(e) {
-                    isDrawing = true;
-                    lastPoint = getPointerPos(e);
-                    eraseAt(lastPoint.x, lastPoint.y);
-                    e.preventDefault();
-                }
-                function pointerMove(e) {
-                    if (!isDrawing) return;
-                    let point = getPointerPos(e);
-                    eraseAt(point.x, point.y);
-                    lastPoint = point;
-                    if (checkErased() > 65) { // Require 65% to be scratched
-                        isDrawing = false;
-                        finishScratch();
-                    }
-                    e.preventDefault();
-                }
-                function pointerUp(e) {
-                    isDrawing = false;
-                    e.preventDefault();
-                }
-
-                canvas.addEventListener('mousedown', pointerDown);
-                canvas.addEventListener('mousemove', pointerMove);
-                canvas.addEventListener('mouseup', pointerUp);
-                canvas.addEventListener('mouseleave', pointerUp);
-                canvas.addEventListener('touchstart', pointerDown, { passive: false });
-                canvas.addEventListener('touchmove', pointerMove, { passive: false });
-                canvas.addEventListener('touchend', pointerUp, { passive: false });
-            }
-        });
-        // --- LANGUAGE SWITCHER ---
-        const langToggle = document.getElementById('lang-toggle');
-        function setLanguage(lang) {
-            document.documentElement.lang = lang;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-            document.getElementById('age-yes').innerText = translations[lang].yes_18;
-            document.getElementById('age-no').innerText = translations[lang].no;
-            document.querySelector('.footer-link[href*="terms"]').innerText = translations[lang].terms;
-            document.querySelector('.footer-link[href*="begambleaware"]').innerText = translations[lang].responsible;
-            document.querySelector('.footer-link[href="#contact"]').innerText = translations[lang].contact;
-            document.querySelector('.footer-legal p').innerHTML = translations[lang].legal1;
-            document.querySelector('.footer-legal p + p').innerHTML = translations[lang].copyright;
-            document.querySelectorAll('.claim-button').forEach(btn => {
-                if (btn.classList.contains('green')) btn.innerText = translations[lang].download_game;
-                else if (btn.classList.contains('orange')) btn.innerText = translations[lang].creator_code;
-                else if (btn.id === 'arena-mobile-btn') btn.innerText = translations[lang].download_mobile;
-                else btn.innerText = translations[lang].claim_offer;
-            });
-            document.getElementById('lang-pt').style.opacity = lang === 'pt' ? '1' : '0.5';
-            document.getElementById('lang-en').style.opacity = lang === 'en' ? '1' : '0.5';
-            // Scratch card translation
-            var scratchTitle = document.querySelector('.offer-card .scratch-card')?.parentElement.querySelector('h2');
-            if (scratchTitle) scratchTitle.innerText = translations[lang].scratch_title;
-            var scratchCover = document.querySelector('.scratch-cover');
-            if (scratchCover) scratchCover.innerText = translations[lang].scratch_me;
-            var scratchTry = document.querySelector('.scratch-message');
-            if (scratchTry) scratchTry.innerText = translations[lang].scratch_try;
-            if (!canScratchToday()) {
-                if (scratchCover) scratchCover.innerText = translations[lang].scratch_come_back;
-                if (scratchTry) scratchTry.innerText = translations[lang].scratch_already || "";
-            }
-            document.querySelectorAll('.scratch-try-footer').forEach(el => {
-                el.innerText = translations[lang].scratch_try;
-            });
-        }
-        langToggle.addEventListener('change', function() {
-            SCRATCH_LANG = langToggle.checked ? "pt" : "en";
-            setLanguage(SCRATCH_LANG);
-            document.querySelectorAll('.offer-card').forEach(updateScratchWait);
-        });
-        setLanguage(SCRATCH_LANG);
-    });
-
-    // --- TRANSLATIONS ---
-    const translations = {
-        en: {
-            everything_here: "Everything you need is here",
-            offers: "OFFERS",
-            register_cashback: "Register and use the codes to get 15% cashback from me",
-            empire_percent: "+100%",
-            empire_condition: "on the first deposit",
-            infinity_percent: "+100% +200 Free Spins",
-            infinity_condition: "+15% cashback for losses over 100€ monthly",
-            buran_percent: "1st deposit cashback up to 20€",
-            buran_condition: "+15% cashback for losses over 100€ monthly",
-            arena_code: "Code: secaadegas",
-            arena_condition: "use my code for in-game rewards",
-            claim_offer: "CLAIM OFFER",
-            download_game: "Download the Game",
-            creator_code: "Creator code input",
-            download_mobile: "Download Mobile",
-            yes_18: "Yes, I am 18 or older",
-            no: "No",
-            terms: "Terms & Conditions",
-            responsible: "Responsible Gaming",
-            contact: "Contact",
-            legal1: `This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
-                All offers are subject to terms and conditions of the respective casino.
-                If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.`,
-            copyright: "&copy; 2025 osecaadegas95. All rights reserved.",
-            scratch_title: "Daily Scratch Card",
-            scratch_me: "SCRATCH ME",
-            scratch_win: "🎉 YOU WIN! 10 Euros in one of our Casinos 🎉",
-            scratch_lose: "🙁 Try again tomorrow!",
-            scratch_congrats: "Congratulations! Come back tomorrow for another chance.",
-            scratch_noluck: "No luck today. Try again tomorrow!",
-            scratch_already: "",
-            scratch_come_back: "Come back tomorrow!",
-            scratch_try: "Try your luck every day!"
-        },
-        pt: {
-            everything_here: "Tudo o que precisas está aqui",
-            offers: "OFERTAS",
-            register_cashback: "Regista-te e usa os códigos para receber 15% cashback de mim",
-            empire_percent: "+100%",
-            empire_condition: "no primeiro depósito",
-            infinity_percent: "+100% +200 Free Spins",
-            infinity_condition: "+15% cashback por perdas acima de 100€ por mês",
-            buran_percent: "Cashback no 1º depósito até 20€",
-            buran_condition: "+15% cashback por perdas acima de 100€ por mês",
-            arena_code: "Código: secaadegas",
-            arena_condition: "usa o meu código para recompensas no jogo",
-            claim_offer: "RECEBER OFERTA",
-            download_game: "Descarregar o Jogo",
-            creator_code: "Inserir código de criador",
-            download_mobile: "Descarregar Mobile",
-            yes_18: "Sim, tenho 18 ou mais anos",
-            no: "Não",
-            terms: "Termos & Condições",
-            responsible: "Jogo Responsável",
-            contact: "Contacto",
-            legal1: `Este site é um afiliado e não é um operador de jogos. Ofertas apenas para maiores de 18 anos. Jogue com responsabilidade.
-                Todas as ofertas estão sujeitas aos termos e condições do respetivo casino.
-                Se tem problemas com o jogo, visite <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> ou o serviço de apoio local.`,
-            copyright: "&copy; 2025 osecaadegas95. Todos os direitos reservados.",
-            scratch_title: "Raspadinha Diária",
-            scratch_me: "RASPA-ME",
-            scratch_win: "🎉 GANHASTE! 10 Euros num casino de parceria! 🎉",
-            scratch_lose: "🙁 Tenta novamente amanhã!",
-            scratch_congrats: "Parabéns! Volta amanhã para outra oportunidade.",
-            scratch_noluck: "Sem sorte hoje. Tenta novamente amanhã!",
-            scratch_already: "",
-            scratch_come_back: "Volta amanhã!",
-            scratch_try: "Tenta a tua sorte todos os dias!"
-        }
+</div>
+  <div id="slotSuggestions" style="position:relative;"></div>
+  <script>
+    // Sidebar color customization
+    const defaultSidebarColors = {
+      bg: '#232e4d',
+      border: '#3ec6ff',
+      card: '#232e4d',
+      label: '#3ec6ff',
+      pill: '#181f36'
     };
 
-    // --- TWITCH LOGIN LOGIC ---
-const TWITCH_CLIENT_ID = 'yoxg6f2pd070krxq6xanbg1kwcfuf8'; // <-- Replace with your client ID
-const TWITCH_REDIRECT_URI = window.location.origin + window.location.pathname; // Must match your Twitch app settings
-const TWITCH_SCOPES = 'user:read:email';
-
-function getTwitchAuthUrl() {
-    const params = new URLSearchParams({
-        client_id: TWITCH_CLIENT_ID,
-        redirect_uri: TWITCH_REDIRECT_URI,
-        response_type: 'token',
-        scope: TWITCH_SCOPES,
-        force_verify: 'true'
-    });
-    return `https://id.twitch.tv/oauth2/authorize?${params.toString()}`;
-}
-
-// Handle login button
-document.getElementById('twitch-login-btn').onclick = function() {
-    window.location.href = getTwitchAuthUrl();
-};
-
-// Parse Twitch token from URL hash
-function parseTwitchToken() {
-    if (window.location.hash.startsWith('#access_token=')) {
-        const params = new URLSearchParams(window.location.hash.substring(1));
-        const token = params.get('access_token');
-        if (token) {
-            localStorage.setItem('twitch_token', token);
-            window.location.hash = '';
-            return token;
-        }
+    function setSidebarColors(colors) {
+      document.documentElement.style.setProperty('--sidebar-bg', `linear-gradient(135deg, ${colors.card} 80%, ${colors.bg} 100%)`);
+      document.documentElement.style.setProperty('--sidebar-border', colors.border);
+      document.documentElement.style.setProperty('--sidebar-card-bg', colors.card);
+      document.documentElement.style.setProperty('--sidebar-label-bg', colors.label);
+      document.documentElement.style.setProperty('--sidebar-label-color', '#fff');
+      document.documentElement.style.setProperty('--sidebar-pill-bg', colors.pill);
+      // Update gradients for pills
+      document.documentElement.style.setProperty('--sidebar-pill-bet', `linear-gradient(90deg, ${colors.label}cc 0%, #5ce1e6cc 100%)`);
+      document.documentElement.style.setProperty('--sidebar-pill-payout', `linear-gradient(90deg, #5ce1e6cc 0%, ${colors.label}cc 100%)`);
+      document.documentElement.style.setProperty('--sidebar-pill-xwin', `linear-gradient(90deg, ${colors.label}cc 0%, #5ce1e6cc 100%)`);
+      document.documentElement.style.setProperty('--sidebar-progress-bar', 'linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%)');
     }
-    return localStorage.getItem('twitch_token');
-}
 
-// Fetch Twitch user info
-async function fetchTwitchUser(token) {
-    const res = await fetch('https://api.twitch.tv/helix/users', {
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Client-Id': TWITCH_CLIENT_ID
-        }
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.data && data.data[0];
-}
-
-// Show/hide UI
-async function updateTwitchUI() {
-    const token = parseTwitchToken();
-    const loginBtn = document.getElementById('twitch-login-btn');
-    const userInfo = document.getElementById('twitch-user-info');
-    if (token) {
-        const user = await fetchTwitchUser(token);
-        if (user) {
-            loginBtn.style.display = 'none';
-            userInfo.style.display = 'flex';
-            document.getElementById('twitch-user-avatar').src = user.profile_image_url;
-            document.getElementById('twitch-user-name').innerText = user.display_name;
-            addPoints(10); // Give 10 points for login
-        } else {
-            localStorage.removeItem('twitch_token');
-            loginBtn.style.display = 'block';
-            userInfo.style.display = 'none';
-        }
-    } else {
-        loginBtn.style.display = 'block';
-        userInfo.style.display = 'none';
+    function loadSidebarColors() {
+      const saved = JSON.parse(localStorage.getItem('sidebarColors') || 'null');
+      const colors = saved || defaultSidebarColors;
+      setSidebarColors(colors);
+      document.getElementById('sidebarBgColor').value = colors.bg;
+      document.getElementById('sidebarBorderColor').value = colors.border;
+      document.getElementById('sidebarCardColor').value = colors.card;
+      document.getElementById('sidebarLabelColor').value = colors.label;
+      document.getElementById('sidebarPillColor').value = colors.pill;
     }
-}
 
-// Logout
-document.getElementById('twitch-logout-btn').onclick = function() {
-    localStorage.removeItem('twitch_token');
-    updateTwitchUI();
-};
+    function saveSidebarColors() {
+      const colors = {
+        bg: document.getElementById('sidebarBgColor').value,
+        border: document.getElementById('sidebarBorderColor').value,
+        card: document.getElementById('sidebarCardColor').value,
+        label: document.getElementById('sidebarLabelColor').value,
+        pill: document.getElementById('sidebarPillColor').value
+      };
+      localStorage.setItem('sidebarColors', JSON.stringify(colors));
+      setSidebarColors(colors);
+    }
 
-updateTwitchUI();
-
-// Simple Points System (localStorage-based)
-function getPoints() {
-    return parseInt(localStorage.getItem('my_points') || '0', 10);
-}
-function setPoints(val) {
-    localStorage.setItem('my_points', val);
-    document.getElementById('my-points').innerText = 'Points: ' + val;
-}
-function addPoints(val) {
-    setPoints(getPoints() + val);
-}
-
-// Initialize points display
-document.addEventListener('DOMContentLoaded', function() {
-    setPoints(getPoints());
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSidebarColors();
+      ['sidebarBgColor','sidebarBorderColor','sidebarCardColor','sidebarLabelColor','sidebarPillColor'].forEach(id => {
+        document.getElementById(id).addEventListener('input', saveSidebarColors);
+      });
+      document.getElementById('resetSidebarColors').addEventListener('click', () => {
+        localStorage.removeItem('sidebarColors');
+        loadSidebarColors();
+      });
+    });
+    // Make sure this JS is present after your DOM loads
+document.getElementById('toggleImageUrlBtn').addEventListener('click', function() {
+  const input = document.getElementById('slotImage');
+  if (input.style.display === 'none' || input.style.display === '') {
+    input.style.display = 'inline-block';
+    input.focus();
+  } else {
+    input.style.display = 'none';
+  }
 });
-    </script>
+    // --- Main App Logic ---
+    const slots = [];
+    let displayIndex = 0;
+    let carouselIndex = 0;
+    let carouselInterval = null;
+
+   function addSlot() {
+  const name = document.getElementById('slotName').value;
+  let image = document.getElementById('slotImage').value; // <-- use let here!
+  const bet = parseFloat(document.getElementById('slotBet').value) || 0;
+  const superBonus = document.getElementById('slotSuperBonus').checked;
+  const defaultLogo = "https://i.imgur.com/8E3ucNx.png";
+  if (!name || !bet) return;
+  if (!image) image = defaultLogo;
+  const slot = { name, image, payout: 0, bet, superBonus };
+  slots.push(slot);
+  updateTable();
+  updateSidebar();
+  document.getElementById('slotName').value = '';
+  document.getElementById('slotImage').value = '';
+  document.getElementById('slotBet').value = '';
+  document.getElementById('slotSuperBonus').checked = false;
+}
+
+    function removeSlot(index) {
+      slots.splice(index, 1);
+      updateTable();
+      updateSidebar();
+    }
+
+    function updateTable() {
+      const table = document.getElementById('slotTable');
+      table.innerHTML = '';
+      slots.forEach((slot, index) => {
+        const row = document.createElement('tr');
+
+        const nameCell = document.createElement('td');
+        nameCell.textContent = slot.name;
+        nameCell.onmouseover = () => {
+          document.getElementById('slotPreview').src = slot.image;
+        };
+
+        const betCell = document.createElement('td');
+        const betInput = document.createElement('input');
+        betInput.type = 'number';
+        betInput.value = slot.bet;
+        betInput.onchange = (e) => {
+          slots[index].bet = parseFloat(e.target.value) || 0;
+          updateStats();
+          updateSidebar();
+        };
+        betCell.appendChild(betInput);
+
+        const payoutCell = document.createElement('td');
+        const payoutInput = document.createElement('input');
+        payoutInput.type = 'number';
+        payoutInput.value = slot.payout;
+        payoutInput.onchange = (e) => {
+          slots[index].payout = parseFloat(e.target.value) || 0;
+          updateStats();
+          updateSidebar();
+        };
+        payoutCell.appendChild(payoutInput);
+
+        const superBonusCell = document.createElement('td');
+        const superBonusCheckbox = document.createElement('input');
+        superBonusCheckbox.type = 'checkbox';
+        superBonusCheckbox.checked = slot.superBonus;
+        superBonusCheckbox.onchange = (e) => {
+          slots[index].superBonus = e.target.checked;
+          updateStats();
+          updateSidebar();
+        };
+        superBonusCell.appendChild(superBonusCheckbox);
+
+        const imageCell = document.createElement('td');
+        const img = document.createElement('img');
+        img.src = slot.image;
+        imageCell.appendChild(img);
+
+        const removeCell = document.createElement('td');
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.onclick = () => removeSlot(index);
+        removeCell.appendChild(removeBtn);
+
+        row.appendChild(nameCell);
+        row.appendChild(betCell);
+        row.appendChild(payoutCell);
+        row.appendChild(superBonusCell);
+        row.appendChild(imageCell);
+        row.appendChild(removeCell);
+        table.appendChild(row);
+      });
+      updateStats();
+    }
+
+    function updateStats() {
+      const starting = parseFloat(document.getElementById('startingMoney').value) || 0;
+      const finishing = parseFloat(document.getElementById('finishingMoney').value) || 0;
+      const totalBonuses = slots.length;
+      const totalPayout = slots.reduce((sum, s) => sum + (s.payout || 0), 0);
+      const averageBet = totalBonuses > 0 ? (slots.reduce((sum, s) => sum + (s.bet * (s.superBonus ? 200 : 100)), 0) / totalBonuses) : 0;
+      const spent = starting - finishing;
+      const toBreakEven = Math.max(0, spent - totalPayout);
+      const xToBreakEven = averageBet > 0 ? (toBreakEven / averageBet).toFixed(2) : 'N/A';
+      const profitLoss = totalPayout - spent;
+
+      const statsDiv = document.getElementById('stats');
+      statsDiv.innerHTML = `
+        <p>Total Bonuses: ${totalBonuses}</p>
+        <p><strong>Average Bonus Price: €${averageBet.toFixed(2)}</strong></p>
+        <p>Total Return: €${totalPayout.toFixed(2)}</p>
+        <p>
+          <strong>Break Even:</strong>
+          <br>Amount Needed: <span style="color:#0ff">€${toBreakEven.toFixed(2)}</span>
+          <br>X Needed: <span style="color:#0ff">${xToBreakEven}x average bonus</span>
+        </p>
+        <p class="${profitLoss >= 0 ? 'profit' : 'loss'}">
+          ${profitLoss >= 0 ? 'Profit' : 'Loss'}: €${profitLoss.toFixed(2)} (${spent > 0 ? ((profitLoss / spent) * 100).toFixed(2) : 'N/A'}%)
+        </p>
+      `;
+    }
+
+    function startBonusCarousel() {
+      const track = document.getElementById('sidebarBonusList');
+      const cards = track.querySelectorAll('.sidebar-bonus-list-card');
+      if (cards.length <= 4) {
+        track.style.transform = 'translateY(0)';
+        if (carouselInterval) clearInterval(carouselInterval);
+        return;
+      }
+      const cardHeight = cards[0].offsetHeight + 8;
+      const visibleCount = 4;
+      const maxIndex = cards.length - visibleCount;
+
+      if (carouselInterval) clearInterval(carouselInterval);
+
+      carouselIndex = 0;
+      let direction = 1;
+      track.style.transition = 'transform 0.7s cubic-bezier(.77,0,.18,1)';
+      track.style.transform = `translateY(0)`;
+
+      function scrollStep() {
+        if (direction === 1) {
+          if (carouselIndex < maxIndex) {
+            carouselIndex++;
+          } else {
+            setTimeout(() => {
+              direction = -1;
+              carouselInterval = setInterval(scrollStep, 2500);
+            }, 1200);
+            clearInterval(carouselInterval);
+            return;
+          }
+        } else {
+          if (carouselIndex > 0) {
+            carouselIndex--;
+          } else {
+            setTimeout(() => {
+              direction = 1;
+              carouselInterval = setInterval(scrollStep, 2500);
+            }, 1200);
+            clearInterval(carouselInterval);
+            return;
+          }
+        }
+        track.style.transition = 'transform 0.7s cubic-bezier(.77,0,.18,1)';
+        track.style.transform = `translateY(-${carouselIndex * cardHeight}px)`;
+      }
+
+      carouselInterval = setInterval(scrollStep, 2500);
+    }
+
+    function renderBonusCarousel() {
+      const track = document.getElementById('sidebarBonusList');
+      let html = '';
+      slots.forEach((slot) => {
+        const xWin = slot.bet > 0 ? (slot.payout / slot.bet).toFixed(2) : "0.00";
+        html += `
+          <div class="sidebar-bonus-list-card${slot.superBonus ? ' super-bonus' : ''}">
+            <img class="sidebar-bonus-img-large" src="${slot.image}" alt="${slot.name}" />
+            <div class="sidebar-bonus-info-large">
+              <div class="sidebar-bonus-row">
+                <span class="sidebar-bonus-pill bet">Bet: €${slot.bet.toFixed(2)}</span>
+                <span class="sidebar-bonus-pill payout">Payout: €${slot.payout ? slot.payout.toFixed(2) : "0.00"}</span>
+                <span class="sidebar-bonus-pill xwin">X Win: ${xWin}x</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      track.innerHTML = html;
+      carouselIndex = 0;
+      startBonusCarousel();
+    }
+
+    function updateSidebar() {
+      const starting = parseFloat(document.getElementById('startingMoney').value) || 0;
+      const finishing = parseFloat(document.getElementById('finishingMoney').value) || 0;
+      const target = starting; // Target is starting money
+
+      const totalBonuses = slots.length;
+      const openedBonuses = slots.filter(s => s.payout > 0).length;
+      const totalBet = slots.reduce((sum, s) => sum + (s.bet || 0), 0);
+      const totalWin = slots.reduce((sum, s) => sum + (s.payout || 0), 0);
+
+      const breakEvenX = totalBet > 0 ? (target / totalBet) : 0;
+      const avgX = totalBet > 0 ? (totalWin / totalBet) : 0;
+
+      const bestWin = slots.reduce((max, s) => Math.max(max, s.payout || 0), 0);
+      const bestMulti = slots.reduce((max, s) => {
+        if (s.bet > 0) return Math.max(max, (s.payout || 0) / s.bet);
+        return max;
+      }, 0);
+
+      const progressPercent = totalBonuses > 0 ? (openedBonuses / totalBonuses) * 100 : 0;
+      const profitLoss = totalWin - target;
+
+      document.getElementById('sidebarTarget').textContent = target ? target.toFixed(2) + "€" : "0€";
+      document.getElementById('sidebarAvg').textContent = avgX.toFixed(2) + "x";
+      document.getElementById('sidebarBE').textContent = breakEvenX.toFixed(2) + "x";
+      document.getElementById('sidebarProfit').textContent = (profitLoss >= 0 ? "+" : "") + profitLoss.toFixed(2) + "€";
+      document.getElementById('sidebarProgressBar').style.width = progressPercent + "%";
+      document.getElementById('sidebarProgressText').textContent = `${openedBonuses}/${totalBonuses}`;
+
+      // Best & Worst
+      let bestSlot = null, worstSlot = null;
+      if (slots.some(s => s.payout && s.payout !== 0)) {
+        bestSlot = slots.reduce((max, s) => (s.payout > (max?.payout ?? -Infinity) ? s : max), null);
+        worstSlot = slots.reduce((min, s) => (s.payout < (min?.payout ?? Infinity) ? s : min), null);
+      }
+      document.getElementById('sidebarBestSlot').innerHTML = '';
+      document.getElementById('sidebarWorstSlot').innerHTML = '';
+      if (bestSlot || worstSlot) {
+        document.getElementById('sidebarBestSlot').innerHTML = `
+          <div class="sidebar-best-worst-row">
+            ${bestSlot ? `
+            <div class="sidebar-slot-card-large best">
+              <img class="sidebar-slot-img-large" src="${bestSlot.image}" alt="${bestSlot.name}" />
+              <div class="sidebar-slot-corner-label bet">Bet: €${bestSlot.bet.toFixed(2)}</div>
+              <div class="sidebar-slot-corner-label payout">€${bestSlot.payout.toFixed(2)}</div>
+              <div class="sidebar-slot-corner-label xwin">${bestSlot.bet > 0 ? (bestSlot.payout / bestSlot.bet).toFixed(2) + "x" : ""}</div>
+            </div>
+            ` : ''}
+            ${worstSlot ? `
+            <div class="sidebar-slot-card-large worst">
+              <img class="sidebar-slot-img-large" src="${worstSlot.image}" alt="${worstSlot.name}" />
+              <div class="sidebar-slot-corner-label bet">Bet: €${worstSlot.bet.toFixed(2)}</div>
+              <div class="sidebar-slot-corner-label payout">€${worstSlot.payout.toFixed(2)}</div>
+              <div class="sidebar-slot-corner-label xwin">${worstSlot.bet > 0 ? (worstSlot.payout / worstSlot.bet).toFixed(2) + "x" : ""}</div>
+            </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      renderBonusCarousel();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateSidebar();
+    });
+
+    document.getElementById('slotBet').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        addSlot();
+      }
+    });
+
+    document.getElementById('startingMoney').addEventListener('input', updateSidebar);
+    document.getElementById('finishingMoney').addEventListener('input', updateSidebar);
+
+    document.getElementById('obsModeBtn').addEventListener('click', function() {
+      document.body.classList.toggle('obs-mode');
+    });
+    document.getElementById('homeBtn').addEventListener('click', function() {
+      window.location.href = 'https://osecaadegas.github.io/95/';
+    });
+
+    // Discord Offers editable section persistence
+    const discordOffersEditable = document.getElementById('discordOffersEditable');
+    const DISCORD_OFFERS_KEY = 'discordOffersSection';
+
+    function loadDiscordOffersSection() {
+      const saved = localStorage.getItem(DISCORD_OFFERS_KEY);
+      if (saved !== null) {
+        discordOffersEditable.innerHTML = saved;
+      }
+    }
+    discordOffersEditable.addEventListener('input', () => {
+      // Limit to 32 characters (plain text)
+      let text = discordOffersEditable.innerText;
+      if (text.length > 32) {
+        discordOffersEditable.innerText = text.slice(0, 32);
+        // Move cursor to end
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(discordOffersEditable);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+      localStorage.setItem(DISCORD_OFFERS_KEY, discordOffersEditable.innerHTML);
+    });
+    document.addEventListener('DOMContentLoaded', loadDiscordOffersSection);
+
+    // Hunt Title editable section persistence
+    const huntTitleEditable = document.getElementById('huntTitleEditable');
+    const HUNT_TITLE_KEY = 'huntTitleEditable';
+
+    function loadHuntTitle() {
+      const saved = localStorage.getItem(HUNT_TITLE_KEY);
+      if (saved !== null) {
+        huntTitleEditable.innerHTML = saved;
+      }
+    }
+    huntTitleEditable.addEventListener('input', () => {
+      localStorage.setItem(HUNT_TITLE_KEY, huntTitleEditable.innerHTML);
+    });
+    document.addEventListener('DOMContentLoaded', loadHuntTitle);
+
+    // Banner image logic
+    const BANNER_URL_KEY = 'sidebarBannerUrl';
+
+function loadSidebarBanner() {
+  const url = localStorage.getItem(BANNER_URL_KEY) || '';
+  document.getElementById('sidebarBannerUrl').value = url;
+  const img = document.getElementById('sidebarBannerImage');
+  const container = document.getElementById('sidebarBannerImageContainer');
+  if (url) {
+    img.src = url;
+    container.style.display = '';
+  } else {
+    img.src = '';
+    container.style.display = 'none';
+  }
+}
+
+function saveSidebarBanner() {
+  const url = document.getElementById('sidebarBannerUrl').value.trim();
+  localStorage.setItem(BANNER_URL_KEY, url);
+  loadSidebarBanner();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSidebarBanner();
+  document.getElementById('sidebarBannerUrl').addEventListener('input', saveSidebarBanner);
+});
+
+    // Example slot database
+const slotDatabase = [
+  { name: "Gates of Hades", image: "https://mediumrare.imgix.net/60206bb76f8d15dd2975ea5d5c908194c66a1183683e6988c83027ada9befbef?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Olympus Super Scatter", image: "https://mediumrare.imgix.net/7d4fc189e6c48fd611846d6af0d1bd553fa0b9a2481fdeac29e05d864c36b82d?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Olympus Xmas 1000", image: "https://mediumrare.imgix.net/206a059864461c5bb63e1af83d5a105a2c36205cb8e01b37418f57d10d295252?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Olympus 1000™", image: "https://mediumrare.imgix.net/8421465d345dc9f775ee55001e0337b80d86dd77f2de36e4cb3650a364210847?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Valhalla™", image: "https://www.pragmaticplay.com/wp-content/uploads/2022/01/Gate_Of_Valhalla_EN_339x180.png", provider: "Pragmatic Play" },
+  { name: "Gates of Olympus™", image: "https://mediumrare.imgix.net/eb7ea358dba2cf7967e42f9c8327eb787dd9530d74b8cbdbfcecff9ccc962228?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Aztec", image: "https://mediumrare.imgix.net/0cbe57e4da0fb8361c4b1d40efe87044b47ddd24a577612a488eb3c79e0be455?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Gatotkaca", image: "https://mediumrare.imgix.net/0af25fe25fdd694509af52a1fb2bb725786d01bceda536f99ef549f0f1ea5967?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Olympus Dice", image: "https://mediumrare.imgix.net/9099ceb273c85a32737b1682ffefccb899a428ae16daadccf9b7cde80387ad52?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Bonanza", image: "https://mediumrare.imgix.net/f95b3adf9d28d57496dd8da909c0cb97515104194924c5abb4cc9ad792f35dfe?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Bonanza 1000", image: "https://mediumrare.imgix.net/445d5df4246639bd20337a70ee328301f1d949f4d3c2bc60c9bd7a31fd3636de?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Kingdom", image: "https://mediumrare.imgix.net/be8b9d3bb6565afd24db1b5418a3d235297dbaca52fc64c6affdbe98e5ae02e2?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Bonanza Dice", image: "https://mediumrare.imgix.net/d99d991fe476413c9ab9143c19e6add2761d182bfe3e05aad12fbd84da116cb4?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Bonanza Xmas", image: "https://mediumrare.imgix.net/07a13b91c0901e1d32ac71918f280ae48acbb684a651d08deef253812fca29ce?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Powernudge", image: "https://mediumrare.imgix.net/6f48e15d310da3000f6554aad1298b424acd06f8544c64ed68c484fbeafc6980?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Alchemy 100", image: "https://mediumrare.imgix.net/7baf7257bf20524a6e25760fe034bbd129797f8ff2905ab22c5adc0c740319c6?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Rush Megaways", image: "https://mediumrare.imgix.net/9b4094155be45b4ad24cde1c86ce6aae384309f308da2190b61d0baa4f605446?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Gummmy", image: "https://mediumrare.imgix.net/ba614293c3ec7b1d3037a7211c7063e27ef4ef53ea75e45b4be03ea9bc764d9e?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Alchemy", image: "https://mediumrare.imgix.net/1f358762243f6f9201258778752a0a0c64d820bef568dad2e6737f6dd4109f65?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sweet Alchemy 2", image: "https://mediumrare.imgix.net/cc54de090e5d4949aa9cd9286e554a0ea678f87b19b314daec29988ab9501ef1?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sugar Rush", image: "https://mediumrare.imgix.net/d460898300e27164e6a059a28fca4b38582c07701a7298566ac08661c8b7dc58?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sugar Rush 1000", image: "https://mediumrare.imgix.net/14d5410c6cf4c303d291262a10e949dc14b0ac2eca2a7a730b0401919c01358e?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sugar Rush Xmas", image: "https://mediumrare.imgix.net/0e621a565ef413c50798294d014cb1e96550effe8ab5befcd1d6774d9dc20148?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sugar Rush Dice", image: "https://mediumrare.imgix.net/1dfa0e762f74219c3cdfe56428fed3130191f4ef289d1e7f5b116023a6d1e450?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sugar Supreme Powernudge", image: "https://mediumrare.imgix.net/fc3a732b64a73b0011a0e55def22bb91de90bddf3637f5aad383fd30e47b1fa8?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Sugar Twist", image: "https://mediumrare.imgix.net/3fbda3cb3022ebe5175f345c8bd6ff4b3cc305f28b2b10c21b5762f788908623?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Rad Max", image: "https://mediumrare.imgix.net/912e93fcb0e5f52ee1f549d6b6ffcf21ba0847eef9c5003a28893274a6f1cb68?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Pray For Three", image: "https://mediumrare.imgix.net/1ea39d28bbd9237c659f60233fce9bdd9f1c46b934c5d3b311f1580dbcea7f74?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Duel at Dawn", image: "https://mediumrare.imgix.net/81223334b34083d375cd42c6df9f0a5414b817e8ca16b54dc3b63e05386fc44c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Wanted Dead or Alive", image: "https://mediumrare.imgix.net/2c04ff5694af0adf12b483a79567814407c1a4fc943b4d1980f84367a1910874?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Danny Dollar", image: "https://mediumrare.imgix.net/21e4b0ac5fd88338625abc758802e7f90156ae5cecf25ac236cd1a03fc0a693e?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "SixSixSix", image: "https://mediumrare.imgix.net/30be38fdc2b4d9a6c76194314dfb7814a66d6905287ade354a0e5f2a79b1ab27?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Life and Death", image: "https://mediumrare.imgix.net/9407302fecd33613bc716d3b0d4f1e724334321ec910404f6b417284db593d37?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Le Viking", image: "https://mediumrare.imgix.net/2cb39e9486a6cd37f49767537241fc8b9f5fd302f17a79c06f5220afcea27ea3?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Le Pharaoh", image: "https://mediumrare.imgix.net/293b2337d4d5cfda999ca423e34518a1a6682062340f1f1c5a669a26e7927c79?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Le Bandit", image: "https://mediumrare.imgix.net/8ade942d35d2cdbddf7888f303be4cf4bda8c650a112b3c53f7c6f3ccad81254?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Spinman", image: "https://mediumrare.imgix.net/fcc00223f58811594d5c7db35abd3e2f1aeac13866981132e044333c75a4a3bf?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Reign of Rome", image: "https://mediumrare.imgix.net/7c2dd8e10ca25f28737a4cc48c50b4b898c15b633ee14459b956237f2e58e185?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "FRKN Bananas", image: "https://mediumrare.imgix.net/d4c903b8aa3bcbcd3e7cfdd46e14fa5ff3f056922cd470a109438ee41184990e?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Rip City", image: "https://mediumrare.imgix.net/c55c2ec37c310140617b75c9e490faca98090292991840dce959d93649efbfa5?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Fighter Pit", image: "https://mediumrare.imgix.net/5ec25f926e0d9b8b6575aa93df1dfb769e7b6b2127f801d159994eb249eefe29?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Wishbringer", image: "https://mediumrare.imgix.net/6bddae78f98ce6fc8d84be9b084d070cb755c3cb86b8ec05000f8af742536b66?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Slayers INC", image: "https://mediumrare.imgix.net/f08dd3c03232627f508e0b4f458651947e13e46f6d8a53be08507672256d3be2?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Donny Dough", image: "https://mediumrare.imgix.net/d0da486c2ef84196c52198fce55b4566303ef3d73d94c675179a8f6c4c5a3781?w=180&h=236&fit=min&auto=format ", provider: "Hacksaw" },
+  { name: "Magic Piggy", image: "https://mediumrare.imgix.net/b18560b8631fc3b27c06d41e9729f7774048864ad7c4a16d1a20b1a953883943?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Dork Unit", image: "https://mediumrare.imgix.net/33cd5a34c3937da326652a3beb44fe9c3680118c363a060ca5670847595561a5?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Chaos Crew 2", image: "https://mediumrare.imgix.net/9d93c95c411dde57286a1ebb9dc76d93ab8f0c49d1b1445ce7d316c36820552c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Hounds of Hell", image: "https://mediumrare.imgix.net/05830ae2a958fe4b3d1c334ef2e93c34406fde0f9402969ef3a4d26992024e9d?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Klowns", image: "https://mediumrare.imgix.net/075588ccb0fe1466d036afcd2386e173af3032773c0ed4e1c4b02b60ab630691?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Hand of Anubis", image: "https://mediumrare.imgix.net/6d3e8501656c2ae403f7478d9bee1ffb49f81894b8f45ca42ad457a834a79149?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Thai The Toad", image: "https://mediumrare.imgix.net/715d1e5694973e27bac8deb3fd4c375135ca01517822bf3ab7a31888f7646119?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Fist of Destruction", image: "https://mediumrare.imgix.net/c123ef1cf5a97e2c94cdbd6db80c47c35afa5af9837f1416eb25ac10dd6c8f50?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Rotten", image: "https://mediumrare.imgix.net/da1d839ace20adb0337eae0b922a336d54df21aa2d8d616aad9f234a2ca38f90?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Ze Zeus", image: "https://mediumrare.imgix.net/e20cf100fe7b8cc8f19a428ca222abd4f85c46679f876aa08fa2521248360b54?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cloud Princess", image: "https://mediumrare.imgix.net/c0be957b99d1a534b8fa221a225e87445766948f0b861b42700ad370fb84e22d?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Stack´em", image: "https://mediumrare.imgix.net/894ab0aba513722d8da9f3b118fb1197a00b248e40214b196fa7701265934069?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Miami Multiplier", image: "https://mediumrare.imgix.net/fdd4a97ee86f946b11c92f897c55696bfaabbd97002727c9d91b3c8883c31733?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Marlin Masters", image: "https://mediumrare.imgix.net/1b0d34ebc41450aedeb0720079aa82a9625da940ec61fbe2ef2b51f5a8b6d04b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Xmas Drop", image: "https://mediumrare.imgix.net/be3cf80fcd859427ca4ecabef13e7dfbee3603eaa3ed2dc975ccc1cb6ee622dc?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Dorks of the Deep", image: "https://mediumrare.imgix.net/73558636b4e41b610e1e15aa8f527b84348895dbbfee8f02d1231af77abbe9b1?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Stormforged", image: "https://mediumrare.imgix.net/35e02b639347011bbf26252e562f1535447edd5db692c212a0469c4ad5da512c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "2Wild 2Die", image: "https://mediumrare.imgix.net/cca5a281205cfcc8161b358091cc19e7af1385127754d005d4ddb12b8e9e2ba9?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Benny the Beer", image: "https://mediumrare.imgix.net/4ae57eafffc4f3253232b04ef6d9948eea70ef01d0337c56e106c773e92bc509?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Fire My Laser", image: "https://mediumrare.imgix.net/7a29a0822d23020cd983ede3c4af9a90f065512b1cecd10d6faee751107a3bbf?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Double Rainbow", image: "https://mediumrare.imgix.net/f2cea670f01b8351d7660385c688a0d30d5da4f201fd478df5d26ec9e78ce460?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Octo Attack", image: "https://mediumrare.imgix.net/9e3f45cf9ef13c45d0aa67f7c2e9ce49187e196db7d3e1c862427f72b7f121ff?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Phoenix Duelreels", image: "https://mediumrare.imgix.net/7ac7169ca980177d2f7843face3046fb42c001bf4dd7356becb037e92fc07ff1?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Densho", image: "https://mediumrare.imgix.net/eadeb726f36d9807051b6216e638c817537c8b4a39cd1e5de9017e1b0d6ea61c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Beam Boys", image: "https://mediumrare.imgix.net/d0d102db575ee3a3b89ae2a12ff27799ee95063fb1e97ae2c616b2fba5727bcd?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Beast Below", image: "https://mediumrare.imgix.net/fad562df401ccfd1dde3707308efab027eea94a6cd11c35d64cc814efbb3a44f?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Drop´em", image: "https://mediumrare.imgix.net/dd4726f7b3ab5614e1e56c8314748397dc45f1d2a60d1a83a935a1fac95936a4?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Strength of Hercules", image: "https://mediumrare.imgix.net/92dc6be959aee15f956fd64e6fd3777274d9655724912343ec222235858e1fea?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Donut Division", image: "https://mediumrare.imgix.net/694d00465a62a9aa16b08c0739945ac27d025ca0f7e3ccbbf165f325b1ca87af?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Eye of the Panda", image: "https://mediumrare.imgix.net/740e91df538e182d4a8ceb6ada7a928a9cfd077796b52dd62b676bbb87a92575?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Shaolin Master", image: "https://mediumrare.imgix.net/bff4a442bf939fb6e8d113fa34c1bfe514b520f5d27cc157ea4a9c1c48a3f53b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Chaos Crew", image: "https://mediumrare.imgix.net/bececcbc4d481dfd6a4fd61f9263dc4bc28d319e93f4ff3fb04cd6c73b0e9ca7?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cursed Seas", image: "https://mediumrare.imgix.net/8a9907240271fd24b09f8c40964e3e7726e056302456e029ee25cf4aa5eb7f74?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Toshi Video Club", image: "https://mediumrare.imgix.net/4580fbe00b06937db40d6759fa65a17337e3c01b96d40d2333739b407be6781b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cash Crew", image: "https://mediumrare.imgix.net/66c02d382f74c7188da5306983f78f42d6aade7b388b8c149c3ac20117d69887?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Pug Life", image: "https://mediumrare.imgix.net/7b18b96de6626a92729c3aa7722f6bf872305f9a9d07a60c99ee3f23fc0198f6?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Joker Bombs", image: "https://mediumrare.imgix.net/6afdddc8fdfca2d0106bdaf4e8f02b6c1fbe455df3b855bc6babf6e0669dcee9?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "King Carrot", image: "https://mediumrare.imgix.net/9f7dd8932657e921d74bad8c9355fe6464e64dae26e373c87b554bb62c2e25b8?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Twisted Lab", image: "https://mediumrare.imgix.net/0ed46be36a9207f44ba20b50629d630446504a05db3c513a4b2e1e4abfeb5baf?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Evil Eyes", image: "https://mediumrare.imgix.net/433a1bbc729168261fdc1af5d2047264768654851712d76ae933bcc84f3d5146?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Vending", image: "https://mediumrare.imgix.net/fa74f56742f954b651a006b25c87cf21717541033fbb435a53a10ac675ca2519?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Mayan Stackways", image: "https://mediumrare.imgix.net/f13df3ab6dbb6f1bc732baa75113414ecc4aa04d1860bb009cc8aba4717f2f64?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Rusty & Curly", image: "https://mediumrare.imgix.net/4fbce82073cab8684794cfb36eabd2cec98a0f7df2340a9ac0b308e0aee25ac7?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Itero", image: "https://mediumrare.imgix.net/34c5240f711e56c6af514136ff142cad4b39fd4c9aa3869b627ec010e6da559b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Get the Cheese", image: "https://mediumrare.imgix.net/ba6e2fa2799f1f9926bd2d79e2aa175669ea86116c4dc1e530893cfc68d0a57e?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Wings of Horus", image: "https://mediumrare.imgix.net/506275b06b8a03b332c806dfffd1599f32c68b5674f112cdd04802470a968f7c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Rise of Ymir", image: "https://mediumrare.imgix.net/63ecb7db83f55f800b6c3c057c13f8a80185d4b767500b264867ae07aeb10845?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Immortal Desire", image: "https://mediumrare.imgix.net/1a7de51973e9c1298b1fa58ffe6bdd9ddb02c9e2df2c1adf62c7ca4b63c0b06a?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Dragons Domain", image: "https://mediumrare.imgix.net/b32ecba95ce52b451ff09fba9f89246ef4051abac52d250094627f0c5ef6c3e5?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Book of Time", image: "https://mediumrare.imgix.net/9bf10cb05301c16c0fb09d93ba8a973b834fbf76b5a37676878302e9c0e1d3d0?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Bouncy Bombs", image: "https://mediumrare.imgix.net/7f74559ba42c4b965d3f9809a77fbf366af4778bea4af823c9d661abe55302db?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Snow Slingers", image: "https://mediumrare.imgix.net/9048c86fad269aa7ff0abf63ee8c2ddc96f0bf4d5ae519231d40d85a65389986?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cubes 2", image: "https://mediumrare.imgix.net/017cf6597dff23e99f30b296c4162018320b4c6d4e0843b4e8c1d06e45827547?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Gladiator Legends", image: "https://mediumrare.imgix.net/370c9ad85d5a47352f86357e6eec9bc13910b6b77985eb5ef1139cb39680c62b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Outlaws INC", image: "https://mediumrare.imgix.net/1df63aaf3942d0e8423a0343adfaeba4976c44e5ca7c2dddabeb7863fca63a94?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Buffalo Stack´N´sync", image: "https://mediumrare.imgix.net/5ca299b61c3c24a3f3c241360bb74cc7970f3b63cf5d2d9f9cdf2de854e06e97?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "The Bowery Boys", image: "https://mediumrare.imgix.net/153706d7dcb82fbf41e255df6f173ca042c6876bf1a25bdad3b5a669559c965c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Dark Summoning", image: "https://mediumrare.imgix.net/7184d134ae7499ad10ffe6f985c3e0906bc2ab99518c182f7f53c08a260f095a?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Undead Fortune", image: "https://mediumrare.imgix.net/86eab2d535cb53548f1a5aeacb04b08f9ee029905a7c658370d11aa14b17e3c3?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Frank´s Farm", image: "https://mediumrare.imgix.net/8493bbf7575c02b09d053ec3034532f6dec87301495fa5b0cdcd0a5cd297eeeb?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Fear the Dark", image: "https://mediumrare.imgix.net/62a6617f773bae2bf5e42516d725c4a00de48ecc4091fd37f4c897fe4d45be31?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Gronk´s Gems", image: "https://mediumrare.imgix.net/0cfe7d7f16134b507f5f44d1cc74c885fc68ca6375147f31d3ba6b05ae9636cb?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Divine Drop", image: "https://mediumrare.imgix.net/2e7edd753384f73be3253d4e68eb4c66319ec1161ef9c769dfbe6676ed67ca46?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Born Wild", image: "https://mediumrare.imgix.net/42393b8f277ee62dc05f00ed9b135e4fe7c1cfb9c8f95a44057a2ccead764e96?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cursed Crypt", image: "https://mediumrare.imgix.net/a3d5a4916410d4a5c0f0ce0e41180e388487c53fe106c454096bfd3fab821a66?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Keep´em", image: "https://mediumrare.imgix.net/b1b7c5f14a4f446855ca34c21ca56235a8e74ed1fd948eaccc81687367488216?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Alpha Eagle", image: "https://mediumrare.imgix.net/4824466ee7f5ebedde11e4a312cca6678d4f8b0f4ed004980fd15ff25dd9d1d0?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Ronin Stackways", image: "https://mediumrare.imgix.net/68a04cf0d75f6fd3c1884805806e11ad128f09a8d274574ec99f34cd8f46f76e?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Aztec Twist", image: "https://mediumrare.imgix.net/a033b9e2336fdd9ef2204f159b98577dcec061c1cea5841685521a165a64ff1c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Xpander", image: "https://mediumrare.imgix.net/0ff16310e6d71b703046e87e30d66ce1a1b026316c24cc034e7731d04633d743?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Time Spinners", image: "https://mediumrare.imgix.net/ba3b2a5e0c0723860fa088fdcfa8216dec4d5023e6b9f291df95bfebc75ba223?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Temple of Torment", image: "https://mediumrare.imgix.net/7bf6165ab400a926c5abe6ec72a0bb755f637fcdbf0773e1f85f6607f5ac2502?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Break Bones", image: "https://mediumrare.imgix.net/c7e0eca2babf18eb00364a38d18f5e3cba868c9ff2480a98bbbf5a5ef203f1be?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Bloodthirst", image: "https://mediumrare.imgix.net/7bcad426782c83c08801d657c44cfb1afb5789c867bb21c01acc058af27e4cb6?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Rocket Reels", image: "https://mediumrare.imgix.net/7f73d6b27bf2af6b867937e9eb31617b6ff801f09135daf10c5d3d0da2d98b4b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cash Compass", image: "https://mediumrare.imgix.net/e2d08a4aeb8dc9aa5e076e4ec5e6f29217c0c963fd281059b1b2f401554fc2bc?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Warrior Ways", image: "https://mediumrare.imgix.net/7ad19594cf9ddfeb442c6cf1217e50f5a0586afebbebc5107c15a4f90080657b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Hop´N´Pop", image: "https://mediumrare.imgix.net/6605d3de0dd8b58b00db3054ab39e3c68d43cbccfd83ff50a13ade8fb5f21d31?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Orb of Destiny", image: "https://mediumrare.imgix.net/f79b83bc1408abd366a916e4e3b401dd76eb2a0cd31528067fcdb9072d5f7b1d?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Fruit Duel", image: "https://mediumrare.imgix.net/a188243dfba1a1bbc9eb9609c250693ecd3643cb57b1bb0adba320dd054edc77?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Mighty Masks", image: "https://mediumrare.imgix.net/414115bbf7390de09bc1f349630e14b6b3e17b606ea18b3fb5d5ceebae601173?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Feel the Beat", image: "https://mediumrare.imgix.net/177e1af21ec99124784e606594f8447933ead39c3262eb50a8041f8adce28853?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "The Bomb", image: "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Haunted Circus", image: "https://mediumrare.imgix.net/b249d80cd1bb7367d3e9fe9062c04c28563a3050c3f4893b57392e3e132938fa?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Mystery Motel", image: "https://mediumrare.imgix.net/9bb69ef1c5050873ce837473559ecfc7774d4f8ecc23c4e109ca441b12bdc523?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Keep´em Cool", image: "https://mediumrare.imgix.net/3d07ee2ca280623bb86771d146352267affb73d70dc878750fea88e62eb40553?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Dawn of Kings", image: "https://mediumrare.imgix.net/ee600c4d3d4145ef3d2501749e4f2872a68cdc47ef2dc17af43ac6a24b1eab1d?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Stick´em", image: "https://mediumrare.imgix.net/aa91b1aaf297b3c8f174c6364731135f14b55bdd47c60e9ccc1ccd8ef69f3959?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cash Quest", image: "https://mediumrare.imgix.net/96ab764e436daa2fb926d719ed3e6bda0c8f0f42a3d08f4bc4854c0d7a4ea0d0?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Jelly Slice", image: "https://mediumrare.imgix.net/9bcfcbf49d9b6184dec0dddd43d88e4ff7cacffd1c65c4202b03178bb4ae43ad?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Forest Fortune", image: "https://mediumrare.imgix.net/ad803f6a41eaf29721af391695c25656941eae8d3e1ab5ceb1dd692fd6b3586b?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Om NOM", image: "https://mediumrare.imgix.net/8cf1f4ee0df6994bbdadd377285357b241a51dd22b3e2fdf3bf6252e9816f479?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "The Respinners", image: "https://mediumrare.imgix.net/68f2388cb67b4cd35de210c31f5ca15bbe7f3e904e26a50a63315a4d2568f1eb?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Frutz", image: "https://mediumrare.imgix.net/b5d02c384a3e96a30e90018887f14d0923a2c05e582abd4cfa18fd600d7fa94e?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Cubes", image: "https://mediumrare.imgix.net/cf92f60f919b018998478dd92fe93193ab77cdce4bdd5b2ca826dd9b0a38055a?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Tasty Treats", image: "https://mediumrare.imgix.net/a478052cb3a60aacfdcc4dacea3d0b4ea0a095c28e55ccabafd0b64f3c4fb9bf?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Let it Snow", image: "https://mediumrare.imgix.net/22d5ab5f65de364fd4573409289caffbf7cd4c1696ffdc8cbb6e0c0f5ca2aaff?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Harvest Wilds", image: "https://mediumrare.imgix.net/cc2173ba768f9fa72a884bb8d475c47ab13d44b25a275972255ee4fd85331a99?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Ethenal Nile", image: "https://mediumrare.imgix.net/8621688f67c74a42471c052dcc3443c754617d159258554125da3dc1e1da470f?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "8-Bit Quest", image: "https://mediumrare.imgix.net/c24f8c668823b8fc9ecaace4ec2d458d28106c6247b4138a561d38db6b705455?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Monkey Frenzy", image: "https://mediumrare.imgix.net/0b60d8d6e4080095e0cb2e7efd68436ec285135fc00ae0bced559815ffcac7bd?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Sticky Candyland", image: "https://mediumrare.imgix.net/01d620d4903a3f14b397ef202e934cd4e9902ad01794e7bc20903fe156a2a5b4?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "The Library", image: "https://mediumrare.imgix.net/66dd42db2459d2b0a8fc356ed18ad0b3489b562ba80446496c4a8fa908c134cd?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Shadow Treasure", image: "https://mediumrare.imgix.net/04531340b93a65869cd94e56b921bb3438909d61336954c94f7824f8266b1f03?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Lucky Multifruit", image: "https://mediumrare.imgix.net/07dfe0313bf45e0d937f277cbf11f9b2181520f2c0c2a01e4b7d539365e6bd18?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Hacksaw" },
+  { name: "Sugar Rush", image: "", provider: "Pragmatic Play" },
+  { name: "Sugar Rush", image: "", provider: "Pragmatic Play" },
+  { name: "Sugar Rush", image: "", provider: "Pragmatic Play" },
+  { name: "Sugar Rush", image: "", provider: "Pragmatic Play" },
+  { name: "Wanted Dead or a Wild", image: "https://example.com/wanted.jpg", provider: "Pragmatic Play" },
+  // ...add more slots here
+];
+
+const slotNameInput = document.getElementById('slotName');
+const slotImageInput = document.getElementById('slotImage');
+const slotSuggestions = document.getElementById('slotSuggestions');
+
+slotNameInput.addEventListener('input', function() {
+  const value = slotNameInput.value.trim().toLowerCase();
+  slotSuggestions.innerHTML = '';
+  if (value.length < 3) return;
+
+  const matches = slotDatabase.filter(slot =>
+    slot.name.toLowerCase().includes(value)
+  );
+
+  if (matches.length === 0) return;
+
+  const list = document.createElement('div');
+  list.style.position = 'absolute';
+  list.style.background = '#232e4d';
+  list.style.border = '1px solid #3ec6ff';
+  list.style.zIndex = '1000';
+  list.style.width = slotNameInput.offsetWidth + 'px';
+  list.style.maxHeight = '180px';
+  list.style.overflowY = 'auto';
+  list.style.borderRadius = '8px';
+
+  matches.forEach(slot => {
+    const item = document.createElement('div');
+    item.style.position = 'relative';
+    item.style.padding = '6px 10px 6px 48px'; // leave space for image
+    item.style.cursor = 'pointer';
+    item.style.color = '#fff';
+    item.style.fontSize = '1em';
+    item.style.display = 'flex';
+    item.style.alignItems = 'center';
+    item.style.minHeight = '38px';
+
+    // Thumbnail image
+    const img = document.createElement('img');
+    img.src = slot.image || 'https://i.imgur.com/8E3ucNx.png';
+    img.alt = slot.name;
+    img.style.position = 'absolute';
+    img.style.left = '6px';
+    img.style.top = '50%';
+    img.style.transform = 'translateY(-50%)';
+    img.style.width = '32px';
+    img.style.height = '24px';
+    img.style.objectFit = 'cover';
+    img.style.borderRadius = '5px';
+    img.style.border = '1.5px solid #3ec6ff';
+    img.style.background = '#181f36';
+    img.style.boxShadow = '0 1px 4px #3ec6ff33';
+
+    item.appendChild(img);
+
+    // Slot name text
+    const text = document.createElement('span');
+    text.textContent = slot.name;
+    text.style.marginLeft = '38px';
+    item.appendChild(text);
+
+    item.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      slotNameInput.value = slot.name;
+      slotImageInput.value = slot.image;
+      slotSuggestions.innerHTML = '';
+      document.getElementById('slotPreview').src = slot.image;
+    });
+    list.appendChild(item);
+  });
+
+  slotSuggestions.appendChild(list);
+});
+
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(e) {
+  if (!slotSuggestions.contains(e.target) && e.target !== slotNameInput) {
+    slotSuggestions.innerHTML = '';
+  }
+});
+
+const BLUE_BAR_TITLE_KEY = 'sidebarBlueBarTitle';
+const BLUE_BAR_TITLE_COLOR_KEY = 'sidebarBlueBarTitleColor';
+
+function loadSidebarBlueBarTitle() {
+  const saved = localStorage.getItem(BLUE_BAR_TITLE_KEY) || '';
+  document.getElementById('sidebarBlueBarTitle').value = saved;
+  document.getElementById('sidebarBlueBarTitleDisplay').textContent = saved;
+
+  // Load color
+  const color = localStorage.getItem(BLUE_BAR_TITLE_COLOR_KEY) || '#ffffff';
+  document.getElementById('sidebarBlueBarTitleColor').value = color;
+  document.getElementById('sidebarBlueBarTitleDisplay').style.color = color;
+}
+
+function saveSidebarBlueBarTitle() {
+  const value = document.getElementById('sidebarBlueBarTitle').value;
+  localStorage.setItem(BLUE_BAR_TITLE_KEY, value);
+  document.getElementById('sidebarBlueBarTitleDisplay').textContent = value;
+}
+
+function saveSidebarBlueBarTitleColor() {
+  const color = document.getElementById('sidebarBlueBarTitleColor').value;
+  localStorage.setItem(BLUE_BAR_TITLE_COLOR_KEY, color);
+  document.getElementById('sidebarBlueBarTitleDisplay').style.color = color;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSidebarBlueBarTitle();
+  document.getElementById('sidebarBlueBarTitle').addEventListener('input', saveSidebarBlueBarTitle);
+  document.getElementById('sidebarBlueBarTitleColor').addEventListener('input', saveSidebarBlueBarTitleColor);
+});
+
+    // Sidebar Settings Toggle
+    const toggleBtn = document.getElementById('sidebarSettingsToggle');
+    const content = document.getElementById('sidebarSettingsContent');
+    let expanded = false;
+    toggleBtn.addEventListener('click', () => {
+      expanded = !expanded;
+      content.style.display = expanded ? 'block' : 'none';
+      toggleBtn.classList.toggle('active', expanded);
+    });
+  </script>
 </body>
+<footer style="width:100%;text-align:center;padding:18px 0 12px 0;color:#a259ff;font-size:1em;letter-spacing:1px;opacity:0.85;">
+  &copy; 2025 osecaadegas. All rights reserved. This site and its code are the property of osecaadegas.
+</footer>
 </html>
