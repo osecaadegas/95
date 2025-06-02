@@ -606,9 +606,9 @@
         }
         #age-gate-overlay > div {
             background: linear-gradient(135deg, #16213e 80%, #274472 100%);
-            border: 2px solid #6ec1e4;
+            border: 2px solid #6cb6f5;
             border-radius: 32px;
-            box-shadow: 0 4px 48px #6ec1e488, 0 2px 12px #000a;
+            box-shadow: 0 4px 48px #6cb6f588, 0 2px 12px #000a;
         }
         #age-gate-overlay h2 {
             color: #6ec1e4;
@@ -624,10 +624,14 @@
         .scratch-image-container, .scratch-result-image, .scratch-image {
             box-shadow: 0 0 24px #6ec1e444, 0 0 8px #fff2;
         }
+        .nav-auth-only { display: none !important; }
     </style>
 </head>
 <body>
-    <div class="top-bar"></div>
+ <div class="top-bar"></div>
+    <div id="bonus-hunt-msg" style="width:100%;background:#232a34;color:#ffd700;text-align:center;padding:10px 0;font-weight:bold;letter-spacing:0.5px;font-size:1.08em;box-shadow:0 2px 12px #000a;z-index:101;position:relative;">
+        For using the Bonus Hunt Tracker You must First Log in
+    </div>
     <div id="age-gate-overlay" style="
     position:fixed;
     z-index:9999;
@@ -704,8 +708,8 @@
             </div>
         </div>
         <div class="nav-center">
-            <a href="https://osecaadegas.github.io/95/" class="nav-link"><i>🏠</i> Home</a>
-            <a href="https://osecaadegas.github.io/publictracker/" class="nav-link"><i>🏆</i> Bonus Hunt Tracker</a>
+            <a href="https://osecaadegas.github.io/95/" class="nav-link nav-auth-only"><i>🏠</i> Home</a>
+            <a href="https://osecaadegas.github.io/publictracker/" class="nav-link nav-auth-only"><i>🏆</i> Bonus Hunt Tracker</a>
         </div>
         <div class="nav-right">
             <div class="lang-switcher">
@@ -1206,6 +1210,8 @@
         // --- LANGUAGE SWITCHER ---
         const langToggle = document.getElementById('lang-toggle');
         function setLanguage(lang) {
+            var bonusMsg = document.getElementById('bonus-hunt-msg');
+                if (bonusMsg) bonusMsg.innerText = translations[lang].bonus_hunt_msg;
             document.documentElement.lang = lang;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1253,77 +1259,109 @@
 
     // --- TRANSLATIONS ---
     const translations = {
-        en: {
-            everything_here: "Everything you need is here",
-            offers: "OFFERS",
-            register_cashback: "Register and use the codes to get 15% cashback from me",
-            empire_percent: "+100%",
-            empire_condition: "on the first deposit",
-            infinity_percent: "+100% +200 Free Spins",
-            infinity_condition: "+15% cashback for losses over 100€ monthly",
-            buran_percent: "1st deposit cashback up to 20€",
-            buran_condition: "+15% cashback for losses over 100€ monthly",
-            arena_code: "Code: secaadegas",
-            arena_condition: "use my code for in-game rewards",
-            claim_offer: "CLAIM OFFER",
-            download_game: "Download the Game",
-            creator_code: "Creator code input",
-            download_mobile: "Download Mobile",
-            yes_18: "Yes, I am 18 or older",
-            no: "No",
-            terms: "Terms & Conditions",
-            responsible: "Responsible Gaming",
-            contact: "Contact",
-            legal1: `This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
-                All offers are subject to terms and conditions of the respective casino.
-                If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.`,
-            copyright: "&copy; 2025 osecaadegas95. All rights reserved.",
-            scratch_title: "Daily Scratch Card",
-            scratch_me: "SCRATCH ME",
-            scratch_win: "🎉 YOU WIN! 10 Euros in one of our Casinos 🎉",
-            scratch_lose: "🙁 Try again tomorrow!",
-            scratch_congrats: "Congratulations! Come back tomorrow for another chance.",
-            scratch_noluck: "No luck today. Try again tomorrow!",
-            scratch_already: "",
-            scratch_come_back: "Come back tomorrow!",
-            scratch_try: "Try your luck every day!"
-        },
-        pt: {
-            everything_here: "Tudo o que precisas está aqui",
-            offers: "OFERTAS",
-            register_cashback: "Regista-te e usa os códigos para receber 15% cashback de mim",
-            empire_percent: "+100%",
-            empire_condition: "no primeiro depósito",
-            infinity_percent: "+100% +200 Free Spins",
-            infinity_condition: "+15% cashback por perdas acima de 100€ por mês",
-            buran_percent: "Cashback no 1º depósito até 20€",
-            buran_condition: "+15% cashback por perdas acima de 100€ por mês",
-            arena_code: "Código: secaadegas",
-            arena_condition: "usa o meu código para recompensas no jogo",
-            claim_offer: "RECEBER OFERTA",
-            download_game: "Descarregar o Jogo",
-            creator_code: "Inserir código de criador",
-            download_mobile: "Descarregar Mobile",
-            yes_18: "Sim, tenho 18 ou mais anos",
-            no: "Não",
-            terms: "Termos & Condições",
-            responsible: "Jogo Responsável",
-            contact: "Contacto",
-            legal1: `Este site é um afiliado e não é um operador de jogos. Ofertas apenas para maiores de 18 anos. Jogue com responsabilidade.
-                Todas as ofertas estão sujeitas aos termos e condições do respetivo casino.
-                Se tem problemas com o jogo, visite <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> ou o serviço de apoio local.`,
-            copyright: "&copy; 2025 osecaadegas95. Todos os direitos reservados.",
-            scratch_title: "Raspadinha Diária",
-            scratch_me: "RASPA-ME",
-            scratch_win: "🎉 GANHASTE! 10 Euros num casino de parceria! 🎉",
-            scratch_lose: "🙁 Tenta novamente amanhã!",
-            scratch_congrats: "Parabéns! Volta amanhã para outra oportunidade.",
-            scratch_noluck: "Sem sorte hoje. Tenta novamente amanhã!",
-            scratch_already: "",
-            scratch_come_back: "Volta amanhã!",
-            scratch_try: "Tenta a tua sorte todos os dias!"
-        }
-    };
+       en: {
+        everything_here: "Everything you need is here",
+        offers: "OFFERS",
+        register_cashback: "Register and use the codes to get 15% cashback from me",
+        empire_percent: "+100%",
+        empire_condition: "on the first deposit",
+        infinity_percent: "+100% +200 Free Spins",
+        infinity_condition: "+15% cashback for losses over 100€ monthly",
+        buran_percent: "1st deposit cashback up to 20€",
+        buran_condition: "+15% cashback for losses over 100€ monthly",
+        arena_code: "Code: secaadegas",
+        arena_condition: "use my code for in-game rewards",
+        claim_offer: "CLAIM OFFER",
+        download_game: "Download the Game",
+        creator_code: "Creator code input",
+        download_mobile: "Download Mobile",
+        yes_18: "Yes, I am 18 or older",
+        no: "No",
+        bonus_hunt_msg: "For using the Bonus Hunt Tracker You must First Log in",
+        terms: "Terms & Conditions",
+        responsible: "Responsible Gaming",
+        contact: "Contact",
+        legal1: `This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
+            All offers are subject to terms and conditions of the respective casino.
+            If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.`,
+        copyright: "&copy; 2025 osecaadegas95. All rights reserved.",
+        scratch_title: "Daily Scratch Card",
+        scratch_me: "SCRATCH ME",
+        scratch_win: "🎉 YOU WIN! 10 Euros in one of our Casinos 🎉",
+        scratch_lose: "🙁 Try again tomorrow!",
+        scratch_congrats: "Congratulations! Come back tomorrow for another chance.",
+        scratch_noluck: "No luck today. Try again tomorrow!",
+        scratch_already: "",
+        scratch_come_back: "Come back tomorrow!",
+        scratch_try: "Try your luck every day!",
+        // --- MISSING TRANSLATIONS ---
+        points: "Points",
+        login_with_twitch: "Login with Twitch",
+        logout: "Logout",
+        are_you_18: "Are you 18 or older?",
+        must_be_18: "You must be at least 18 years old to access this website.<br>Please confirm your age.",
+        no_access: "No access",
+        play_again_in: "You can play again in:",
+        twitch_store: "Twitch Store",
+        discord: "Discord",
+        stream: "Stream",
+        youtube: "Youtube",
+        tiktok: "TikTok",
+        telegram: "Telegram",
+        instagram: "Instagram"
+    },
+    pt: {
+        everything_here: "Tudo o que precisas está aqui",
+        offers: "OFERTAS",
+        register_cashback: "Regista-te e usa os códigos para receber 15% cashback de mim",
+        empire_percent: "+100%",
+        empire_condition: "no primeiro depósito",
+        infinity_percent: "+100% +200 Free Spins",
+        infinity_condition: "+15% cashback por perdas acima de 100€ por mês",
+        buran_percent: "Cashback no 1º depósito até 20€",
+        buran_condition: "+15% cashback por perdas acima de 100€ por mês",
+        arena_code: "Código: secaadegas",
+        arena_condition: "usa o meu código para recompensas no jogo",
+        claim_offer: "RECEBER OFERTA",
+        download_game: "Descarregar o Jogo",
+        creator_code: "Inserir código de criador",
+        download_mobile: "Descarregar Mobile",
+        yes_18: "Sim, tenho 18 ou mais anos",
+        no: "Não",
+        bonus_hunt_msg: "Para usar o Bonus Hunt Tracker tens de iniciar sessão primeiro",
+        terms: "Termos & Condições",
+        responsible: "Jogo Responsável",
+        contact: "Contacto",
+        legal1: `Este site é um afiliado e não é um operador de jogos. Ofertas apenas para maiores de 18 anos. Jogue com responsabilidade.
+            Todas as ofertas estão sujeitas aos termos e condições do respetivo casino.
+            Se tem problemas com o jogo, visite <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> ou o serviço de apoio local.`,
+        copyright: "&copy; 2025 osecaadegas95. Todos os direitos reservados.",
+        scratch_title: "Raspadinha Diária",
+        scratch_me: "RASPA-ME",
+        scratch_win: "🎉 GANHASTE! 10 Euros num casino de parceria! 🎉",
+        scratch_lose: "🙁 Tenta novamente amanhã!",
+        scratch_congrats: "Parabéns! Volta amanhã para outra oportunidade.",
+        scratch_noluck: "Sem sorte hoje. Tenta novamente amanhã!",
+        scratch_already: "",
+        scratch_come_back: "Volta amanhã!",
+        scratch_try: "Tenta a tua sorte todos os dias!",
+        // --- MISSING TRANSLATIONS ---
+        points: "Pontos",
+        login_with_twitch: "Entrar com Twitch",
+        logout: "Sair",
+        are_you_18: "Tens 18 anos ou mais?",
+        must_be_18: "Tens de ter pelo menos 18 anos para aceder a este site.<br>Por favor confirma a tua idade.",
+        no_access: "Sem acesso",
+        play_again_in: "Podes jogar novamente em:",
+        twitch_store: "Loja Twitch",
+        discord: "Discord",
+        stream: "Stream",
+        youtube: "Youtube",
+        tiktok: "TikTok",
+        telegram: "Telegram",
+        instagram: "Instagram"
+    }
+};
 
     // --- TWITCH LOGIN LOGIC ---
 const TWITCH_CLIENT_ID = 'yoxg6f2pd070krxq6xanbg1kwcfuf8'; // <-- Replace with your client ID
@@ -1374,10 +1412,16 @@ async function fetchTwitchUser(token) {
 }
 
 // Show/hide UI
+function toggleBonusHuntMsg(show) {
+    var msg = document.getElementById('bonus-hunt-msg');
+    if (msg) msg.style.display = show ? 'block' : 'none';
+}
+
 async function updateTwitchUI() {
     const token = parseTwitchToken();
     const loginBtn = document.getElementById('twitch-login-btn');
     const userInfo = document.getElementById('twitch-user-info');
+    const authLinks = document.querySelectorAll('.nav-auth-only');
     if (token) {
         const user = await fetchTwitchUser(token);
         if (user) {
@@ -1386,14 +1430,21 @@ async function updateTwitchUI() {
             document.getElementById('twitch-user-avatar').src = user.profile_image_url;
             document.getElementById('twitch-user-name').innerText = user.display_name;
             addPoints(10); // Give 10 points for login
+            // Show nav links
+            authLinks.forEach(link => link.style.display = 'inline-block');
+            toggleBonusHuntMsg(false); // Hide message after login
         } else {
             localStorage.removeItem('twitch_token');
             loginBtn.style.display = 'block';
             userInfo.style.display = 'none';
+            authLinks.forEach(link => link.style.display = 'none');
+            toggleBonusHuntMsg(true); // Show message if not logged in
         }
     } else {
         loginBtn.style.display = 'block';
         userInfo.style.display = 'none';
+        authLinks.forEach(link => link.style.display = 'none');
+        toggleBonusHuntMsg(true); // Show message if not logged in
     }
 }
 
