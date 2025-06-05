@@ -1473,6 +1473,80 @@ document.addEventListener('DOMContentLoaded', function() {
     setPoints(getPoints());
 });
 
+const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Sign in with Twitch
+async function signInWithTwitch() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'twitch',
+  });
+  if (error) alert('Login failed: ' + error.message);
+}
+
+// Listen for auth state changes
+supabase.auth.onAuthStateChange(async (event, session) => {
+  if (session && session.user) {
+    // Fetch or create profile
+    let { data: profile, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', session.user.id)
+      .single();
+    if (!profile) {
+      // Create profile if not exists
+      await supabase.from('profiles').insert([
+        { id: session.user.id, username: session.user.user_metadata.name, avatar_url: session.user.user_metadata.avatar_url }
+      ]);
+    }
+    showProfileEditor(session.user);
+  } else {
+    showLoginButton();
+  }
+});
+
+// Show login button
+function showLoginButton() {
+  document.getElementById('profile-area').innerHTML = `<button onclick="signInWithTwitch()">Login with Twitch</button>`;
+}
+
+// Show profile editor
+async function showProfileEditor(user) {
+  let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+  document.getElementById('profile-area').innerHTML = `
+    <img src="${profile.avatar_url || ''}" width="64" />
+    <input id="username" value="${profile.username || ''}" placeholder="Username" />
+    <textarea id="bio" placeholder="Bio">${profile.bio || ''}</textarea>
+    <button onclick="saveProfile()">Save</button>
+    <button onclick="logout()">Logout</button>
+  `;
+}
+
+// Save profile changes
+async function saveProfile() {
+  const user = (await supabase.auth.getUser()).data.user;
+  const username = document.getElementById('username').value;
+  const bio = document.getElementById('bio').value;
+  await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
+  alert('Profile saved!');
+}
+
+// Logout
+function logout() {
+  supabase.auth.signOut();
+  showLoginButton();
+}
+
+// On page load, check session
+document.addEventListener('DOMContentLoaded', async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session && session.user) {
+    showProfileEditor(session.user);
+  } else {
+    showLoginButton();
+  }
+});
     </script>
 </body>
 </html>
