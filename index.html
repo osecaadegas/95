@@ -1476,7 +1476,10 @@ async function showProfileEditor(user) {
 
     document.getElementById('logout-btn').onclick = async function() {
         await supabase.auth.signOut();
+        // Force UI update after logout
         showLoginButton();
+        // Optionally reload to clear any cached state
+        // location.reload();
     };
 }
 
