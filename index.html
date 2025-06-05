@@ -1321,8 +1321,9 @@
             Login with Twitch
         </button>
     `;
-    // Hide nav-auth-only links when logged out
+    // Hide nav-auth-only links and bonus hunt message when logged out
     document.querySelectorAll('.nav-auth-only').forEach(el => el.style.display = 'none');
+    document.getElementById('bonus-hunt-msg').style.display = 'block';
 }
 
 async function showProfileEditor(user) {
