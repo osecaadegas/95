@@ -713,6 +713,8 @@
             <a href="https://osecaadegas.github.io/publictracker/" class="nav-link nav-auth-only"><i>🏆</i> Bonus Hunt Tracker</a>
         </div>
         <div class="nav-right">
+            <!-- Supabase Profile/Login UI will appear here -->
+            <div id="profile-area"></div>
             <div class="lang-switcher">
                 <span class="lang-label" id="lang-en">
                     <img src="https://flagcdn.com/gb.svg" alt="English" style="height: 1em; vertical-align: middle;">
@@ -724,16 +726,6 @@
                 <span class="lang-label" id="lang-pt">
                     <img src="https://flagcdn.com/pt.svg" alt="Português" style="height: 1em; vertical-align: middle;">
                 </span>
-            </div>
-            <!-- Twitch Login Button START -->
-            <div id="twitch-login-area" style="display:flex;align-items:center;gap:10px;">
-              <button id="twitch-login-btn" style="background:#9147ff;color:#fff;font-weight:bold;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;box-shadow:0 2px 8px #9147ff88;">Login with Twitch</button>
-              <div id="twitch-user-info" style="display:none;align-items:center;gap:8px;">
-                <img id="twitch-user-avatar" src="" alt="Avatar" style="width:28px;height:28px;border-radius:50%;">
-                <span id="twitch-user-name" style="color:#fff;font-weight:bold;"></span>
-                <button id="twitch-logout-btn" style="background:#232a34;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;">Logout</button>
-              </div>
-              <span id="my-points" style="color:#ffd700;font-weight:bold;margin-left:16px;">Points: 0</span>
             </div>
         </div>
     </header>
@@ -919,6 +911,8 @@
     <button id="twitch-logout-btn" style="background:#232a34;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;">Logout</button>
   </div>
 </div>
+<!-- Add this after your header or wherever you want the profile UI to show -->
+<div id="profile-area"></div>
     <script>
     // --- ALL JS LOGIC IN ONE DOMContentLoaded ---
     document.addEventListener('DOMContentLoaded', function() {
@@ -1515,10 +1509,10 @@ function showLoginButton() {
 async function showProfileEditor(user) {
   let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
   document.getElementById('profile-area').innerHTML = `
-    <img id="profile-avatar" src="${profile.avatar_url || ''}" width="64" style="display:block;margin-bottom:8px;" />
-    <input type="file" id="avatar-upload" accept="image/*" style="margin-bottom:8px;" />
-    <input id="username" value="${profile.username || ''}" placeholder="Username" />
-    <textarea id="bio" placeholder="Bio">${profile.bio || ''}</textarea>
+    <img id="profile-avatar" src="${profile.avatar_url || ''}" width="40" style="display:inline-block;margin-bottom:0;vertical-align:middle;border-radius:50%;" />
+    <input type="file" id="avatar-upload" accept="image/*" style="margin-bottom:8px;display:block;" />
+    <input id="username" value="${profile.username || ''}" placeholder="Username" style="margin-bottom:4px;" />
+    <textarea id="bio" placeholder="Bio" style="margin-bottom:4px;">${profile.bio || ''}</textarea>
     <button onclick="saveProfile()">Save</button>
     <button onclick="logout()">Logout</button>
   `;
