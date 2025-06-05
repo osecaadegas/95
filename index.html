@@ -1515,12 +1515,29 @@ function showLoginButton() {
 async function showProfileEditor(user) {
   let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
   document.getElementById('profile-area').innerHTML = `
-    <img src="${profile.avatar_url || ''}" width="64" />
+    <img id="profile-avatar" src="${profile.avatar_url || ''}" width="64" style="display:block;margin-bottom:8px;" />
+    <input type="file" id="avatar-upload" accept="image/*" style="margin-bottom:8px;" />
     <input id="username" value="${profile.username || ''}" placeholder="Username" />
     <textarea id="bio" placeholder="Bio">${profile.bio || ''}</textarea>
     <button onclick="saveProfile()">Save</button>
     <button onclick="logout()">Logout</button>
   `;
+
+  // Avatar upload handler
+  document.getElementById('avatar-upload').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    // Upload to Supabase Storage (avatars bucket)
+    const { data, error } = await supabase.storage
+      .from('avatars')
+      .upload(`${user.id}/${file.name}`, file, { upsert: true });
+    if (error) return alert('Upload failed!');
+    // Get public URL
+    const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(`${user.id}/${file.name}`);
+    await supabase.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', user.id);
+    document.getElementById('profile-avatar').src = urlData.publicUrl;
+    alert('Avatar updated!');
+  });
 }
 
 // Save profile changes
