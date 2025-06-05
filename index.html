@@ -902,7 +902,6 @@
             </div>
         </div>
     </footer>
-<!-- Add this after your header or wherever you want the profile UI to show -->
     <script>
     // --- ALL JS LOGIC IN ONE DOMContentLoaded ---
     document.addEventListener('DOMContentLoaded', function() {
@@ -1239,6 +1238,91 @@
             document.querySelectorAll('.offer-card').forEach(updateScratchWait);
         });
         setLanguage(SCRATCH_LANG);
+
+        // --- SUPABASE LOGIN/PROFILE LOGIC ---
+        const SUPABASE_URL = 'https://oytxhozuqrxeebdlnawb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95dHhob3p1cXJ4ZWViZGxuYXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3ODU0OTEsImV4cCI6MjA2NDM2MTQ5MX0.G18pV_EFVfbtQd62tG_S-ED_TRjCptWp-C8dcO2GEEA';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function signInWithTwitch() {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'twitch',
+            });
+            if (error) alert('Login failed: ' + error.message);
+        }
+
+        function showLoginButton() {
+            document.getElementById('profile-area').innerHTML = `<button onclick="signInWithTwitch()">Login with Twitch</button>`;
+        }
+
+        async function showProfileEditor(user) {
+            let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+            document.getElementById('profile-area').innerHTML = `
+                <img id="profile-avatar" src="${profile?.avatar_url || ''}" width="40" style="display:inline-block;margin-bottom:0;vertical-align:middle;border-radius:50%;" />
+                <input type="file" id="avatar-upload" accept="image/*" style="margin-bottom:8px;display:block;" />
+                <input id="username" value="${profile?.username || ''}" placeholder="Username" style="margin-bottom:4px;" />
+                <textarea id="bio" placeholder="Bio" style="margin-bottom:4px;">${profile?.bio || ''}</textarea>
+                <button id="save-profile-btn">Save</button>
+                <button id="logout-btn">Logout</button>
+            `;
+
+            document.getElementById('avatar-upload').addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const { data, error } = await supabase.storage
+                    .from('avatars')
+                    .upload(`${user.id}/${file.name}`, file, { upsert: true });
+                if (error) return alert('Upload failed!');
+                const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(`${user.id}/${file.name}`);
+                await supabase.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', user.id);
+                document.getElementById('profile-avatar').src = urlData.publicUrl;
+                alert('Avatar updated!');
+            });
+
+            document.getElementById('save-profile-btn').onclick = async function() {
+                const username = document.getElementById('username').value;
+                const bio = document.getElementById('bio').value;
+                await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
+                alert('Profile saved!');
+            };
+
+            document.getElementById('logout-btn').onclick = async function() {
+                await supabase.auth.signOut();
+                showLoginButton();
+            };
+        }
+
+        supabase.auth.onAuthStateChange(async (event, session) => {
+            if (session && session.user) {
+                // Fetch or create profile
+                let { data: profile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+                if (!profile) {
+                    await supabase.from('profiles').insert([
+                        { id: session.user.id, username: session.user.user_metadata.name, avatar_url: session.user.user_metadata.avatar_url }
+                    ]);
+                }
+                showProfileEditor(session.user);
+            } else {
+                showLoginButton();
+            }
+        });
+
+        // On page load, check session
+        (async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && session.user) {
+                showProfileEditor(session.user);
+            } else {
+                showLoginButton();
+            }
+        })();
+
+        // Make signInWithTwitch globally available for the button
+        window.signInWithTwitch = signInWithTwitch;
     });
 
     // --- TRANSLATIONS ---
@@ -1347,97 +1431,6 @@
     }
 };
 
-const SUPABASE_URL = 'https://oytxhozuqrxeebdlnawb.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95dHhob3p1cXJ4ZWViZGxuYXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3ODU0OTEsImV4cCI6MjA2NDM2MTQ5MX0.G18pV_EFVfbtQd62tG_S-ED_TRjCptWp-C8dcO2GEEA';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Sign in with Twitch
-async function signInWithTwitch() {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'twitch',
-  });
-  if (error) alert('Login failed: ' + error.message);
-}
-
-// Listen for auth state changes
-supabase.auth.onAuthStateChange(async (event, session) => {
-  if (session && session.user) {
-    // Fetch or create profile
-    let { data: profile, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', session.user.id)
-      .single();
-    if (!profile) {
-      // Create profile if not exists
-      await supabase.from('profiles').insert([
-        { id: session.user.id, username: session.user.user_metadata.name, avatar_url: session.user.user_metadata.avatar_url }
-      ]);
-    }
-    showProfileEditor(session.user);
-  } else {
-    showLoginButton();
-  }
-});
-
-// Show login button
-function showLoginButton() {
-  document.getElementById('profile-area').innerHTML = `<button onclick="signInWithTwitch()">Login with Twitch</button>`;
-}
-
-// Show profile editor
-async function showProfileEditor(user) {
-  let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-  document.getElementById('profile-area').innerHTML = `
-    <img id="profile-avatar" src="${profile.avatar_url || ''}" width="40" style="display:inline-block;margin-bottom:0;vertical-align:middle;border-radius:50%;" />
-    <input type="file" id="avatar-upload" accept="image/*" style="margin-bottom:8px;display:block;" />
-    <input id="username" value="${profile.username || ''}" placeholder="Username" style="margin-bottom:4px;" />
-    <textarea id="bio" placeholder="Bio" style="margin-bottom:4px;">${profile.bio || ''}</textarea>
-    <button onclick="saveProfile()">Save</button>
-    <button onclick="logout()">Logout</button>
-  `;
-
-  // Avatar upload handler
-  document.getElementById('avatar-upload').addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    // Upload to Supabase Storage (avatars bucket)
-    const { data, error } = await supabase.storage
-      .from('avatars')
-      .upload(`${user.id}/${file.name}`, file, { upsert: true });
-    if (error) return alert('Upload failed!');
-    // Get public URL
-    const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(`${user.id}/${file.name}`);
-    await supabase.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', user.id);
-    document.getElementById('profile-avatar').src = urlData.publicUrl;
-    alert('Avatar updated!');
-  });
-}
-
-// Save profile changes
-async function saveProfile() {
-  const user = (await supabase.auth.getUser()).data.user;
-  const username = document.getElementById('username').value;
-  const bio = document.getElementById('bio').value;
-  await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
-  alert('Profile saved!');
-}
-
-// Logout
-function logout() {
-  supabase.auth.signOut();
-  showLoginButton();
-}
-
-// On page load, check session
-document.addEventListener('DOMContentLoaded', async () => {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (session && session.user) {
-    showProfileEditor(session.user);
-  } else {
-    showLoginButton();
-  }
-});
     </script>
 </body>
 </html>
