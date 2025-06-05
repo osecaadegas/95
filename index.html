@@ -1278,6 +1278,9 @@
         async function signInWithTwitch() {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'twitch',
+                options: {
+                    redirectTo: 'https://osecaadegas.github.io/95/'
+                }
             });
             if (error) alert('Login failed: ' + error.message);
         }
