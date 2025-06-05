@@ -1471,15 +1471,34 @@ async function showProfileEditor(user) {
         const username = document.getElementById('username').value;
         const bio = document.getElementById('bio').value;
         await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
-        alert('Profile saved!');
+        // Hide editor and show header
+        showProfileHeader(user);
     };
 
     document.getElementById('logout-btn').onclick = async function() {
         await supabase.auth.signOut();
-        // Force UI update after logout
         showLoginButton();
-        // Optionally reload to clear any cached state
-        // location.reload();
+    };
+}
+
+// Show a simple profile header with avatar, username, and logout
+async function showProfileHeader(user) {
+    let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+    document.getElementById('profile-area').innerHTML = `
+        <div class="profile-header" style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+            <img src="${profile?.avatar_url || 'https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png'}" alt="Avatar" style="width:38px;height:38px;border-radius:50%;border:2px solid #6ec1e4;">
+            <span style="color:#eaf6fb;font-weight:bold;">${profile?.username || 'User'}</span>
+            <button id="logout-btn" class="profile-btn logout" style="margin-left:10px;padding:4px 14px;font-size:0.95em;">Logout</button>
+        </div>
+    `;
+    // Clicking the header re-opens the editor (except logout)
+    document.querySelector('.profile-header').addEventListener('click', function(e) {
+        if (e.target.id !== 'logout-btn') showProfileEditor(user);
+    });
+    document.getElementById('logout-btn').onclick = async function(e) {
+        e.stopPropagation();
+        await supabase.auth.signOut();
+        showLoginButton();
     };
 }
 
