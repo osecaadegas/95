@@ -1321,11 +1321,13 @@
             Login with Twitch
         </button>
     `;
-        }
+    // Hide nav-auth-only links when logged out
+    document.querySelectorAll('.nav-auth-only').forEach(el => el.style.display = 'none');
+}
 
-        async function showProfileEditor(user) {
-            let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-            document.getElementById('profile-area').innerHTML = `
+async function showProfileEditor(user) {
+    let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+    document.getElementById('profile-area').innerHTML = `
         <div class="profile-card">
             <div class="profile-avatar-section">
                 <img id="profile-avatar" src="${profile?.avatar_url || 'https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png'}" alt="Avatar" />
