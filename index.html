@@ -1297,39 +1297,156 @@
         async function showProfileEditor(user) {
             let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
             document.getElementById('profile-area').innerHTML = `
-                <img id="profile-avatar" src="${profile?.avatar_url || ''}" width="40" style="display:inline-block;margin-bottom:0;vertical-align:middle;border-radius:50%;" />
-                <input type="file" id="avatar-upload" accept="image/*" style="margin-bottom:8px;display:block;" />
-                <input id="username" value="${profile?.username || ''}" placeholder="Username" style="margin-bottom:4px;" />
-                <textarea id="bio" placeholder="Bio" style="margin-bottom:4px;">${profile?.bio || ''}</textarea>
-                <button id="save-profile-btn">Save</button>
-                <button id="logout-btn">Logout</button>
-            `;
-
-            document.getElementById('avatar-upload').addEventListener('change', async (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const { data, error } = await supabase.storage
-                    .from('avatars')
-                    .upload(`${user.id}/${file.name}`, file, { upsert: true });
-                if (error) return alert('Upload failed!');
-                const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(`${user.id}/${file.name}`);
-                await supabase.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', user.id);
-                document.getElementById('profile-avatar').src = urlData.publicUrl;
-                alert('Avatar updated!');
-            });
-
-            document.getElementById('save-profile-btn').onclick = async function() {
-                const username = document.getElementById('username').value;
-                const bio = document.getElementById('bio').value;
-                await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
-                alert('Profile saved!');
-            };
-
-            document.getElementById('logout-btn').onclick = async function() {
-                await supabase.auth.signOut();
-                showLoginButton();
-            };
+        <div class="profile-card">
+            <div class="profile-avatar-section">
+                <img id="profile-avatar" src="${profile?.avatar_url || 'https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png'}" alt="Avatar" />
+                <label class="avatar-upload-label">
+                    <input type="file" id="avatar-upload" accept="image/*" />
+                    <span>Change Avatar</span>
+                </label>
+            </div>
+            <div class="profile-fields">
+                <input id="username" value="${profile?.username || ''}" placeholder="Username" class="profile-input" />
+                <textarea id="bio" placeholder="Bio" class="profile-textarea">${profile?.bio || ''}</textarea>
+                <div class="profile-actions">
+                    <button id="save-profile-btn" class="profile-btn save">Save</button>
+                    <button id="logout-btn" class="profile-btn logout">Logout</button>
+                </div>
+            </div>
+        </div>
+        <style>
+        .profile-card {
+            background: linear-gradient(135deg, #16213e 60%, #274472 100%);
+            border-radius: 20px;
+            box-shadow: 0 4px 32px #6ec1e422, 0 0 8px #fff2;
+            padding: 32px 24px 24px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            max-width: 420px;
+            margin: 24px auto 0 auto;
         }
+        .profile-avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .profile-avatar-section img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #6ec1e4;
+            box-shadow: 0 2px 12px #6ec1e488;
+            object-fit: cover;
+            background: #fff;
+        }
+        .avatar-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: #6ec1e4;
+            font-size: 0.98em;
+            margin-top: 4px;
+        }
+        .avatar-upload-label input[type="file"] {
+            display: none;
+        }
+        .profile-fields {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .profile-input, .profile-textarea {
+            width: 100%;
+            background: #232a34;
+            color: #eaf6fb;
+            border: 1.5px solid #6ec1e4;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 1em;
+            margin-bottom: 0;
+            box-shadow: 0 1px 6px #6ec1e433;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .profile-input:focus, .profile-textarea:focus {
+            border: 1.5px solid #ffd700;
+        }
+        .profile-textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .profile-btn {
+            padding: 8px 22px;
+            border-radius: 12px;
+            border: none;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px #6ec1e433;
+        }
+        .profile-btn.save {
+            background: linear-gradient(90deg, #6ec1e4 60%, #16213e 100%);
+            color: #16213e;
+        }
+        .profile-btn.save:hover {
+            background: #ffd700;
+            color: #232a34;
+        }
+        .profile-btn.logout {
+            background: #232a34;
+            color: #6ec1e4;
+            border: 1.5px solid #6ec1e4;
+        }
+        .profile-btn.logout:hover {
+            background: #6ec1e4;
+            color: #232a34;
+        }
+        @media (max-width: 600px) {
+            .profile-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 18px 8px;
+                gap: 18px;
+            }
+        }
+        </style>
+    `;
+
+    document.getElementById('avatar-upload').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const { data, error } = await supabase.storage
+            .from('avatars')
+            .upload(`${user.id}/${file.name}`, file, { upsert: true });
+        if (error) return alert('Upload failed!');
+        const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(`${user.id}/${file.name}`);
+        await supabase.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', user.id);
+        document.getElementById('profile-avatar').src = urlData.publicUrl;
+        alert('Avatar updated!');
+    });
+
+    document.getElementById('save-profile-btn').onclick = async function() {
+        const username = document.getElementById('username').value;
+        const bio = document.getElementById('bio').value;
+        await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
+        alert('Profile saved!');
+    };
+
+    document.getElementById('logout-btn').onclick = async function() {
+        await supabase.auth.signOut();
+        showLoginButton();
+    };
+}
 
         supabase.auth.onAuthStateChange(async (event, session) => {
             if (session && session.user) {
