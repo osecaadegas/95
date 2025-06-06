@@ -1327,6 +1327,10 @@
 }
 
 async function showProfileEditor(user) {
+    // Show nav-auth-only links and hide bonus hunt message
+    document.querySelectorAll('.nav-auth-only').forEach(el => el.style.display = 'inline-flex');
+    document.getElementById('bonus-hunt-msg').style.display = 'none';
+
     let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
     document.getElementById('profile-area').innerHTML = `
         <div class="profile-card">
@@ -1471,7 +1475,6 @@ async function showProfileEditor(user) {
         const username = document.getElementById('username').value;
         const bio = document.getElementById('bio').value;
         await supabase.from('profiles').update({ username, bio }).eq('id', user.id);
-        // Hide editor and show header
         showProfileHeader(user);
     };
 
@@ -1483,6 +1486,10 @@ async function showProfileEditor(user) {
 
 // Show a simple profile header with avatar, username, and logout
 async function showProfileHeader(user) {
+    // Show nav-auth-only links and hide bonus hunt message
+    document.querySelectorAll('.nav-auth-only').forEach(el => el.style.display = 'inline-flex');
+    document.getElementById('bonus-hunt-msg').style.display = 'none';
+
     let { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
     document.getElementById('profile-area').innerHTML = `
         <div class="profile-header" style="display:flex;align-items:center;gap:10px;cursor:pointer;">
@@ -1491,7 +1498,6 @@ async function showProfileHeader(user) {
             <button id="logout-btn" class="profile-btn logout" style="margin-left:10px;padding:4px 14px;font-size:0.95em;">Logout</button>
         </div>
     `;
-    // Clicking the header re-opens the editor (except logout)
     document.querySelector('.profile-header').addEventListener('click', function(e) {
         if (e.target.id !== 'logout-btn') showProfileEditor(user);
     });
