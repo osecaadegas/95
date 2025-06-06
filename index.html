@@ -960,37 +960,6 @@
         </div>
     </footer>
     <script>
-    // --- AGE GATE LOGIC: runs as soon as possible ---
-    (function() {
-        function hideAgeGate() {
-            var overlay = document.getElementById('age-gate-overlay');
-            if (overlay) overlay.style.display = 'none';
-            sessionStorage.setItem('ageVerified', '1');
-        }
-        function showAgeGate() {
-            var overlay = document.getElementById('age-gate-overlay');
-            if (overlay) overlay.style.display = 'flex';
-        }
-        function setupAgeGate() {
-            var yesBtn = document.getElementById('age-yes');
-            var noBtn = document.getElementById('age-no');
-            if (yesBtn) yesBtn.onclick = hideAgeGate;
-            if (noBtn) noBtn.onclick = function() {
-                window.location.href = "https://www.google.com/search?q=responsible+gaming";
-            };
-            if (sessionStorage.getItem('ageVerified') === '1') {
-                hideAgeGate();
-            } else {
-                showAgeGate();
-            }
-        }
-        if (document.readyState === "loading") {
-            document.addEventListener('DOMContentLoaded', setupAgeGate);
-        } else {
-            setupAgeGate();
-        }
-    })();
-
     // --- ALL JS LOGIC IN ONE DOMContentLoaded ---
     document.addEventListener('DOMContentLoaded', function() {
         // Sidebar logic
@@ -1048,6 +1017,24 @@
                 }
             });
         }
+
+        // Age gate logic
+        function hideAgeGate() {
+            document.getElementById('age-gate-overlay').style.display = 'none';
+            sessionStorage.setItem('ageVerified', '1');
+        }
+        function showAgeGate() {
+            document.getElementById('age-gate-overlay').style.display = 'flex';
+        }
+        if (sessionStorage.getItem('ageVerified') === '1') {
+            hideAgeGate();
+        } else {
+            showAgeGate();
+        }
+        document.getElementById('age-yes').onclick = hideAgeGate;
+        document.getElementById('age-no').onclick = function() {
+            window.location.href = "https://www.google.com/search?q=responsible+gaming";
+        };
 
         // Empire Drop button
         var empireBtn = document.getElementById('empire-claim-btn');
@@ -1521,40 +1508,38 @@ async function showProfileHeader(user) {
     };
 }
 
-// --- MOVE THIS BLOCK OUTSIDE DOMContentLoaded ---
+        supabase.auth.onAuthStateChange(async (event, session) => {
+            if (session && session.user) {
+                // Fetch or create profile
+                let { data: profile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+                if (!profile) {
+                    await supabase.from('profiles').insert([
+                        { id: session.user.id, username: session.user.user_metadata.name, avatar_url: session.user.user_metadata.avatar_url }
+                    ]);
+                }
+                showProfileEditor(session.user);
+            } else {
+                showLoginButton();
+            }
+        });
 
-// Listen for auth state changes (login/logout)
-supabase.auth.onAuthStateChange(async (event, session) => {
-    if (session && session.user) {
-        // Fetch or create profile
-        let { data: profile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-        if (!profile) {
-            await supabase.from('profiles').insert([
-                { id: session.user.id, username: session.user.user_metadata.name, avatar_url: session.user.user_metadata.avatar_url }
-            ]);
-        }
-        showProfileEditor(session.user);
-    } else {
-        showLoginButton();
-    }
-});
+        // On page load, check session
+        (async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && session.user) {
+                showProfileEditor(session.user);
+            } else {
+                showLoginButton();
+            }
+        })();
 
-// On page load, check session
-(async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session && session.user) {
-        showProfileEditor(session.user);
-    } else {
-        showLoginButton();
-    }
-})();
-
-// Make signInWithTwitch globally available for the button
-window.signInWithTwitch = signInWithTwitch;
+        // Make signInWithTwitch globally available for the button
+        window.signInWithTwitch = signInWithTwitch;
+    });
 
     // --- TRANSLATIONS ---
     const translations = {
