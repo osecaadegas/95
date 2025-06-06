@@ -960,6 +960,37 @@
         </div>
     </footer>
     <script>
+    // --- AGE GATE LOGIC: runs as soon as possible ---
+    (function() {
+        function hideAgeGate() {
+            var overlay = document.getElementById('age-gate-overlay');
+            if (overlay) overlay.style.display = 'none';
+            sessionStorage.setItem('ageVerified', '1');
+        }
+        function showAgeGate() {
+            var overlay = document.getElementById('age-gate-overlay');
+            if (overlay) overlay.style.display = 'flex';
+        }
+        function setupAgeGate() {
+            var yesBtn = document.getElementById('age-yes');
+            var noBtn = document.getElementById('age-no');
+            if (yesBtn) yesBtn.onclick = hideAgeGate;
+            if (noBtn) noBtn.onclick = function() {
+                window.location.href = "https://www.google.com/search?q=responsible+gaming";
+            };
+            if (sessionStorage.getItem('ageVerified') === '1') {
+                hideAgeGate();
+            } else {
+                showAgeGate();
+            }
+        }
+        if (document.readyState === "loading") {
+            document.addEventListener('DOMContentLoaded', setupAgeGate);
+        } else {
+            setupAgeGate();
+        }
+    })();
+
     // --- ALL JS LOGIC IN ONE DOMContentLoaded ---
     document.addEventListener('DOMContentLoaded', function() {
         // Sidebar logic
@@ -1017,24 +1048,6 @@
                 }
             });
         }
-
-        // Age gate logic
-        function hideAgeGate() {
-            document.getElementById('age-gate-overlay').style.display = 'none';
-            sessionStorage.setItem('ageVerified', '1');
-        }
-        function showAgeGate() {
-            document.getElementById('age-gate-overlay').style.display = 'flex';
-        }
-        if (sessionStorage.getItem('ageVerified') === '1') {
-            hideAgeGate();
-        } else {
-            showAgeGate();
-        }
-        document.getElementById('age-yes').onclick = hideAgeGate;
-        document.getElementById('age-no').onclick = function() {
-            window.location.href = "https://www.google.com/search?q=responsible+gaming";
-        };
 
         // Empire Drop button
         var empireBtn = document.getElementById('empire-claim-btn');
