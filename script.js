@@ -23,13 +23,13 @@ async function checkAuthAndSetupScratch() {
     const { data: { user } } = await supabaseClient.auth.getUser();
     currentUser = user;
     if (!user) {
-        scratchSection.style.display = 'none';
-        scratchLoginRequired.style.display = 'block';
+        if (scratchSection) scratchSection.style.display = 'none';
+        if (scratchLoginRequired) scratchLoginRequired.style.display = 'block';
         if (scratchMessage) scratchMessage.textContent = '';
         return;
     }
-    scratchLoginRequired.style.display = 'none';
-    scratchSection.style.display = 'block';
+    if (scratchLoginRequired) scratchLoginRequired.style.display = 'none';
+    if (scratchSection) scratchSection.style.display = 'block';
     checkScratchUsage();
 }
 
@@ -158,3 +158,30 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // --- OPTIONAL: LOGOUT HANDLER (if you want to add a logout button) ---
 // document.getElementById('logout-btn').onclick = () => supabaseClient.auth.signOut();
+
+// --- AGE GATE LOGIC ---
+document.addEventListener('DOMContentLoaded', () => {
+    const ageGateOverlay = document.getElementById('age-gate-overlay');
+    const ageYesBtn = document.getElementById('age-yes');
+    const ageNoBtn = document.getElementById('age-no');
+
+    // Check if user already passed the age gate
+    if (localStorage.getItem('ageGatePassed') === 'true') {
+        if (ageGateOverlay) ageGateOverlay.style.display = 'none';
+    } else {
+        if (ageGateOverlay) ageGateOverlay.style.display = 'flex';
+    }
+
+    if (ageYesBtn) {
+        ageYesBtn.onclick = () => {
+            localStorage.setItem('ageGatePassed', 'true');
+            if (ageGateOverlay) ageGateOverlay.style.display = 'none';
+        };
+    }
+    if (ageNoBtn) {
+        ageNoBtn.onclick = () => {
+            // Optionally redirect or show a message
+            window.location.href = 'https://www.begambleaware.org/';
+        };
+    }
+});
