@@ -1,7 +1,8 @@
 // --- CONFIGURE YOUR SUPABASE URL AND ANON KEY ---
 const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
 const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Use a different variable name for your client instance to avoid conflict
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // --- DOM ELEMENTS ---
 const scratchSection = document.getElementById('scratch-card-section');
@@ -19,7 +20,7 @@ let scratchUsed = false;
 
 // --- AUTH HANDLING ---
 async function checkAuthAndSetupScratch() {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
     currentUser = user;
     if (!user) {
         scratchSection.style.display = 'none';
@@ -37,12 +38,12 @@ if (scratchLoginBtn) {
     scratchLoginBtn.onclick = async () => {
         // Use Supabase magic link or OAuth (Google) for login
         // Example: Google OAuth
-        await supabase.auth.signInWithOAuth({ provider: 'google' });
+        await supabaseClient.auth.signInWithOAuth({ provider: 'google' });
     };
 }
 
 // --- LISTEN FOR AUTH CHANGES ---
-supabase.auth.onAuthStateChange((_event, session) => {
+supabaseClient.auth.onAuthStateChange((_event, session) => {
     currentUser = session?.user || null;
     checkAuthAndSetupScratch();
 });
@@ -51,7 +52,7 @@ supabase.auth.onAuthStateChange((_event, session) => {
 async function checkScratchUsage() {
     if (!currentUser) return;
     // Query for latest usage
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('scratch_usage')
         .select('used_at')
         .eq('user_id', currentUser.id)
@@ -118,7 +119,7 @@ async function handleScratch() {
         scratchMessage.textContent = 'Better luck next time!';
     }
     // Record usage in Supabase
-    await supabase.from('scratch_usage').insert([
+    await supabaseClient.from('scratch_usage').insert([
         { user_id: currentUser.id, used_at: new Date().toISOString() }
     ]);
     scratchUsed = true;
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveBtn.addEventListener('click', async () => {
             // Example: Save user profile data (customize as needed)
             // const profileData = { ... }; // Gather data from form fields
-            // const { error } = await supabase.from('profiles').upsert(profileData);
+            // const { error } = await supabaseClient.from('profiles').upsert(profileData);
             // if (!error) alert('Profile saved!');
             // else alert('Error saving profile.');
             alert('Save button clicked. Implement your save logic here.');
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
-            await supabase.auth.signOut();
+            await supabaseClient.auth.signOut();
             window.location.reload();
         });
     }
@@ -156,4 +157,4 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- OPTIONAL: LOGOUT HANDLER (if you want to add a logout button) ---
-// document.getElementById('logout-btn').onclick = () => supabase.auth.signOut();
+// document.getElementById('logout-btn').onclick = () => supabaseClient.auth.signOut();
