@@ -23,7 +23,7 @@
     background:rgba(40,48,60,0.98);
     backdrop-filter:blur(6px);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-">
+"
     <div style="
         background:linear-gradient(120deg,#232a34 80%,#6cb6f5 100%);
         border:2px solid #6cb6f5;
@@ -98,10 +98,26 @@
         </div>
         <div class="nav-right">
             <div id="profile-area">
-    <!-- ...existing profile content... -->
-    <div class="profile-actions">
-        <button id="save-btn" class="profile-btn save">Save</button>
-        <button id="logout-btn" class="profile-btn logout">Logout</button>
+    <div id="profile-card" class="profile-card" style="display:none;">
+        <div class="profile-avatar-section">
+            <img id="profile-avatar" src="https://ui-avatars.com/api/?name=User" alt="Avatar" />
+            <label class="avatar-upload-label">
+                <input type="file" id="avatar-upload" accept="image/*" />
+                Change Avatar
+            </label>
+        </div>
+        <div class="profile-fields">
+            <div style="margin-bottom:8px;">
+                <span style="color:#a3b9d7;">Logged in as:</span>
+                <span id="profile-email" style="color:#6ec1e4;font-weight:bold;"></span>
+            </div>
+            <input id="profile-name" class="profile-input" type="text" placeholder="Your Name" />
+            <textarea id="profile-bio" class="profile-textarea" placeholder="Your bio..."></textarea>
+            <div class="profile-actions">
+                <button id="profile-save-btn" class="profile-btn save">Save</button>
+                <button id="profile-logout-btn" class="profile-btn logout">Logout</button>
+            </div>
+        </div>
     </div>
 </div>
             <div class="lang-switcher">
