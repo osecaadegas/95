@@ -1,309 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>osecaadegas95</title>
-    <link rel="apple-touch-icon" href="icon.png">
-    <link rel="stylesheet" href="style.css">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0f172a">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="script.js"></script>
-</head>
-<body>
- <div class="top-bar"></div>
-    <div id="bonus-hunt-msg" style="width:100%;background:#232a34;color:#ffd700;text-align:center;padding:10px 0;font-weight:bold;letter-spacing:0.5px;font-size:1.08em;box-shadow:0 2px 12px #000a;z-index:101;position:relative;">
-        For using the Bonus Hunt Tracker You must First Log in
-    </div>
-    <div id="age-gate-overlay" style="
-    position:fixed;
-    z-index:9999;
-    top:0;left:0;width:100vw;height:100vh;
-    background:rgba(40,48,60,0.98);
-    backdrop-filter:blur(6px);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-">
-    <div style="
-        background:linear-gradient(120deg,#232a34 80%,#6cb6f5 100%);
-        border:2px solid #6cb6f5;
-        border-radius:32px;
-        padding:40px 24px 32px 24px;
-        box-shadow:0 4px 48px #6cb6f588, 0 2px 12px #000a;
-        max-width:94vw;
-        min-width:260px;
-        text-align:center;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-    ">
-        <h2 style="
-            color:#6ec1e4;
-            margin-bottom:18px;
-            font-size:2em;
-            letter-spacing:1px;
-            text-shadow:0 2px 16px #6ec1e488,0 0 2px #eaf6fb;
-        ">Are you 18 or older?</h2>
-        <p style="
-            color:#eaf6fb;
-            margin-bottom:28px;
-            font-size:1.1em;
-            text-shadow:0 2px 8px #000a;
-        ">
-            You must be at least 18 years old to access this website.<br>Please confirm your age.
-        </p>
-        <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:340px;">
-            <button id="age-yes" style="
-                background:linear-gradient(90deg,#6cb6f5 60%,#232a34 100%);
-                color:#232a34;
-                font-weight:bold;
-                font-size:1.2em;
-                padding:14px 0;
-                border:none;
-                border-radius:12px;
-                cursor:pointer;
-                box-shadow:0 2px 8px #6cb6f544;
-                margin-bottom:0;
-                width:100%;
-                transition:background 0.2s,color 0.2s,box-shadow 0.2s;
-            ">Yes, I am 18 or older</button>
-            <button id="age-no" style="
-                background:#232a34;
-                color:#6cb6f5;
-                font-weight:bold;
-                font-size:1.2em;
-                padding:14px 0;
-                border:2px solid #6cb6f5;
-                border-radius:12px;
-                cursor:pointer;
-                box-shadow:0 2px 8px #6cb6f522;
-                width:100%;
-                transition:background 0.2s,color 0.2s,box-shadow 0.2s;
-            ">No</button>
-        </div>
-    </div>
-</div>
-    <header class="site-header">
-        <div class="nav-left">
-            <button id="sidebar-toggle" class="icon-btn" aria-label="Open menu">&#9776;</button>
-            <div class="logo">
-                <img src="https://i.imgur.com/8E3ucNx.png" alt="Logo" />
-                osecaadegas
-            </div>
-        </div>
-        <div class="nav-center">
-            <a href="https://osecaadegas.github.io/95/" class="nav-link nav-auth-only"><i>🏠</i> Home</a>
-            <a href="https://osecaadegas.github.io/publictracker/" class="nav-link nav-auth-only"><i>🏆</i> Bonus Hunt Tracker</a>
-        </div>
-        <div class="nav-right">
-            <div id="profile-area"></div>
-            <div class="lang-switcher">
-                <span class="lang-label" id="lang-en">
-                    <img src="https://flagcdn.com/gb.svg" alt="English" style="height: 1em; vertical-align: middle;">
-                </span>
-                <label class="switch">
-                    <input type="checkbox" id="lang-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="lang-label" id="lang-pt">
-                    <img src="https://flagcdn.com/pt.svg" alt="Português" style="height: 1em; vertical-align: middle;">
-                </span>
-            </div>
-        </div>
-    </header>
-    <div class="site-container">
-        <aside class="sidebar">
-            <button id="sidebar-close" class="sidebar-close" aria-label="Close menu">&times;</button>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="https://streamelements.com/osecaadegas95/store"><i>🛒</i> Twitch Store</a></li>
-                    <li><a href="https://discord.gg/X5dy6Fdwzk"><i>💻</i> Discord</a></li>
-                    <li><a href="https://www.twitch.tv/osecaadegas95"><i>🔴</i> Stream</a></li>
-                    <li><a href="https://www.youtube.com/@osecaadegas95"><i>▶</i> Youtube</a></li>
-                    <li><a href="https://www.tiktok.com/@osecaadegas95"><i>🎵</i> TikTok</a></li>
-                    <li><a href="https://t.me/osecadegas/1"><i>📱</i> Telegram</a></li>
-                    <li><a href="https://www.instagram.com/osecaadegas/"><i>📸</i> Instagram</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <main class="main-content">
-            <section class="offers-section">
-    <div class="offers-header" style="display: flex; align-items: center; justify-content: center; gap: 32px;">
-        <div class="stream-preview" style="flex-shrink:0;">
-            <iframe
-                src="https://player.twitch.tv/?channel=osecaadegas95&parent=osecaadegas.github.io"
-                frameborder="0"
-                allowfullscreen="true"
-                scrolling="no"
-                width="480"
-                height="256"
-                style="border-radius:12px; box-shadow:0 2px 16px #6cb6f533; border:2px solid #6cb6f544; background:#232a34;">
-            </iframe>
-        </div>
-        <div>
-            <p data-i18n="everything_here">Everything you need is here</p>
-            <h1 data-i18n="offers">OFFERS</h1>
-            <p data-i18n="register_cashback">Register and use the codes to get 15% cashback from me</p>
-        </div>
-    </div>
-                <div class="offers-grid">
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/NidDJ8q.png" alt="Empire Drop Logo" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/zyaMuMh.png" alt="Empire Drop Offer" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-percentage" data-i18n="empire_percent">+100%</p>
-                                <p class="offer-condition" data-i18n="empire_condition">on the first deposit</p>
-                                <div class="offer-icons">
-                                    <span>🎲</span>
-                                    <span>💰</span>
-                                    <span>⚡</span>
-                                    <span>🎁</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="#" class="claim-button" id="empire-claim-btn">CLAIM OFFER</a>
-                        </div>
-                    </div>
-                        <div class="offer-card">
-        <div class="offer-card-header">
-            <img src="https://cdn.oscarstatic.com/images/file/uploads/3816482860572392777.svg" alt="New Casino Logo" class="provider-logo">
-        </div>
-        <div class="offer-card-body">
-            <img src="https://i.imgur.com/WQ59Etd.png" alt="New Casino Offer" class="offer-image">
-            <div class="offer-details">
-                <p class="offer-percentage" data-i18n="newcasino_percent">1st deposit cashback up to 20€</p>
-                <p class="offer-condition" data-i18n="newcasino_condition">No double accounts are covered</p>
-                <div class="offer-icons">
-                    <span>🎰</span>
-                    <span>💎</span>
-                    <span>💸</span>
-                    <span>🎁</span>
-                </div>
-            </div>
-        </div>
-        <div class="offer-card-footer">
-            <a href="https://track.intrklnkmain.com/visit/?bta=50989&nci=6538" class="claim-button">CLAIM OFFER</a>
-        </div>
-    </div>
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/5AcTAPU.jpeg" alt="Infinity Casino" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/5AcTAPU.jpeg" alt="Infinity Casino" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-percentage" data-i18n="infinity_percent">+100% +200 Free Spins</p>
-                                <p class="offer-condition" data-i18n="infinity_condition">+15% cashback for losses over 100€ monthly</p>
-                                <div class="offer-icons">
-                                    <span>🎰</span>
-                                    <span>✨</span>
-                                    <span>💸</span>
-                                    <span>🎉</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="https://casinoinfinity.link/h909d769e" class="claim-button">CLAIM OFFER</a>
-                        </div>
-                    </div>
-                
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/kCD163n.png" alt="Buran casino" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/ghTzhyX.jpeg" alt="Buran casino" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-percentage" data-i18n="buran_percent">1st deposit cashback up to 20€</p>
-                                <p class="offer-condition" data-i18n="buran_condition">+15% cashback for losses over 100€ monthly</p>
-                                <div class="offer-icons">
-                                    <span>🎰</span>
-                                    <span>✨</span>
-                                    <span>💸</span>
-                                    <span>🎉</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="https://brn.fynkelto.com/?mid=213417_1551916" class="claim-button">CLAIM OFFER</a>
-                        </div>
-                    </div>
-                    <div class="offer-card">
-                        <div class="offer-card-header">
-                            <img src="https://i.imgur.com/FNfNFhh.png" alt="Arena" class="provider-logo">
-                        </div>
-                        <div class="offer-card-body">
-                            <img src="https://i.imgur.com/6yzyiIL.png" alt="ABI" class="offer-image">
-                            <div class="offer-details">
-                                <p class="offer-freespins" data-i18n="arena_code">Code: secaadegas</p>
-                                <p class="offer-condition" data-i18n="arena_condition">use my code for in-game rewards</p>
-                                <div class="offer-icons">
-                                    <span>💻</span>
-                                    <span>💽</span>
-                                    <span>💸</span>
-                                    <span>🎁</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="offer-card-footer">
-                            <a href="https://arenabreakout.com/#/" class="claim-button green arena-desktop-btn">Download the Game</a>
-                            <a href="https://www.arenabreakoutinfinite.com/creatorcode/index.html?lang=pt-BR" class="claim-button orange">Creator code input</a>
-                            <a href="#" class="claim-button" id="arena-mobile-btn" style="display:none;">Download Mobile</a>
-                        </div>
-                    </div>
-                
-                            <div class="offers-grid">
-    <!-- SCRATCH CARD SECTION -->
-    <div id="scratch-login-required" style="display:none; text-align:center; color:#e74c3c; font-weight:bold; margin:24px 0;">
-        You must be logged in to use the Daily Scratch Card.
-        <button id="scratch-login-btn" style="margin-left:12px; padding:6px 18px; border-radius:8px; background:#6cb6f5; color:#232a34; font-weight:bold; border:none; cursor:pointer;">Log In</button>
-    </div>
-    <div id="scratch-card-section" style="display:none;">
-        <div class="offer-card scratch-offer-card">
-            <div class="offer-card-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 18px;">
-                <img src="https://i.imgur.com/8E3ucNx.png" alt="osecaadegas95 Logo" class="provider-logo" style="background:#fff; border-radius:8px;">
-                <h2 style="color:#6ec1e4; margin-bottom:0;" data-i18n="scratch_title">Daily Scratch Card</h2>
-            </div>
-            <div class="offer-card-body" style="position:relative;">
-                <div class="scratch-image-container" style="position:relative; width:260px; height:260px; margin:0 auto;">
-                    <img src="https://i.imgur.com/X3Q1LEQ.png" alt="osecaadegas95 Scratch" class="offer-image scratch-image" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;">
-                    <img src="https://i.imgur.com/Nw7fGoH.jpeg" alt="Win" class="offer-image scratch-result-image scratch-win-image" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;">
-                    <img src="https://i.imgur.com/WZx86in.png" alt="Lose" class="offer-image scratch-result-image scratch-lose-image" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;">
-                </div>
-                <div class="scratch-message" style="margin-top:10px;color:#6ec1e4;font-weight:bold;font-size:1em;"></div>
-            </div>
-            <div class="offer-card-footer" style="flex-direction: column; align-items: center;">
-                <span class="scratch-try-footer" data-i18n="scratch_try" style="color:#a3b9d7; font-size:0.95em;">Try your luck every day!</span>
-            </div>
-        </div>
-    </div>
-    <!-- ...existing offer cards... -->
-</div>
-            </section>
-        </main>
-    </div>
-    <footer class="site-footer">
-        <div class="footer-bar">
-            <div class="footer-links">
-                <a href="https://osecaadegas.github.io/terms-and-condictions/" class="footer-link">Terms &amp; Conditions</a>
-                <a href="https://www.begambleaware.org/" class="footer-link">Responsible Gaming</a>
-                <a href="#contact" class="footer-link">Contact</a>
-            </div>
-            <div class="footer-legal">
-                <p>
-                    This website is an affiliate and is not a gambling operator. Offers are for 18+ only. Please gamble responsibly.
-                    All offers are subject to terms and conditions of the respective casino.
-                    If you have a gambling problem, visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener" class="footer-link">BeGambleAware</a> or your local support service.
-                </p>
-                <p>
-                    &copy; 2025 osecaadegas95. All rights reserved.
-                </p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+// --- CONFIGURE YOUR SUPABASE URL AND ANON KEY ---
+const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// --- DOM ELEMENTS ---
+const scratchSection = document.getElementById('scratch-card-section');
+const scratchLoginRequired = document.getElementById('scratch-login-required');
+const scratchLoginBtn = document.getElementById('scratch-login-btn');
+const scratchImage = document.querySelector('.scratch-image');
+const scratchWinImage = document.querySelector('.scratch-win-image');
+const scratchLoseImage = document.querySelector('.scratch-lose-image');
+const scratchMessage = document.querySelector('.scratch-message');
+const scratchTryFooter = document.querySelector('.scratch-try-footer');
+
+// --- SCRATCH CARD LOGIC ---
+let currentUser = null;
+let scratchUsed = false;
+
+// --- AUTH HANDLING ---
+async function checkAuthAndSetupScratch() {
+    const { data: { user } } = await supabase.auth.getUser();
+    currentUser = user;
+    if (!user) {
+        scratchSection.style.display = 'none';
+        scratchLoginRequired.style.display = 'block';
+        if (scratchMessage) scratchMessage.textContent = '';
+        return;
+    }
+    scratchLoginRequired.style.display = 'none';
+    scratchSection.style.display = 'block';
+    checkScratchUsage();
+}
+
+// --- LOGIN BUTTON ---
+if (scratchLoginBtn) {
+    scratchLoginBtn.onclick = async () => {
+        // Use Supabase magic link or OAuth (Google) for login
+        // Example: Google OAuth
+        await supabase.auth.signInWithOAuth({ provider: 'google' });
+    };
+}
+
+// --- LISTEN FOR AUTH CHANGES ---
+supabase.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user || null;
+    checkAuthAndSetupScratch();
+});
+
+// --- CHECK SCRATCH USAGE ---
+async function checkScratchUsage() {
+    if (!currentUser) return;
+    // Query for latest usage
+    const { data, error } = await supabase
+        .from('scratch_usage')
+        .select('used_at')
+        .eq('user_id', currentUser.id)
+        .order('used_at', { ascending: false })
+        .limit(1);
+
+    if (error) {
+        scratchMessage.textContent = 'Error checking scratch usage.';
+        disableScratch();
+        return;
+    }
+
+    if (data && data.length > 0) {
+        const lastUsed = new Date(data[0].used_at);
+        const now = new Date();
+        const diffMs = now - lastUsed;
+        const diffHrs = diffMs / (1000 * 60 * 60);
+        if (diffHrs < 24) {
+            scratchUsed = true;
+            const hoursLeft = Math.ceil(24 - diffHrs);
+            scratchMessage.textContent = `You already used the scratch card. Try again in ${hoursLeft} hour(s)!`;
+            disableScratch();
+            return;
+        }
+    }
+    scratchUsed = false;
+    enableScratch();
+}
+
+// --- ENABLE/DISABLE SCRATCH ---
+function enableScratch() {
+    if (scratchImage) {
+        scratchImage.style.pointerEvents = 'auto';
+        scratchImage.style.opacity = '1';
+        scratchImage.onclick = handleScratch;
+    }
+    if (scratchMessage) scratchMessage.textContent = '';
+    if (scratchTryFooter) scratchTryFooter.style.display = '';
+    if (scratchWinImage) scratchWinImage.style.display = 'none';
+    if (scratchLoseImage) scratchLoseImage.style.display = 'none';
+}
+
+function disableScratch() {
+    if (scratchImage) {
+        scratchImage.style.pointerEvents = 'none';
+        scratchImage.style.opacity = '0.5';
+        scratchImage.onclick = null;
+    }
+    if (scratchTryFooter) scratchTryFooter.style.display = 'none';
+}
+
+// --- HANDLE SCRATCH ACTION ---
+async function handleScratch() {
+    if (scratchUsed || !currentUser) return;
+    // Simulate win/lose (50/50 chance)
+    const win = Math.random() < 0.5;
+    if (win) {
+        scratchWinImage.style.display = 'block';
+        scratchLoseImage.style.display = 'none';
+        scratchMessage.textContent = 'Congratulations! You won!';
+    } else {
+        scratchWinImage.style.display = 'none';
+        scratchLoseImage.style.display = 'block';
+        scratchMessage.textContent = 'Better luck next time!';
+    }
+    // Record usage in Supabase
+    await supabase.from('scratch_usage').insert([
+        { user_id: currentUser.id, used_at: new Date().toISOString() }
+    ]);
+    scratchUsed = true;
+    disableScratch();
+}
+
+// --- USER PANEL BUTTONS ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Save button logic
+    const saveBtn = document.getElementById('save-btn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+            // Example: Save user profile data (customize as needed)
+            // const profileData = { ... }; // Gather data from form fields
+            // const { error } = await supabase.from('profiles').upsert(profileData);
+            // if (!error) alert('Profile saved!');
+            // else alert('Error saving profile.');
+            alert('Save button clicked. Implement your save logic here.');
+        });
+    }
+
+    // Logout button logic
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            window.location.reload();
+        });
+    }
+});
+
+// --- INITIALIZE ---
+window.addEventListener('DOMContentLoaded', () => {
+    checkAuthAndSetupScratch();
+});
+
+// --- OPTIONAL: LOGOUT HANDLER (if you want to add a logout button) ---
+// document.getElementById('logout-btn').onclick = () => supabase.auth.signOut();
