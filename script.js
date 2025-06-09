@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scratchLoginBtn) {
         scratchLoginBtn.onclick = async () => {
             try {
-                await supabaseClient.auth.signInWithOAuth({ provider: 'google' });
+                await supabaseClient.auth.signInWithOAuth({ provider: 'twitch' });
             } catch (err) {
                 console.error('Login error:', err);
             }
