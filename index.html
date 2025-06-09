@@ -96,7 +96,13 @@
             <a href="https://osecaadegas.github.io/publictracker/" class="nav-link nav-auth-only"><i>🏆</i> Bonus Hunt Tracker</a>
         </div>
         <div class="nav-right">
-            <div id="profile-area"></div>
+            <div id="profile-area">
+    <!-- ...existing profile content... -->
+    <div class="profile-actions">
+        <button id="save-btn" class="profile-btn save">Save</button>
+        <button id="logout-btn" class="profile-btn logout">Logout</button>
+    </div>
+</div>
             <div class="lang-switcher">
                 <span class="lang-label" id="lang-en">
                     <img src="https://flagcdn.com/gb.svg" alt="English" style="height: 1em; vertical-align: middle;">
@@ -256,7 +262,14 @@
                         </div>
                     </div>
                 
-                            <div class="offer-card scratch-offer-card">
+                            <div class="offers-grid">
+    <!-- SCRATCH CARD SECTION -->
+    <div id="scratch-login-required" style="display:none; text-align:center; color:#e74c3c; font-weight:bold; margin:24px 0;">
+        You must be logged in to use the Daily Scratch Card.
+        <button id="scratch-login-btn" style="margin-left:12px; padding:6px 18px; border-radius:8px; background:#6cb6f5; color:#232a34; font-weight:bold; border:none; cursor:pointer;">Log In</button>
+    </div>
+    <div id="scratch-card-section" style="display:none;">
+        <div class="offer-card scratch-offer-card">
             <div class="offer-card-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 18px;">
                 <img src="https://i.imgur.com/8E3ucNx.png" alt="osecaadegas95 Logo" class="provider-logo" style="background:#fff; border-radius:8px;">
                 <h2 style="color:#6ec1e4; margin-bottom:0;" data-i18n="scratch_title">Daily Scratch Card</h2>
@@ -274,6 +287,8 @@
             </div>
         </div>
     </div>
+    <!-- ...existing offer cards... -->
+</div>
             </section>
         </main>
     </div>
