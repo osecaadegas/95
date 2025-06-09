@@ -3,7 +3,6 @@ const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
 const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// --- DOMContentLoaded: All logic in one place ---
 document.addEventListener('DOMContentLoaded', () => {
     // --- AGE GATE LOGIC ---
     const ageGateOverlay = document.getElementById('age-gate-overlay');
@@ -154,7 +153,33 @@ document.addEventListener('DOMContentLoaded', () => {
         disableScratch();
     }
 
-    // --- USER PANEL BUTTONS ---
+    // --- SIDEBAR LOGIC ---
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+    }
+    if (sidebarClose && sidebar) {
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+    }
+    document.addEventListener('click', (e) => {
+        if (
+            sidebar &&
+            sidebar.classList.contains('active') &&
+            !sidebar.contains(e.target) &&
+            e.target !== sidebarToggle
+        ) {
+            sidebar.classList.remove('active');
+        }
+    });
+
+    // --- USER PANEL BUTTONS (direct binding only) ---
     const saveBtn = document.getElementById('save-btn');
     if (saveBtn) {
         saveBtn.addEventListener('click', async () => {
