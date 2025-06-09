@@ -3,7 +3,15 @@ const SUPABASE_URL = 'https://oytxhozuqrxeebdlnawb.supabase.co'; // <-- replace 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95dHhob3p1cXJ4ZWViZGxuYXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3ODU0OTEsImV4cCI6MjA2NDM2MTQ5MX0.G18pV_EFVfbtQd62tG_S-ED_TRjCptWp-C8dcO2GEEA';  // <-- replace with your real anon key
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // --- HANDLE SUPABASE OAUTH HASH REDIRECT ---
+    if (window.location.hash && window.location.hash.includes('access_token')) {
+        // This will parse the hash and set the session
+        await supabaseClient.auth.getSessionFromUrl({ storeSession: true });
+        // Remove the hash from the URL for cleanliness
+        window.location.hash = '';
+    }
+
     // --- AGE GATE LOGIC ---
     const ageGateOverlay = document.getElementById('age-gate-overlay');
     const ageYesBtn = document.getElementById('age-yes');
