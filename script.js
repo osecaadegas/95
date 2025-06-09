@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- SCRATCH CARD LOGIC ---
     const scratchSection = document.getElementById('scratch-card-section');
-    const scratchLoginRequired = document.getElementById('scratch-login-required');
-    const scratchLoginBtn = document.getElementById('scratch-login-btn');
     const scratchImage = document.querySelector('.scratch-image');
     const scratchWinImage = document.querySelector('.scratch-win-image');
     const scratchLoseImage = document.querySelector('.scratch-lose-image');
@@ -45,29 +43,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     let currentUser = null;
     let scratchUsed = false;
 
-    async function checkAuthAndSetupScratch() {
-        try {
-            const { data: { user }, error } = await supabaseClient.auth.getUser();
-            console.log('Supabase getUser:', user, error); // <-- Add this line
-            currentUser = user;
-            if (!user) {
-                if (scratchSection) scratchSection.style.display = 'none';
-                if (scratchLoginRequired) scratchLoginRequired.style.display = 'block';
-                if (scratchMessage) scratchMessage.textContent = '';
-                return;
-            }
-            if (scratchLoginRequired) scratchLoginRequired.style.display = 'none';
-            if (scratchSection) scratchSection.style.display = 'block';
-            checkScratchUsage();
-        } catch (err) {
-            console.error('Auth error:', err);
-        }
-    }
-
-    if (scratchLoginBtn) {
-        scratchLoginBtn.onclick = async () => {
+    // --- GLOBAL LOGIN BUTTON LOGIC ---
+    const globalLoginBtn = document.getElementById('global-login-btn');
+    if (globalLoginBtn) {
+        globalLoginBtn.onclick = async () => {
             try {
-                console.log('Starting OAuth login...'); // <-- Add this line
                 await supabaseClient.auth.signInWithOAuth({ provider: 'twitch' });
             } catch (err) {
                 console.error('Login error:', err);
@@ -75,8 +55,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
     }
 
+    async function checkAuthAndSetupScratch() {
+        try {
+            const { data: { user }, error } = await supabaseClient.auth.getUser();
+            console.log('Supabase getUser:', user, error);
+            currentUser = user;
+            // Show/hide global login button
+            if (globalLoginBtn) globalLoginBtn.style.display = user ? 'none' : '';
+            // Remove all scratch-login-required logic
+            if (!user) {
+                if (scratchSection) scratchSection.style.display = 'none';
+                if (scratchMessage) scratchMessage.textContent = '';
+                return;
+            }
+            if (scratchSection) scratchSection.style.display = 'block';
+            checkScratchUsage();
+        } catch (err) {
+            console.error('Auth error:', err);
+        }
+    }
+
     supabaseClient.auth.onAuthStateChange((event, session) => {
-        console.log('Auth state changed:', event, session); // <-- Add this line
+        console.log('Auth state changed:', event, session);
         currentUser = session?.user || null;
         checkAuthAndSetupScratch();
     });
