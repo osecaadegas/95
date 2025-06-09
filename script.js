@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function checkAuthAndSetupScratch() {
         try {
-            const { data: { user } } = await supabaseClient.auth.getUser();
+            const { data: { user }, error } = await supabaseClient.auth.getUser();
+            console.log('Supabase getUser:', user, error); // <-- Add this line
             currentUser = user;
             if (!user) {
                 if (scratchSection) scratchSection.style.display = 'none';
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (scratchLoginBtn) {
         scratchLoginBtn.onclick = async () => {
             try {
+                console.log('Starting OAuth login...'); // <-- Add this line
                 await supabaseClient.auth.signInWithOAuth({ provider: 'twitch' });
             } catch (err) {
                 console.error('Login error:', err);
@@ -73,7 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
     }
 
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        console.log('Auth state changed:', event, session); // <-- Add this line
         currentUser = session?.user || null;
         checkAuthAndSetupScratch();
     });
@@ -284,8 +287,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // On page load and auth change
-    supabaseClient.auth.getUser().then(({ data: { user } }) => handleProfileUI(user));
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
+    supabaseClient.auth.getUser().then(({ data: { user }, error }) => {
+        console.log('Initial getUser:', user, error); // <-- Add this line
+        handleProfileUI(user);
+    });
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        console.log('Profile Auth state changed:', event, session); // <-- Add this line
         handleProfileUI(session?.user || null);
     });
 
