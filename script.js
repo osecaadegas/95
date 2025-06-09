@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (window.location.hash && window.location.hash.includes('access_token')) {
         // This will parse the hash and set the session
         await supabaseClient.auth.getSessionFromUrl({ storeSession: true });
+        console.log('Session set from URL hash'); // <-- Add this line
         // Remove the hash from the URL for cleanliness
         window.location.hash = '';
     }
