@@ -179,20 +179,107 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- USER PANEL BUTTONS (direct binding only) ---
-    const saveBtn = document.getElementById('save-btn');
-    if (saveBtn) {
-        saveBtn.addEventListener('click', async () => {
-            alert('Save button clicked. Implement your save logic here.');
+    // --- PROFILE CARD LOGIC ---
+    const profileCard = document.getElementById('profile-card');
+    const profileEmail = document.getElementById('profile-email');
+    const profileAvatar = document.getElementById('profile-avatar');
+    const profileName = document.getElementById('profile-name');
+    const profileBio = document.getElementById('profile-bio');
+    const profileSaveBtn = document.getElementById('profile-save-btn');
+    const profileLogoutBtn = document.getElementById('profile-logout-btn');
+    const avatarUpload = document.getElementById('avatar-upload');
+
+    let currentProfile = {};
+
+    async function showProfileCard(user) {
+        if (!user) {
+            if (profileCard) profileCard.style.display = 'none';
+            return;
+        }
+        if (profileCard) profileCard.style.display = 'flex';
+        if (profileEmail) profileEmail.textContent = user.email || user.id;
+        // Load profile from Supabase
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .select('name,bio,avatar_url')
+            .eq('id', user.id)
+            .single();
+        if (!error && data) {
+            currentProfile = data;
+            if (profileName) profileName.value = data.name || '';
+            if (profileBio) profileBio.value = data.bio || '';
+            if (profileAvatar) {
+                profileAvatar.src = data.avatar_url
+                    ? data.avatar_url
+                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || user.email || 'User')}`;
+            }
+        } else {
+            // Defaults
+            if (profileName) profileName.value = '';
+            if (profileBio) profileBio.value = '';
+            if (profileAvatar) profileAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.email || 'User')}`;
+        }
+    }
+
+    async function saveProfile() {
+        if (!currentUser) return;
+        const updates = {
+            id: currentUser.id,
+            name: profileName ? profileName.value : '',
+            bio: profileBio ? profileBio.value : '',
+            updated_at: new Date().toISOString()
+        };
+        // If avatar changed, add avatar_url
+        if (currentProfile.avatar_url) {
+            updates.avatar_url = currentProfile.avatar_url;
+        }
+        const { error } = await supabaseClient.from('profiles').upsert(updates, { onConflict: ['id'] });
+        if (!error) {
+            alert('Profile saved!');
+        } else {
+            alert('Error saving profile.');
+        }
+    }
+
+    // Avatar upload (base64 demo, not for production)
+    if (avatarUpload) {
+        avatarUpload.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async function(evt) {
+                if (profileAvatar) profileAvatar.src = evt.target.result;
+                currentProfile.avatar_url = evt.target.result; // For demo, store base64 in DB
+            };
+            reader.readAsDataURL(file);
         });
     }
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
+
+    if (profileSaveBtn) {
+        profileSaveBtn.addEventListener('click', saveProfile);
+    }
+    if (profileLogoutBtn) {
+        profileLogoutBtn.addEventListener('click', async () => {
             await supabaseClient.auth.signOut();
             window.location.reload();
         });
     }
+
+    // Show/hide profile card on auth change
+    async function handleProfileUI(user) {
+        currentUser = user;
+        if (user) {
+            await showProfileCard(user);
+        } else {
+            if (profileCard) profileCard.style.display = 'none';
+        }
+    }
+
+    // On page load and auth change
+    supabaseClient.auth.getUser().then(({ data: { user } }) => handleProfileUI(user));
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+        handleProfileUI(session?.user || null);
+    });
 
     // --- INITIALIZE ---
     checkAuthAndSetupScratch();
