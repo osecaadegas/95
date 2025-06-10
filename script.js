@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 await supabaseClient.auth.signInWithOAuth({
                     provider: 'twitch',
                     options: {
-                        redirectTo: 'https://osecaadegas.github.io/95/'
+                        redirectTo: 'https://osecaadegas.github.io/95/',
                     }
                 });
             } catch (err) {
@@ -300,6 +300,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     supabaseClient.auth.onAuthStateChange((event, session) => {
         console.log('Profile Auth state changed:', event, session); // <-- Add this line
         handleProfileUI(session?.user || null);
+    });
+
+    // --- SESSION CHECK (log user or no active session) ---
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+            console.log('User is logged in:', session.user);
+        } else {
+            console.log('No active session');
+        }
     });
 
     // --- INITIALIZE ---
