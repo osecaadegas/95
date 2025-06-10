@@ -633,10 +633,6 @@ body {
             border-radius: 12px;
             box-shadow: 0 2px 12px #6ec1e444;
         }
-        /* Scratch Card Glow */
-        .scratch-image-container, .scratch-result-image, .scratch-image {
-            box-shadow: 0 0 24px #6ec1e444, 0 0 8px #fff2;
-        }
         .nav-auth-only { display: none; }
             .profile-card {
             background: linear-gradient(135deg, #16213e 60%, #274472 100%);
