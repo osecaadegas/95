@@ -42,16 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
     }
 
-    // --- SCRATCH CARD LOGIC ---
-    const scratchSection = document.getElementById('scratch-card-section');
-    const scratchImage = document.querySelector('.scratch-image');
-    const scratchWinImage = document.querySelector('.scratch-win-image');
-    const scratchLoseImage = document.querySelector('.scratch-lose-image');
-    const scratchMessage = document.querySelector('.scratch-message');
-    const scratchTryFooter = document.querySelector('.scratch-try-footer');
-    let currentUser = null;
-    let scratchUsed = false;
-
     // --- GLOBAL LOGIN BUTTON LOGIC ---
     const globalLoginBtn = document.getElementById('global-login-btn');
     if (globalLoginBtn) {
@@ -69,6 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
     }
 
+    let currentUser = null;
+
     async function checkAuthAndSetupScratch() {
         try {
             const { data: { user }, error } = await supabaseClient.auth.getUser();
@@ -78,12 +70,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (globalLoginBtn) globalLoginBtn.style.display = user ? 'none' : '';
             // Remove all scratch-login-required logic
             if (!user) {
-                if (scratchSection) scratchSection.style.display = 'none';
-                if (scratchMessage) scratchMessage.textContent = '';
                 return;
             }
-            if (scratchSection) scratchSection.style.display = 'block';
-            checkScratchUsage();
         } catch (err) {
             console.error('Auth error:', err);
         }
@@ -94,89 +82,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentUser = session?.user || null;
         checkAuthAndSetupScratch();
     });
-
-    async function checkScratchUsage() {
-        if (!currentUser) return;
-        try {
-            const { data, error } = await supabaseClient
-                .from('scratch_usage')
-                .select('used_at')
-                .eq('user_id', currentUser.id)
-                .order('used_at', { ascending: false })
-                .limit(1);
-
-            if (error) {
-                if (scratchMessage) scratchMessage.textContent = 'Error checking scratch usage.';
-                disableScratch();
-                console.error('Scratch usage error:', error);
-                return;
-            }
-
-            if (data && data.length > 0) {
-                const lastUsed = new Date(data[0].used_at);
-                const now = new Date();
-                const diffMs = now - lastUsed;
-                const diffHrs = diffMs / (1000 * 60 * 60);
-                if (diffHrs < 24) {
-                    scratchUsed = true;
-                    const hoursLeft = Math.ceil(24 - diffHrs);
-                    if (scratchMessage) scratchMessage.textContent = `You already used the scratch card. Try again in ${hoursLeft} hour(s)!`;
-                    disableScratch();
-                    return;
-                }
-            }
-            scratchUsed = false;
-            enableScratch();
-        } catch (err) {
-            if (scratchMessage) scratchMessage.textContent = 'Error checking scratch usage.';
-            disableScratch();
-            console.error('Scratch usage error:', err);
-        }
-    }
-
-    function enableScratch() {
-        if (scratchImage) {
-            scratchImage.style.pointerEvents = 'auto';
-            scratchImage.style.opacity = '1';
-            scratchImage.onclick = handleScratch;
-        }
-        if (scratchMessage) scratchMessage.textContent = '';
-        if (scratchTryFooter) scratchTryFooter.style.display = '';
-        if (scratchWinImage) scratchWinImage.style.display = 'none';
-        if (scratchLoseImage) scratchLoseImage.style.display = 'none';
-    }
-
-    function disableScratch() {
-        if (scratchImage) {
-            scratchImage.style.pointerEvents = 'none';
-            scratchImage.style.opacity = '0.5';
-            scratchImage.onclick = null;
-        }
-        if (scratchTryFooter) scratchTryFooter.style.display = 'none';
-    }
-
-    async function handleScratch() {
-        if (scratchUsed || !currentUser) return;
-        const win = Math.random() < 0.5;
-        if (win) {
-            if (scratchWinImage) scratchWinImage.style.display = 'block';
-            if (scratchLoseImage) scratchLoseImage.style.display = 'none';
-            if (scratchMessage) scratchMessage.textContent = 'Congratulations! You won!';
-        } else {
-            if (scratchWinImage) scratchWinImage.style.display = 'none';
-            if (scratchLoseImage) scratchLoseImage.style.display = 'block';
-            if (scratchMessage) scratchMessage.textContent = 'Better luck next time!';
-        }
-        try {
-            await supabaseClient.from('scratch_usage').insert([
-                { user_id: currentUser.id, used_at: new Date().toISOString() }
-            ]);
-        } catch (err) {
-            console.error('Scratch insert error:', err);
-        }
-        scratchUsed = true;
-        disableScratch();
-    }
 
     // --- SIDEBAR LOGIC ---
     const sidebar = document.querySelector('.sidebar');
