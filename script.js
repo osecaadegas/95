@@ -166,9 +166,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         const { error } = await supabaseClient.from('profiles').upsert(updates, { onConflict: ['id'] });
         if (!error) {
             alert('Profile saved!');
+            collapseProfileCard(); // Collapse after saving
         } else {
             alert('Error saving profile.');
         }
+    }
+
+    // Collapse profile card to avatar only
+    function collapseProfileCard() {
+        if (profileCard) {
+            profileCard.classList.add('collapsed');
+        }
+    }
+
+    // Expand profile card for editing
+    function expandProfileCard() {
+        if (profileCard) {
+            profileCard.classList.remove('collapsed');
+        }
+    }
+
+    // Add click event to avatar to expand card
+    if (profileAvatar) {
+        profileAvatar.addEventListener('click', () => {
+            if (profileCard && profileCard.classList.contains('collapsed')) {
+                expandProfileCard();
+            }
+        });
     }
 
     // Avatar upload (base64 demo, not for production)
