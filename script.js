@@ -49,7 +49,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (globalLoginBtn) {
         globalLoginBtn.onclick = async () => {
             try {
-                await supabaseClient.auth.signInWithOAuth({ provider: 'twitch' });
+                await supabaseClient.auth.signInWithOAuth({
+                    provider: 'twitch',
+                    options: {
+                        redirectTo: 'https://osecaadegas.github.io/95/'
+                    }
+                });
             } catch (err) {
                 console.error('Login error:', err);
             }
