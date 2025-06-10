@@ -645,6 +645,36 @@ body {
             max-width: 420px;
             margin: 24px auto 0 auto;
         }
+        .profile-card.collapsed {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 0;
+            gap: 0;
+            max-width: 120px;
+            min-width: 0;
+            width: 120px;
+            min-height: 0;
+            margin: 24px auto 0 auto;
+            transition: all 0.3s;
+        }
+        .profile-card.collapsed .profile-avatar-section {
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .profile-card.collapsed .profile-avatar-section img {
+            cursor: pointer;
+            border: 3px solid #ffd700;
+            transition: border 0.2s;
+        }
+        .profile-card.collapsed .profile-avatar-section img:hover {
+            border: 3px solid #6ec1e4;
+        }
+        .profile-card.collapsed .avatar-upload-label,
+        .profile-card.collapsed .profile-fields {
+            display: none !important;
+        }
         .profile-avatar-section {
             display: flex;
             flex-direction: column;
