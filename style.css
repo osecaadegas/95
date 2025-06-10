@@ -646,24 +646,30 @@ body {
             margin: 24px auto 0 auto;
         }
         .profile-card.collapsed {
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 0;
-            gap: 0;
-            max-width: 120px;
-            min-width: 0;
-            width: 120px;
-            min-height: 0;
-            margin: 24px auto 0 auto;
-            transition: all 0.3s;
+            width: 90px !important;
+            min-width: 0 !important;
+            max-width: 90px !important;
+            height: 90px !important;
+            min-height: 0 !important;
+            max-height: 90px !important;
+            padding: 0 !important;
+            margin: 24px auto 0 auto !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 2px 12px #6ec1e422, 0 0 8px #fff2;
+            transition: width 0.2s, height 0.2s, max-width 0.2s, max-height 0.2s;
+            overflow: hidden;
         }
         .profile-card.collapsed .profile-avatar-section {
-            align-items: center;
-            justify-content: center;
-            width: 100%;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+            height: 100% !important;
         }
         .profile-card.collapsed .profile-avatar-section img {
+            width: 80px !important;
+            height: 80px !important;
             cursor: pointer;
             border: 3px solid #ffd700;
             transition: border 0.2s;
