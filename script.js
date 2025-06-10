@@ -6,9 +6,17 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 document.addEventListener('DOMContentLoaded', async () => {
     // --- HANDLE SUPABASE OAUTH HASH REDIRECT ---
     if (window.location.hash && window.location.hash.includes('access_token')) {
-        // This will parse the hash and set the session
-        await supabaseClient.auth.getSessionFromUrl({ storeSession: true });
-        console.log('Session set from URL hash'); // <-- Add this line
+        // For Supabase v2: use exchangeCodeForSession for OAuth redirect
+        try {
+            const { data, error } = await supabaseClient.auth.exchangeCodeForSession(window.location.hash);
+            if (error) {
+                console.error('OAuth session exchange error:', error);
+            } else {
+                console.log('Session set from URL hash');
+            }
+        } catch (err) {
+            console.error('OAuth session exchange exception:', err);
+        }
         // Remove the hash from the URL for cleanliness
         window.location.hash = '';
     }
