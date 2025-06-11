@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Osecaadegas - Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts for retro look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --main-bg: #232946;
+        --card-bg: #232946;
+        --highlight: #b8c1ec;
+        --bubble1: #b8c1ec;
+        --bubble2: #eebbc3;
+        --bubble3: #fffffe;
+        --text: #fffffe;
+        --shadow: 0 4px 32px 0 rgba(0,0,0,0.25);
+        --button-bg: #232946;
+        --button-hover: #b8c1ec;
+        --button-text: #b8c1ec;
+        --button-hover-text: #232946;
+        --card-border: #b8c1ec;
+        --card-bottom-bg: #121629;
+        --card-bottom-text: #b8c1ec;
+    }
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: var(--main-bg);
+        color: var(--text);
+        font-family: 'Press Start 2P', monospace;
+        overflow: hidden;
+    }
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    /* --- Replace bubble styles with new animated bubbles --- */
+    .bubble {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.25);
+      animation: animate_4010 8s ease-in-out infinite;
+    }
+
+    .bubble:nth-child(2) {
+      position: relative;
+      zoom: 0.45;
+      left: -10px;
+      top: -100px;
+      animation-delay: -4s;
+    }
+
+    .bubble:nth-child(3) {
+      position: relative;
+      zoom: 0.45;
+      right: -80px;
+      top: -300px;
+      animation-delay: -6s;
+    }
+
+    .bubble:nth-child(4) {
+      position: relative;
+      zoom: 0.35;
+      left: -120px;
+      bottom: -200px;
+      animation-delay: -3s;
+    }
+
+    .bubble:nth-child(5) {
+      position: relative;
+      zoom: 0.5;
+      left: 0px;
+      top: 200px;
+      animation-delay: -5s;
+    }
+
+    @keyframes animate_4010 {
+      0%,100% {
+        transform: translateY(-20px);
+      }
+      50% {
+        transform: translateY(20px);
+      }
+    }
+
+    .bubble::before {
+      content: '';
+      position: absolute;
+      top: 50px;
+      left: 45px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #fff;
+      z-index: 10;
+      filter: blur(2px);
+    }
+
+    .bubble::after {
+      content: '';
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      z-index: 10;
+      filter: blur(2px);
+    }
+
+    .bubble span {
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .bubble span:nth-child(1) {
+      inset: 10px;
+      border-left: 15px solid #0fb4ff;
+      filter: blur(8px);
+    }
+
+    .bubble span:nth-child(2) {
+      inset: 10px;
+      border-right: 15px solid #ff4484;
+      filter: blur(8px);
+    }
+
+    .bubble span:nth-child(3) {
+      inset: 10px;
+      border-top: 15px solid #ffeb3b;
+      filter: blur(8px);
+    }
+
+    .bubble span:nth-child(4) {
+      inset: 30px;
+      border-left: 15px solid #ff4484;
+      filter: blur(12px);
+    }
+
+    .bubble span:nth-child(5) {
+      inset: 10px;
+      border-bottom: 10px solid #fff;
+      filter: blur(8px);
+      transform: rotate(330deg);
+    }
+    /* --- End custom bubble styles --- */
+
+        /* --- Begin custom card CSS --- */
+        .card {
+      width: 420px;
+      height: 420px;
+      background: var(--card-bg);
+      border-radius: 32px;
+      padding: 3px;
+      position: relative;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--card-border);
+      transition: all 0.5s ease-in-out;
+    }
+
+    .card .mail {
+      position: absolute;
+      right: 2rem;
+      top: 1.4rem;
+      background: transparent;
+      border: none;
+    }
+
+    .card .mail svg {
+      stroke: var(--highlight);
+      stroke-width: 3px;
+    }
+
+    .card .mail svg:hover {
+      stroke: var(--bubble2);
+    }
+
+    .card .profile-pic {
+      position: absolute;
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      top: 3px;
+      left: 3px;
+      border-radius: 29px;
+      z-index: 1;
+      border: 0px solid #fbb9b6;
+      overflow: hidden;
+      transition: all 0.5s ease-in-out 0.2s, z-index 0.5s ease-in-out 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card .profile-pic img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      left: 0;
+      top: 0;
+      transition: opacity 0.3s, transform 0.5s;
+    }
+
+    .card .profile-pic .profile-normal {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .card .profile-pic .profile-stretch {
+      opacity: 0;
+      z-index: 1;
+      transform: scale(1);
+      object-fit: cover;
+    }
+
+    .card:hover .profile-pic .profile-normal {
+      opacity: 0;
+    }
+
+    .card:hover .profile-pic .profile-stretch {
+      opacity: 1;
+      transform: scale(1.25, 1.5);
+      object-fit: fill;
+    }
+
+    .card .bottom {
+      position: absolute;
+      bottom: 3px;
+      left: 3px;
+      right: 3px;
+      background: var(--card-bottom-bg);
+      /* Change top from 80% to 70% to make the collapsed part higher */
+      top: 70%;
+      border-radius: 29px;
+      z-index: 2;
+      box-shadow: rgba(96, 75, 74, 0.18) 0px 5px 5px 0px inset;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+    }
+
+    .card .bottom .content {
+      position: absolute;
+      bottom: 6rem; /* was 3.5rem, now higher */
+      left: 2.5rem;
+      right: 2.5rem;
+      top: 2.5rem;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 2.2rem;
+    }
+
+    .card .bottom .content .name {
+      display: block;
+      font-size: 1.8rem;
+      color: var(--highlight);
+      font-weight: bold;
+      margin-bottom: 1.2rem;
+      margin-top: 0.5rem;
+      text-align: left;
+      width: 100%;
+    }
+
+    .card .bottom .content .about-me {
+      display: block;
+      font-size: 1.0rem;
+      color: var(--card-bottom-text);
+      margin-top: 0;
+      opacity: 0.85;
+      text-align: left;
+      width: 100%;
+    }
+
+    .card .bottom .bottom-bottom {
+      position: absolute;
+      bottom: 1rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container .instagram svg {
+      fill: #ff9800;
+      transition: transform 0.2s;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container .telegram svg {
+      fill: #29b6f6;
+      transition: transform 0.2s;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container .discord svg {
+      fill: #5865F2;
+      transition: transform 0.2s;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container .email svg {
+      fill: #e53935;
+      transition: transform 0.2s;
+    }
+
+    .card .bottom .bottom-bottom .social-links-container a:hover svg {
+      transform: scale(1.2);
+    }
+
+    .card .bottom .bottom-bottom .button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      border: 2px solid var(--highlight);
+      border-radius: 20px;
+      font-size: 0.6rem;
+      padding: 0.4rem 0.6rem;
+      box-shadow: rgba(165, 132, 130, 0.13) 0px 5px 5px 0px;
+      font-family: 'Press Start 2P', monospace;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .card .bottom .bottom-bottom .button:hover {
+      background: var(--button-hover);
+      color: var(--button-hover-text);
+    }
+
+    .card:hover {
+      border-top-left-radius: 55px;
+    }
+
+    .card:hover .bottom {
+      top: 20%;
+      border-radius: 80px 29px 29px 29px;
+      transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+    }
+
+    .card:hover .profile-pic {
+      width: 100px;
+      height: 100px;
+      aspect-ratio: 1;
+      top: 10px;
+      left: 10px;
+      border-radius: 50%;
+      z-index: 3;
+      border: 7px solid #fbb9b6;
+      box-shadow: rgba(96, 75, 74, 0.1882352941) 0px 5px 5px 0px;
+      transition: all 0.5s ease-in-out, z-index 0.5s ease-in-out 0.1s;
+    }
+
+    .card:hover .profile-pic:hover {
+      transform: scale(1.3);
+      border-radius: 0px;
+    }
+
+    .card:hover .profile-pic img {
+      transform: scale(2.5);
+      -o-object-position: 0px 25px;
+      object-position: 0px 25px;
+      transition: all 0.5s ease-in-out 0.5s;
+    }
+
+    .card:hover .profile-pic svg {
+      transform: scale(2.5);
+      transition: all 0.5s ease-in-out 0.5s;
+    }
+    /* --- End custom card CSS --- */
+
+    @media (max-width: 600px) {
+        .card {
+            padding: 1.2rem 0.5rem;
+            font-size: 0.85rem;
+        }
+        .name {
+            font-size: 0.95rem;
+        }
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="bubbles">
+        <div class="bubble" style="top:10vh; left:5vw; width:180px; height:180px; animation-delay:0s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:60vh; left:10vw; width:120px; height:120px; animation-delay:-2s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:20vh; left:25vw; width:220px; height:220px; animation-delay:-4s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:80vh; left:30vw; width:90px; height:90px; animation-delay:-1s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:40vh; left:50vw; width:200px; height:200px; animation-delay:-3s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:10vh; left:70vw; width:150px; height:150px; animation-delay:-5s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:70vh; left:80vw; width:110px; height:110px; animation-delay:-6s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:30vh; left:85vw; width:170px; height:170px; animation-delay:-2.5s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:55vh; left:60vw; width:130px; height:130px; animation-delay:-4.5s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:75vh; left:45vw; width:100px; height:100px; animation-delay:-3.5s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <!-- Additional scattered bubbles -->
+        <div class="bubble" style="top:5vh; left:20vw; width:80px; height:80px; animation-delay:-1.2s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:15vh; left:60vw; width:140px; height:140px; animation-delay:-2.8s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:35vh; left:75vw; width:160px; height:160px; animation-delay:-3.1s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:85vh; left:15vw; width:100px; height:100px; animation-delay:-0.7s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:50vh; left:5vw; width:120px; height:120px; animation-delay:-2.3s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:90vh; left:90vw; width:80px; height:80px; animation-delay:-1.7s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:25vh; left:55vw; width:110px; height:110px; animation-delay:-2.9s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:65vh; left:35vw; width:150px; height:150px; animation-delay:-3.3s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:45vh; left:80vw; width:130px; height:130px; animation-delay:-4.1s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="bubble" style="top:20vh; left:90vw; width:90px; height:90px; animation-delay:-2.1s;">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <div class="card">
+        <button class="mail">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+        </button>
+        <div class="profile-pic">
+            <a href="https://i.imgur.com/T9SuIM7.png" target="_blank" rel="noopener">
+                <img class="profile-normal" src="https://i.imgur.com/T9SuIM7.png" alt="Profile Picture" />
+                <img class="profile-stretch" src="https://i.imgur.com/T9SuIM7.png" alt="Profile Picture Stretched" />
+            </a>
+        </div>
+        <div class="bottom">
+            <div class="content">
+                <span class="name">Miguel Monsanto</span>
+                <span class="about-me">Para parcerias – não hesites em contactar!</span>
+            </div>
+            <div class="bottom-bottom">
+                <div class="social-links-container">
+                    <!-- Instagram -->
+                    <a class="instagram" href="https://www.instagram.com/osecaadegas?igsh=MWx1OXUzbHB4YnNucw%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
+                        <img src="https://www.svgrepo.com/show/452229/instagram-1.svg" alt="Instagram" width="36" height="36" style="display:block;">
+                    </a>
+                    <!-- Telegram -->
+                    <a class="telegram" href="https://t.me/osecaadegas" target="_blank" rel="noopener" aria-label="Telegram">
+                        <img src="https://www.svgrepo.com/show/303292/telegram-logo.svg" alt="Telegram" width="36" height="36" style="display:block;">
+                    </a>
+                    <!-- Discord -->
+                    <a class="discord" href="https://discord.com/users/632462857401008138" target="_blank" rel="noopener" aria-label="Discord">
+                        <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" alt="Discord" width="36" height="36" style="display:block;">
+                    </a>
+                    <!-- Email -->
+                    <a class="email" href="mailto:osecaadegas95@gmail.com" aria-label="Email">
+                        <img src="http://svgrepo.com/show/303108/google-icon-logo.svg" alt="Email" width="36" height="36" style="display:block;">
+                    </a>
+                </div>
+                <button class="button">Contacto</button>
+            </div>
+        </div>
+    </div></body>
+</html>
