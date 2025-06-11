@@ -77,6 +77,11 @@ a:hover, .footer-link:hover {
     color: #16213e;
     box-shadow: 0 2px 16px #6ec1e488;
 }
+.nav-link.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 .cta-btn {
     background: linear-gradient(90deg, #6ec1e4 0%, #16213e 100%);
     color: #fff;
