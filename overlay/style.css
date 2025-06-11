@@ -28,19 +28,16 @@
 
 /* --- Sidebar Section Cards --- */
 .sidebar-section {
-  background: rgba(34, 48, 74, 0.92);
+  background: var(--sidebar-card-bg);
   border-radius: 14px;
-  margin-bottom: 16px;
   padding: 14px 16px;
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: 0 2px 12px #3ec6ff33;
+  border: 1.5px solid var(--sidebar-border);
+  margin-bottom: 18px;
 }
 
 /* --- Sidebar Header --- */
 .sidebar-section.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
   background: linear-gradient(90deg, var(--sidebar-label-bg) 0%, #5ce1e6 100%);
   color: var(--sidebar-label-color);
   font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
@@ -57,81 +54,63 @@
 
 /* --- Sidebar Title --- */
 .sidebar-title {
-  flex: unset;
-  text-align: center;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  color: #181926; /* Changed from #3ec6ff to blackish */
-  font-size: 0.8em;
-  font-weight: bold;
-  background: none;
-  border: none;
-  outline: none;
-  cursor: text;
+  font-size: 1em !important;
+  padding: 0 2px !important;
+  color: #181f36;
   font-family: 'Orbitron', 'Segoe UI', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
 }
 
 /* --- Sidebar Labels --- */
 .sidebar-label {
-  font-size: 0.95em;
-  color: #a0b8e0;
-  margin-bottom: 2px;
+  color: var(--sidebar-label-bg);
+  font-weight: bold;
+  font-size: 0.78em !important;
+  margin-bottom: 0 !important;
+  padding: 0 2px !important;
+  background: none;
   letter-spacing: 1px;
   font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-  font-weight: bold;
-  background: none;
-  padding: 0 2px !important;
 }
 
 /* --- Sidebar Values --- */
 .sidebar-value {
-  font-size: 1.15em;
-  font-weight: bold;
   color: #fff;
+  font-size: 0.88em !important;
+  font-weight: bold;
   margin-bottom: 0;
   padding: 0 !important;
 }
 
 /* --- Sidebar Box (AVG/BE) --- */
 .sidebar-box {
-  background: #22304a;
+  background: var(--sidebar-pill-bg);
   border-radius: 8px;
-  padding: 8px 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 2px 0 !important;
   text-align: center;
 }
 
 /* --- Progress Bar --- */
 .sidebar-progress {
-  background: #181926;
+  background: var(--sidebar-pill-bg);
   border-radius: 8px;
-  height: 18px;
-  width: 100%;
-  margin-bottom: 8px;
+  height: 10px;
+  margin-top: 6px;
   position: relative;
-  overflow: hidden;
+  width: 100%;
 }
 .sidebar-progress-bar {
-  background: linear-gradient(90deg, #3ec6ff 0%, #6c3bbf 100%);
+  background: var(--sidebar-progress-bar);
   height: 100%;
-  width: 0%;
   border-radius: 8px;
+  width: 0%;
   transition: width 0.7s cubic-bezier(.77,0,.18,1);
 }
 .sidebar-progress-text {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: -16px;
+  right: 0;
   color: #fff;
-  font-size: 0.95em;
-  font-weight: bold;
-  pointer-events: none;
+  font-size: 0.85em;
 }
 
 /* --- Best & Worst Pill --- */
@@ -151,15 +130,6 @@
   border: none;
   user-select: none;
   text-shadow: 0 1px 6px #fff4;
-}
-
-/* --- Center Best & Worst and Bonus List Sections --- */
-.sidebar-section.best-worst,
-.sidebar-section.bonus-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 /* --- Bonus List Pill: Centered with Flex --- */
@@ -183,13 +153,10 @@
 
 /* --- Center Bonus List Section --- */
 .sidebar-section.bonus-list {
-  padding: 6px 10px 10px 10px;
-  min-height: 0;
-  height: 240px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow: hidden;
+  align-items: center;
+  justify-content: center;
 }
 
 /* --- Discord Section --- */
@@ -334,8 +301,170 @@ body {
   font-size: 18px;
   margin: 0 6px;
 }
-
-/* --- Carousel, Slot Cards, Bracket, Picker, etc. --- */
+/* Sidebar styles */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  bottom: 10px;
+  left: auto;
+  width: 340px;
+  min-height: 400px;
+  max-height: 95vh;         /* Sidebar will never exceed 80% of viewport height */
+  background: rgba(24, 25, 38, 0.98);
+  box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
+  z-index: 9999;
+  padding: 24px 18px 12px 18px;
+  overflow: hidden;         /* Prevent both vertical and horizontal scroll/overflow */
+  border-radius: 24px;
+  transition: transform 1.2s cubic-bezier(.4,2,.6,1), opacity 0.7s cubic-bezier(.4,2,.6,1);
+  transform: translateX(120%);
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar-section {
+  background: rgba(34, 48, 74, 0.92);
+  border-radius: 14px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px #0002;
+}
+.sidebar-section.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 12px;
+}
+.sidebar-title {
+  flex: unset;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #3ec6ff;         /* Restore readable blue */
+  font-size: 1.2em;
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: text;
+  font-family: 'Orbitron', 'Segoe UI', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+/* Optional: Make sure the span inside the title is also readable */
+#huntNumber {
+  color: #fff;
+  font-weight: normal;
+}
+.sidebar-section.avg-be {
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+.sidebar-row {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+}
+.sidebar-box {
+  background: #22304a;
+  border-radius: 8px;
+  padding: 8px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebar-label {
+  font-size: 0.95em;
+  color: #a0b8e0;
+  margin-bottom: 2px;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+.sidebar-value {
+  font-size: 1.15em;
+  font-weight: bold;
+  color: #fff;
+}
+.sidebar-section.profit {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sidebar-progress {
+  background: #181926;
+  border-radius: 8px;
+  height: 18px;
+  width: 100%;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-progress-bar {
+  background: linear-gradient(90deg, #3ec6ff 0%, #6c3bbf 100%);
+  height: 100%;
+  width: 50%;
+  border-radius: 8px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+}
+.sidebar-progress-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: bold;
+  pointer-events: none;
+}
+.sidebar-profit-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+.sidebar-profit-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+.sidebar-profit-col:last-child {
+  align-items: flex-end;
+}
+.sidebar-best-worst-main-pill {
+  background: #3ec6ff;
+  color: #181926;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+  display: inline-block;
+  font-size: 1em;
+  letter-spacing: 1px;
+}
+.sidebar-section.bonus-list {
+  padding: 6px 10px 10px 10px;
+  min-height: 0;
+  height: 240px;            /* Adjust as needed for your design */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
 /* 3D Bonus List Carousel */
 @keyframes autoRun3d {
   from { transform: perspective(800px) rotateY(-360deg);}
@@ -532,16 +661,21 @@ body {
 }
 /* Bonus Hunt Controls Styles */
 .bonus-hunt-controls {
-  /* Remove position: fixed and top/left/transform/z-index */
+  position: fixed;
+  left: 20%;
+  top: 20%;
+  transform: translate(-50%, -50%);
   background: rgba(34, 48, 74, 0.97);
   border-radius: 14px;
   box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
   padding: 16px 16px 12px 16px;
-  display: block; /* Default to block for flex children */
-  width: 100%;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 600px;
   min-width: 0;
-  max-width: 600px;
-  box-sizing: border-box;
+  max-width: 96vw;
   gap: 10px;
   animation: fadeInUp 0.5s cubic-bezier(.4,2,.6,1);
   opacity: 1;
@@ -757,7 +891,167 @@ body {
   }
 }
 
-/* --- Tournament Bracket Styles --- */
+/* --- Center Best & Worst and Bonus List Sections --- */
+.sidebar-section.best-worst,
+.sidebar-section.bonus-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pills for best/worst slot cards */
+.slot-pill {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3ec6ff;
+  color: #181926;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 1em;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.slot-bet-pill {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffd700;
+  color: #181926;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 1em;
+  box-shadow: 0 2px 8px #ffe06688;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.slot-paid-pill {
+  background: #3ec6ff;
+  color: #181926;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 1em;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.slot-x-pill {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff3e3e;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 3px 14px;
+  font-size: 0.95em;
+  box-shadow: 0 2px 8px #ff3e3e33;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.slot-best-card .slot-x-pill {
+  background: #3ec6ff;
+  color: #181926;
+}
+.slot-worst-card .slot-x-pill {
+  background: #ff3e3e;
+  color: #fff;
+}
+.slot-best-card, .slot-worst-card {
+  position: relative;
+  padding: 0;
+  width: 100px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #232b3e;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  margin: 0 4px;
+}
+
+/* --- Best/Worst Slot Card Image Fixed Size --- */
+.slot-best-card .slot-img-wrapper,
+.slot-worst-card .slot-img-wrapper {
+  width: 120px;
+  height: 140px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.slot-best-card .slot-img,
+.slot-worst-card .slot-img {
+  width: 120px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #3ec6ff44;
+  display: block;
+}
+
+/* Pills inside image, top */
+.slot-best-card .slot-pills-top,
+.slot-worst-card .slot-pills-top {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Paid pill inside image, bottom */
+.slot-best-card .slot-paid-pill,
+.slot-worst-card .slot-paid-pill {
+  position: absolute !important;
+  bottom: 8px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: #3ec6ff;
+  color: #181926;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 3px 14px;
+  font-size: 0.95em;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Center label below image, minimal margin */
+.slot-label {
+  font-size: 0.95em;
+  font-weight: bold;
+  margin: 4px 0 0 0;
+  text-align: center;
+}
+
+/* Tournament Bracket Styles */
 .bracket-match {
   background: #181926;
   color: #fff;
@@ -1025,201 +1319,5 @@ body {
   box-shadow: 0 0 48px 12px #3ec6ffcc,0 0 0 6px #3ec6ff44;
   outline: 4px solid #3ec6ff;
   outline-offset: 2px;
-  animation: none;
-}
-
-/* --- Sidebar Styles (fixed right) --- */
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 70px;
-  right: 16px;
-  bottom: 10px;
-  left: auto;
-  width: 340px;
-  min-height: 400px;
-  max-height: 95vh;
-  background: rgba(24, 25, 38, 0.98);
-  box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
-  z-index: 9999;
-  padding: 24px 18px 12px 18px;
-  overflow: hidden;
-  border-radius: 24px;
-  transition: transform 1.2s cubic-bezier(.4,2,.6,1), opacity 0.7s cubic-bezier(.4,2,.6,1);
-  transform: translateX(120%);
-  opacity: 0;
-  pointer-events: none;
-}
-.sidebar.active {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-.sidebar-section.avg-be {
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
-  justify-content: space-between;
-  align-items: stretch;
-  padding: 10px 16px;
-}
-.sidebar-section.profit {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px 16px;
-}
-.sidebar-profit-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 18px;
-  width: 100%;
-}
-.sidebar-profit-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-}
-.sidebar-profit-col:last-child {
-  align-items: flex-end;
-}
-.sidebar-row {
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
-  width: 100%;
-}
-
-/* --- Controls Pill Styles --- */
-.controls-pill {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
-  color: #181f36;
-  font-weight: bold;
-  font-size: 1.08em;
-  padding: 10px 24px;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  margin-left: 24px;
-  cursor: pointer;
-  position: relative;
-  transition: box-shadow 0.2s, background 0.2s;
-  z-index: 100;
-  user-select: none;
-}
-.controls-pill-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.controls-categories {
-  display: none !important;
-  position: absolute;
-  left: 0;
-  top: 110%;
-  background: #232b3e;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px #0008;
-  padding: 10px 0;
-  min-width: 220px;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 101;
-  animation: fadeInUp 0.3s;
-}
-.controls-pill.active .controls-categories {
-  display: flex !important;
-}
-.controls-category-btn {
-  background: none;
-  border: none;
-  color: #3ec6ff;
-  font-weight: bold;
-  font-size: 1.08em;
-  padding: 10px 24px;
-  border-radius: 999px;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.2s, color 0.2s;
-  margin: 0 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.controls-category-btn:hover, .controls-category-btn.active {
-  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
-  color: #181f36;
-}
-
-/* --- Controls Expanded Card --- */
-.controls-expanded-card {
-  display: none !important;
-  position: fixed;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #232b3e;
-  border-radius: 24px;
-  box-shadow: 0 8px 32px #000a;
-  padding: 32px 32px 24px 32px;
-  min-width: 340px;
-  min-height: 240px;
-  max-width: 98vw;
-  max-height: 90vh;
-  z-index: 10050;
-  animation: fadeInUp 0.4s cubic-bezier(.4,2,.6,1);
-  transition: opacity 0.3s, visibility 0.3s;
-  overflow-y: auto;
-}
-.controls-expanded-card.active {
-  display: block !important;
-}
-.controls-close-btn {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  background: #181926;
-  color: #3ec6ff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 1.2em;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-.controls-close-btn:hover {
-  background: #3ec6ff;
-  color: #181926;
-}
-.controls-expanded-content {
-  width: 100%;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  gap: 0;
-}
-
-/* Hide original controls by default (they will be shown in expanded card) */
-#bonus-hunt-controls,
-#tournamentMatchControl,
-#tournamentSetupPanel,
-#slotPickerModal {
-  display: none !important;
-}
-.controls-expanded-card.slide-in {
-  animation: fadeInUp 0.4s cubic-bezier(.4,2,.6,1);
-}
-.controls-expanded-card.slide-out {
   animation: none;
 }
