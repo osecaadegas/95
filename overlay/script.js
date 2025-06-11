@@ -457,6 +457,7 @@
   { name: "Magic Apple2", image: "https://mediumrare.imgix.net/4005c84b0b69377b8e2c82f5d88c081abd84dffe35b7f07d13cff1bbcb8ca3f5?w=360&h=472&fit=min&auto=format", provider: "3Oaks" },   
    { name: "Book of Eye", image: "https://cdn.oscarstatic.com/images/game/uploads/softswiss.onlyplay-BookofEye_designed.jpg", provider: "Only Play " }
     ];
+    const FALLBACK_SLOT_IMAGE = "https://w7.pngwing.com/pngs/380/764/png-transparent-paper-box-computer-icons-symbol-random-icons-miscellaneous-angle-text-thumbnail.png"; // <--- Add this line
     let slots = [];
     const slotSearch = document.getElementById('slotSearch');
     const slotBet = document.getElementById('slotBet');
@@ -573,7 +574,7 @@
       slots.push({
         name,
         bet,
-        image: customImage || (slotObj ? slotObj.image : ''),
+        image: customImage || (slotObj ? slotObj.image : FALLBACK_SLOT_IMAGE), // <--- Use fallback if not found
         provider: slotObj ? slotObj.provider : '',
         super: isSuper
       });
@@ -988,7 +989,7 @@
           height: 140px;
           position: relative;
           ">
-          <img src="${slot.image || 'https://via.placeholder.com/140x140/232b3e/3ec6ff?text=?'}"
+          <img src="${slot.image || FALLBACK_SLOT_IMAGE}"
                alt=""
                style="width:100%;height:100%;object-fit:cover;display:block;">
           <div style="
