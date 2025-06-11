@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             try {
                 await supabaseClient.auth.signInWithOAuth({
                     provider: 'twitch',
-                    options: {
+                    options:
+                    {
                         redirectTo: 'https://osecaadegas.github.io/95/',
                     }
                 });
@@ -126,7 +127,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (profileCard) profileCard.style.display = 'none';
             return;
         }
-        if (profileCard) profileCard.style.display = 'flex';
+        if (profileCard) {
+            profileCard.style.display = 'flex';
+            profileCard.classList.add('collapsed'); // Start collapsed after login
+        }
         if (profileEmail) profileEmail.textContent = user.email || user.id;
         // Load profile from Supabase
         const { data, error } = await supabaseClient
@@ -186,11 +190,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Add click event to avatar to expand card
+    // Add click event to avatar to expand/collapse card
     if (profileAvatar) {
         profileAvatar.addEventListener('click', () => {
             if (profileCard && profileCard.classList.contains('collapsed')) {
                 expandProfileCard();
+            } else if (profileCard && !profileCard.classList.contains('collapsed')) {
+                collapseProfileCard();
             }
         });
     }
@@ -225,7 +231,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (user) {
             await showProfileCard(user);
         } else {
-            if (profileCard) profileCard.style.display = 'none';
+            if (profileCard) {
+                profileCard.style.display = 'none';
+                profileCard.classList.remove('collapsed');
+            }
         }
     }
 
@@ -247,6 +256,74 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log('No active session');
         }
     });
+
+    // --- TRANSLATION LOGIC ---
+    const translations = {
+        en: {
+            everything_here: "Everything you need is here",
+            offers: "OFFERS",
+            register_cashback: "Register and use the codes to get 15% cashback from me",
+            sapphire_percent: "Open a Discord Ticket",
+            sapphire_condition: "For a Gentle gift",
+            oscarspin_percent: "1st deposit cashback up to 20€",
+            oscarspin_condition: "No double accounts are covered",
+            infinity_percent: "+100% +200 Free Spins",
+            infinity_condition: "+15% cashback for losses over 100€ monthly",
+            buran_percent: "1st deposit cashback up to 20€",
+            buran_condition: "+15% cashback for losses over 100€ monthly",
+            arena_code: "Code: secaadegas",
+            arena_condition: "use my code for in-game rewards"
+        },
+        pt: {
+            everything_here: "Tudo o que você precisa está aqui",
+            offers: "OFERTAS",
+            register_cashback: "Registe-se e use os códigos para receber 15% de cashback meu",
+            sapphire_percent: "Abra um ticket no Discord",
+            sapphire_condition: "Para um presente gentil",
+            oscarspin_percent: "Cashback de até 20€ no 1º depósito",
+            oscarspin_condition: "Contas duplicadas não são cobertas",
+            infinity_percent: "+100% +200 Rodadas Grátis",
+            infinity_condition: "+15% de cashback para perdas acima de 100€ por mês",
+            buran_percent: "Cashback de até 20€ no 1º depósito",
+            buran_condition: "+15% de cashback para perdas acima de 100€ por mês",
+            arena_code: "Código: secaadegas",
+            arena_condition: "use meu código para recompensas no jogo"
+        }
+    };
+
+    function setLanguage(lang) {
+        const dict = translations[lang] || translations.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key]) el.textContent = dict[key];
+        });
+        // Update toggle UI
+        document.getElementById('lang-en')?.classList.toggle('active', lang === 'en');
+        document.getElementById('lang-pt')?.classList.toggle('active', lang === 'pt');
+    }
+
+    // Language toggle logic
+    const langToggle = document.getElementById('lang-toggle');
+    function getSavedLang() {
+        return localStorage.getItem('lang') || 'en';
+    }
+    function saveLang(lang) {
+        localStorage.setItem('lang', lang);
+    }
+    function updateLangFromToggle() {
+        const lang = langToggle && langToggle.checked ? 'pt' : 'en';
+        setLanguage(lang);
+        saveLang(lang);
+    }
+    if (langToggle) {
+        // Set initial state from storage
+        const savedLang = getSavedLang();
+        langToggle.checked = savedLang === 'pt';
+        setLanguage(savedLang);
+        langToggle.addEventListener('change', updateLangFromToggle);
+    } else {
+        setLanguage(getSavedLang());
+    }
 
     // --- INITIALIZE ---
     checkAuthAndSetupScratch();
