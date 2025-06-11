@@ -1203,8 +1203,29 @@ html, body {
     color: #fff !important;
 }
 
-.profile-card.collapsed {
-    /* ...existing collapsed styles... */
+/* Floating profile card when expanded */
+.profile-card:not(.collapsed) {
+    position: fixed !important;
+    top: 32px !important;
+    right: 32px !important;
+    margin: 0 !important;
+    z-index: 3000 !important;
+    box-shadow: 0 12px 40px 0 #000b, 0 2px 8px #6ec1e433 !important;
+    /* Optional: smooth transition for appearance */
+    transition: box-shadow 0.2s, background 0.2s, top 0.2s, right 0.2s;
 }
 
-/* ...existing code... */
+/* Prevent header stretching by removing margin-right when floating */
+.site-header #profile-area {
+    margin-right: 0 !important;
+}
+
+/* On mobile, float at top right with less offset */
+@media (max-width: 700px) {
+    .profile-card:not(.collapsed) {
+        top: 10px !important;
+        right: 6px !important;
+        width: 96vw !important;
+        max-width: 98vw !important;
+    }
+}
