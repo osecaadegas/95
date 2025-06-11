@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const avatarUpload = document.getElementById('avatar-upload');
 
     let currentProfile = {};
+    let currentUserRole = 'user'; // Default role
 
     async function showProfileCard(user) {
         if (!user) {
@@ -132,14 +133,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             profileCard.classList.add('collapsed'); // Start collapsed after login
         }
         if (profileEmail) profileEmail.textContent = user.email || user.id;
-        // Load profile from Supabase
+        // Load profile from Supabase, now including 'role'
         const { data, error } = await supabaseClient
             .from('profiles')
-            .select('name,bio,avatar_url')
+            .select('name,bio,avatar_url,role')
             .eq('id', user.id)
             .single();
         if (!error && data) {
             currentProfile = data;
+            currentUserRole = data.role || 'user';
             if (profileName) profileName.value = data.name || '';
             if (profileBio) profileBio.value = data.bio || '';
             if (profileAvatar) {
@@ -147,7 +149,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                     ? data.avatar_url
                     : `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || user.email || 'User')}`;
             }
+            // Example: Show admin panel if admin
+            if (currentUserRole === 'admin' || currentUserRole === 'superadmin') {
+                // document.getElementById('admin-panel').style.display = 'block';
+            }
+            // Restrict Overlay link to moderators and above
+            const overlayLink = document.querySelector('.nav-link[href*="overlay"]');
+            if (overlayLink) {
+                if (
+                    currentUserRole === 'moderator' ||
+                    currentUserRole === 'admin' ||
+                    currentUserRole === 'superadmin'
+                ) {
+                    overlayLink.style.display = '';
+                    overlayLink.removeAttribute('aria-disabled');
+                    overlayLink.classList.remove('disabled');
+                } else {
+                    overlayLink.style.display = 'none';
+                    overlayLink.setAttribute('aria-disabled', 'true');
+                    overlayLink.classList.add('disabled');
+                }
+            }
         } else {
+            currentUserRole = 'user';
             // Defaults
             if (profileName) profileName.value = '';
             if (profileBio) profileBio.value = '';
@@ -353,3 +377,7 @@ function showToast(msg) {
         setTimeout(() => toast.remove(), 400);
     }, 2000);
 }
+
+// Example usage anywhere in your code:
+// if (currentUserRole === 'superadmin') { /* show superadmin features */ }
+// if (currentUserRole === 'moderator') { /* show moderator features */ }
