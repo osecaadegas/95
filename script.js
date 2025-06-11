@@ -169,10 +169,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const { error } = await supabaseClient.from('profiles').upsert(updates, { onConflict: ['id'] });
         if (!error) {
-            alert('Profile saved!');
+            showToast('Profile saved!');
             collapseProfileCard(); // Collapse after saving
         } else {
-            alert('Error saving profile.');
+            showToast('Error saving profile.');
         }
     }
 
@@ -328,3 +328,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     // --- INITIALIZE ---
     checkAuthAndSetupScratch();
 });
+
+// Add this function near the top or bottom of your script
+function showToast(msg) {
+    let toast = document.createElement('div');
+    toast.textContent = msg;
+    toast.style.position = 'fixed';
+    toast.style.top = '24px';
+    toast.style.right = '32px';
+    toast.style.background = '#1a2233';
+    toast.style.color = '#6ec1e4';
+    toast.style.padding = '12px 22px';
+    toast.style.borderRadius = '10px';
+    toast.style.boxShadow = '0 4px 24px #000a';
+    toast.style.fontWeight = 'bold';
+    toast.style.fontSize = '1em';
+    toast.style.zIndex = 9999;
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '1'; }, 10);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+    }, 2000);
+}
