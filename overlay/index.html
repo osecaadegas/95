@@ -43,15 +43,15 @@
       <div style="display:flex;gap:8px;">
         <input type="text" id="slotSearch" placeholder="Search slot..." autocomplete="off" style="flex:1;min-width:0;">
         <div id="slotSuggestions" class="slot-suggestions"></div>
-        <input type="number" id="slotBet" placeholder="Bet (â‚¬)" min="0.1" step="0.1" style="width:80px;">
+        <input type="number" id="slotBet" placeholder="Bet (€)" min="0.1" step="0.1" style="width:80px;">
         <button id="showSlotUrlBtn" type="button" style="white-space:nowrap;">URL</button>
         <input type="url" id="slotImageUrl" placeholder="Slot Image URL" style="width:180px;display:none;">
         <button id="addSlotBtn" style="white-space:nowrap;"><i class="fa fa-plus"></i> Add Slot</button>
       </div>
       <!-- Row 2 -->
       <div style="display:flex;gap:8px;">
-        <input type="number" id="startMoney" placeholder="Start (â‚¬)" min="0" step="0.01" style="flex:1;min-width:0;">
-        <input type="number" id="finishMoney" placeholder="Finish (â‚¬)" min="0" step="0.01" style="flex:1;min-width:0;">
+        <input type="number" id="startMoney" placeholder="Start (€)" min="0" step="0.01" style="flex:1;min-width:0;">
+        <input type="number" id="finishMoney" placeholder="Finish (€)" min="0" step="0.01" style="flex:1;min-width:0;">
         <button id="finishHuntBtn" style="background:#ff3e3e;color:#fff;white-space:nowrap;"><i class="fa fa-flag-checkered"></i> Finish Hunt</button>
       </div>
       <!-- Row 3 ... -->
@@ -161,24 +161,24 @@
       </div>
       <div class="sidebar-profit-row">
         <div class="sidebar-profit-col">
-          <div class="sidebar-label">ðŸ’° Profit</div>
-          <div class="sidebar-value" id="sidebarProfit">0â‚¬</div>
+          <div class="sidebar-label">💰 Profit</div>
+          <div class="sidebar-value" id="sidebarProfit">0€</div>
         </div>
         <div class="sidebar-profit-col" style="align-items: flex-end;">
-          <div class="sidebar-label" style="text-align:right;">ðŸŽ¯ Target</div>
-          <div class="sidebar-value" id="sidebarTarget" style="text-align:right;">0â‚¬</div>
+          <div class="sidebar-label" style="text-align:right;">🎯 Target</div>
+          <div class="sidebar-value" id="sidebarTarget" style="text-align:right;">0€</div>
         </div>
       </div>
     </div>
     <div class="sidebar-section best-worst">
-      <div class="sidebar-best-worst-main-pill">ðŸ† Best & Worst Slot</div>
+      <div class="sidebar-best-worst-main-pill">🏆 Best & Worst Slot</div>
       <div class="best-worst-flex">
         <div id="sidebarBestSlot"></div>
         <div id="sidebarWorstSlot"></div>
       </div>
     </div>
     <div class="sidebar-section bonus-list">
-      <div class="sidebar-label">ðŸ’° Bonus List</div>
+      <div class="sidebar-label">💰 Bonus List</div>
       <div class="card-3d" id="bonus3dCarousel"></div>
     </div>
     <div class="sidebar-section discord">
