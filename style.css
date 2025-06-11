@@ -1034,12 +1034,23 @@ html, body {
     transition: max-width 0.3s, min-width 0.3s, background 0.2s;
 }
 
+.profile-card.collapsed .avatar-upload-label {
+    display: none !important;
+}
+
 .profile-card.collapsed .profile-avatar-section {
     margin: 0 auto;
 }
 
-.profile-card.collapsed .profile-fields {
-    display: none !important;
+.profile-card.collapsed #profile-avatar {
+    box-shadow: 0 0 0 0 #6ec1e4;
+    transition: box-shadow 0.2s;
+}
+
+.profile-card.collapsed #profile-avatar:hover {
+    box-shadow: 0 0 16px 6px #6ec1e4, 0 0 32px 12px #6ec1e488;
+    border-color: #eaf6fb;
+    z-index: 2;
 }
 
 .profile-avatar-section {
