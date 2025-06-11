@@ -1228,7 +1228,7 @@
     startTournamentBtn.addEventListener('click', function() {
       for (let p of tournamentPlayers) {
         if (!p.name.trim() || !p.slot.trim()) {
-          alert("Please fill all player names and slots!");
+          // alert("Please fill all player names and slots!");
           return;
         }
       }
