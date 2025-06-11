@@ -792,7 +792,6 @@ a:hover, .footer-link:hover {
     }
     .stream-center iframe {
         width: 96vw !important;
-        min-width: 0 !important;
         height: 200px !important; /* Increased height */
         max-width: 100vw !important;
     }
@@ -999,7 +998,7 @@ html, body {
     background: linear-gradient(135deg, #16213e 80%, #6ec1e422 100%);
     border: 2px solid #6ec1e4;
     border-radius: 16px;
-    box-shadow: 0 2px 16px #6ec1e433, 0 0 0 1px #6ec1e422;
+    box-shadow: 0 8px 32px 0 #0008, 0 2px 8px #6ec1e433 !important;
     padding: 16px 18px;
     margin-right: 12px;
     min-width: 260px;
@@ -1007,6 +1006,7 @@ html, body {
     z-index: 20;
     transition: box-shadow 0.2s, background 0.2s, max-width 0.3s, min-width 0.3s;
     position: relative;
+    background: rgba(26,34,51,0.98) !important;
 }
 
 .profile-card.collapsed {
