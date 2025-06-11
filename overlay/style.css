@@ -1,0 +1,1225 @@
+/* --- Sidebar Color Variables --- */
+:root {
+  --sidebar-bg: linear-gradient(135deg, #232e4d 80%, #181f36 100%);
+  --sidebar-border: #3ec6ff;
+  --sidebar-card-bg: #232e4d;
+  --sidebar-label-bg: #3ec6ff;
+  --sidebar-label-color: #fff;
+  --sidebar-pill-bg: #181f36;
+  --sidebar-pill-bet: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);
+  --sidebar-pill-payout: linear-gradient(90deg, #5ce1e6cc 0%, #3ec6ffcc 100%);
+  --sidebar-pill-xwin: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);
+  --sidebar-progress-bar: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+}
+#watermark {
+  position: fixed;
+  bottom: 18px;
+  right: 23px;
+  font-size: 2.0em;
+  color: #3ec6ff33;
+  font-family: 'Orbitron', Arial, sans-serif;
+  pointer-events: none;
+  user-select: none;
+  z-index: 99999;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-shadow: 0 2px 12px #0008;
+}
+
+/* --- Sidebar Section Cards --- */
+.sidebar-section {
+  background: rgba(34, 48, 74, 0.92);
+  border-radius: 14px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px #0002;
+}
+
+/* --- Sidebar Header --- */
+.sidebar-section.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(90deg, var(--sidebar-label-bg) 0%, #5ce1e6 100%);
+  color: var(--sidebar-label-color);
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.18em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 16px #3ec6ff55;
+  border: none;
+  min-height: 20px !important;
+  padding: 6px 10px !important;
+}
+
+/* --- Sidebar Title --- */
+.sidebar-title {
+  flex: unset;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #181926; /* Changed from #3ec6ff to blackish */
+  font-size: 0.8em;
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: text;
+  font-family: 'Orbitron', 'Segoe UI', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+/* --- Sidebar Labels --- */
+.sidebar-label {
+  font-size: 0.95em;
+  color: #a0b8e0;
+  margin-bottom: 2px;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+  font-weight: bold;
+  background: none;
+  padding: 0 2px !important;
+}
+
+/* --- Sidebar Values --- */
+.sidebar-value {
+  font-size: 1.15em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 0;
+  padding: 0 !important;
+}
+
+/* --- Sidebar Box (AVG/BE) --- */
+.sidebar-box {
+  background: #22304a;
+  border-radius: 8px;
+  padding: 8px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* --- Progress Bar --- */
+.sidebar-progress {
+  background: #181926;
+  border-radius: 8px;
+  height: 18px;
+  width: 100%;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-progress-bar {
+  background: linear-gradient(90deg, #3ec6ff 0%, #6c3bbf 100%);
+  height: 100%;
+  width: 0%;
+  border-radius: 8px;
+  transition: width 0.7s cubic-bezier(.77,0,.18,1);
+}
+.sidebar-progress-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+/* --- Best & Worst Pill --- */
+.sidebar-best-worst-main-pill {
+  display: block;
+  width: 100%;
+  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+  color: #181f36;
+  font-weight: bold;
+  font-size: 1.08em;
+  padding: 10px 0 10px 0;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  text-align: center;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  border: none;
+  user-select: none;
+  text-shadow: 0 1px 6px #fff4;
+}
+
+/* --- Center Best & Worst and Bonus List Sections --- */
+.sidebar-section.best-worst,
+.sidebar-section.bonus-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Bonus List Pill: Centered with Flex --- */
+.sidebar-section.bonus-list .sidebar-label {
+  display: block;
+  width: 100%;
+  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+  color: #181f36;
+  font-weight: bold;
+  font-size: 1.08em;
+  padding: 10px 0 10px 0;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  text-align: center;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  border: none;
+  user-select: none;
+  text-shadow: 0 1px 6px #fff4;
+}
+
+/* --- Center Bonus List Section --- */
+.sidebar-section.bonus-list {
+  padding: 6px 10px 10px 10px;
+  min-height: 0;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* --- Discord Section --- */
+.sidebar-section.discord {
+  background: var(--sidebar-pill-bg) !important;
+  border: 2px solid var(--sidebar-border) !important;
+  box-shadow: 0 2px 16px #3ec6ff33 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Discord Offers Editable --- */
+#discordOffersEditable {
+  background: var(--sidebar-card-bg) !important;
+  border-radius: 10px !important;
+  border: 1.5px solid var(--sidebar-border) !important;
+  color: #b6eaff !important;
+  font-size: 1.08em !important;
+  padding: 12px 14px !important;
+  box-shadow: 0 2px 12px #3ec6ff22 !important;
+  max-width: 260px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  min-height: 32px !important;
+  max-height: 38px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* --- General Styles --- */
+body {
+  background: url('https://i.imgur.com/3ppFPQm.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+.index-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #181926 0%, #22304a 100%);
+  border-radius: 32px;
+  padding: 12px 24px;
+  margin: 8px auto 32px auto;
+  max-width: 1850px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 18px;
+  gap: 24px;
+}
+.icon-group {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: rgba(0,0,0,0.15);
+  border-radius: 24px;
+  padding: 6px 18px;
+}
+.icon-group i {
+  color: #444;
+  font-size: 22px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: color 0.2s, opacity 0.2s;
+}
+.icon-group i.active {
+  color: #fff;
+  opacity: 1;
+}
+.divider {
+  width: 1px;
+  height: 36px;
+  background: #444;
+  margin: 0 24px;
+  opacity: 0.4;
+}
+.section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.section .fa-play {
+  color: #2ecc40;
+  background: #181926;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 18px;
+}
+.section .fa-arrow-right {
+  color: #b0b0ff;
+  background: #181926;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 18px;
+}
+.section-purple {
+  background: #6c3bbf;
+  color: #fff;
+  border-radius: 18px;
+  padding: 6px 18px;
+  font-size: 16px;
+  margin: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-purple .fa-globe {
+  color: #fff;
+  font-size: 16px;
+}
+.datetime-section {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  background: rgba(0,0,0,0.15);
+  border-radius: 18px;
+  padding: 6px 18px;
+  margin: 0 12px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+.aware-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+.aware-section .fa-pause-circle {
+  color: #fff;
+  font-size: 18px;
+  margin: 0 6px;
+}
+
+/* --- Carousel, Slot Cards, Bracket, Picker, etc. --- */
+/* 3D Bonus List Carousel */
+@keyframes autoRun3d {
+  from { transform: perspective(800px) rotateY(-360deg);}
+  to   { transform: perspective(800px) rotateY(0deg);}
+}
+@keyframes animateBrightness {
+  10% { filter: brightness(1);}
+  50% { filter: brightness(0.1);}
+  90% { filter: brightness(1);}
+}
+.slot-best-card .slot-pills-top,
+.slot-worst-card .slot-pills-top {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Added for vertical centering */
+  gap: 6px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.slot-best-card .slot-bet-pill,
+.slot-worst-card .slot-bet-pill,
+.slot-best-card .slot-x-pill,
+.slot-worst-card .slot-x-pill {
+  position: static !important;
+  transform: none !important;
+  margin: 0 !important;
+  font-size: 0.82em !important;
+  border-radius: 999px !important;
+  padding: 2px 8px !important;
+  min-width: 0;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1.1;
+}
+
+.slot-best-card .slot-x-pill {
+  background: #3ec6ff;
+  color: #181926;
+}
+.slot-worst-card .slot-x-pill {
+  background: #ff3e3e;
+  color: #fff;
+}
+
+.slot-best-card .slot-paid-pill,
+.slot-worst-card .slot-paid-pill {
+  position: absolute !important;
+  bottom: 4px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: #3ec6ff;
+  color: #181926;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 2px 10px !important;
+  font-size: 0.82em !important;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1.1;
+}
+.card-3d {
+  width: 100%;
+  max-width: 360px;
+  height: 180px;            /* Adjust for best fit */
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+.card-3d-track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+  align-items: center;
+}
+.card-3d-track.animating {
+  /* Optionally, you can add a pointer-events: none; to prevent interaction during animation */
+}
+.card-3d-slot {
+  width: 120px;
+  height: 160px;            /* Adjust for best fit */
+  margin: 0 0px;
+  background: #232b3e;
+  border: solid 2px #3ec6ff55;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  opacity: 0.6;
+  transform: scale(0.88);
+  transition:
+    transform 0.7s cubic-bezier(.22,1,.36,1),
+    opacity 0.7s cubic-bezier(.22,1,.36,1),
+    border-color 0.7s;
+  position: relative;
+  z-index: 1;
+}
+.card-3d-slot.active {
+  opacity: 1;
+  transform: scale(1.08);
+  border-color: #3ec6ff;
+  z-index: 2;
+}
+/* Hide all others */
+.card-3d-slot.hidden {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.card-3d-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Show full image */
+  border-radius: 0.7rem;
+  display: block;
+}
+.card-3d-bet {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  right: auto; /* Ensure no right offset */
+  transform: translateX(-50%);
+  min-width: 48px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 3px 12px;
+  font-weight: bold;
+  font-size: 1em;
+  z-index: 20;
+  background: #d4a404;
+  color: #000;
+  box-shadow: 0 2px 8px #3ec6ff44;
+  opacity: 0.93;
+  pointer-events: none;
+  letter-spacing: 1px;
+}
+.card-3d-bet.super-vibrate {
+  animation: superGoldVibrate 1.2s cubic-bezier(.4,2,.6,1) infinite both;
+  border: 2px solid #ffd700;
+  background: #ffe066;
+  color: #181926;
+  box-shadow: 0 0 12px 2px #ffe06688, 0 0 24px 6px #fffbe688;
+}
+
+.card-3d-img.super-glow {
+  margin: 0; /* Remove margin so image fills the card */
+  box-sizing: border-box;
+  animation: superGoldVibrate 1.2s cubic-bezier(.4,2,.6,1) infinite both;
+  border: 2px solid #ffd700;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.7rem;
+  display: block;
+}
+/* Show bet value for super slots in carousel */
+.super-bet-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
+  color: #181926;
+  font-weight: bold;
+  font-size: 0.95em;
+  border-radius: 8px;
+  padding: 2px 10px 2px 10px;
+  box-shadow: 0 2px 8px #ffe06688;
+  z-index: 12;
+  text-align: center;
+  letter-spacing: 1px;
+  border: 1.5px solid #fffbe6;
+  opacity: 0.97;
+  line-height: 1.2;
+  pointer-events: none;
+}
+.sidebar-discord-text {
+  color: #fff;
+  font-size: 1em;
+  margin-top: 4px;
+}
+/* Bonus Hunt Controls Styles */
+.bonus-hunt-controls {
+  /* Remove position: fixed and top/left/transform/z-index */
+  background: rgba(34, 48, 74, 0.97);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
+  padding: 16px 16px 12px 16px;
+  display: block; /* Default to block for flex children */
+  width: 100%;
+  min-width: 0;
+  max-width: 600px;
+  box-sizing: border-box;
+  gap: 10px;
+  animation: fadeInUp 0.5s cubic-bezier(.4,2,.6,1);
+  opacity: 1;
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1), visibility 0.7s cubic-bezier(.4,2,.6,1);
+  visibility: visible;
+}
+.bonus-hunt-controls.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.bonus-hunt-controls input[type="text"], .bonus-hunt-controls input[type="number"] {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1em;
+  outline: none;
+  background: #232b3e;
+  color: #fff;
+  transition: box-shadow 0.2s;
+}
+.bonus-hunt-controls input[type="text"]:focus, .bonus-hunt-controls input[type="number"]:focus {
+  box-shadow: 0 0 0 2px #3ec6ff;
+}
+.bonus-hunt-controls button {
+  background: #3ec6ff;
+  color: #181926;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bonus-hunt-controls button:hover {
+  background: #6c3bbf;
+  color: #fff;
+}
+.bonus-hunt-controls span {
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+}
+.slot-suggestions {
+  background: #232b3e;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0004;
+  margin-top: 2px;
+  max-height: 120px;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 10001;
+  width: 200px;
+  display: none;
+}
+.slot-suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1em;
+}
+.slot-suggestion-item:hover {
+  background: #3ec6ff;
+  color: #181926;
+}
+.slot-suggestion-item img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.hunt-slot-list {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  overflow-x: hidden;       /* Prevent horizontal scroll */
+  background: none;
+  padding: 0;
+}
+.hunt-slot-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #22304a;
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 1em;
+  min-width: 180px;
+  white-space: nowrap;
+}
+.hunt-slot-row button {
+  font-size: 1em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.hunt-slot-row .edit-slot-btn:hover {
+  background: #3ec6ff;
+  color: #181926;
+}
+.hunt-slot-row .delete-slot-btn:hover {
+  background: #ff3e3e;
+  color: #fff;
+}
+.slot-suggestions {
+  width: 200px;
+}
+.best-worst-flex {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+.slot-best-card, .slot-worst-card {
+  background: #232b3e;
+  border-radius: 14px;
+  padding: 10px 10px 8px 10px;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slot-best-card .slot-label {
+  color: #3ec6ff;
+}
+.slot-worst-card .slot-label {
+  color: #ff3e3e;
+}
+.slot-best-card .slot-x {
+  background: #3ec6ff;
+  color: #181926;
+}
+.slot-worst-card .slot-x {
+  background: #ff3e3e;
+  color: #fff;
+}
+.slot-label {
+  font-size: 0.95em;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.slot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #3ec6ff44;
+  display: block;
+}
+.slot-name {
+  font-weight: bold;
+  color: #3ec6ff;
+  text-align: center;
+  margin: 6px 0 2px 0;
+  font-size: 1em;
+}
+.slot-bet, .slot-paid {
+  font-size: 0.95em;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.slot-bet span, .slot-paid span {
+  color: #3ec6ff;
+}
+.slot-x {
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 8px;
+  margin-top: 4px;
+  display: inline-block;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate(-50%, 30%);}
+  to   { opacity: 1; transform: translate(-50%, -50%);}
+}
+@keyframes superGoldVibrate {
+  0% {
+    transform: translate(0, 0) scale(1);
+    box-shadow: 0 0 8px 2px #ffe06688, 0 0 16px 4px #fffbe688;
+    filter: brightness(1) drop-shadow(0 0 4px #ffe06688);
+  }
+  20% {
+    transform: translate(-0.5px, 0.5px) scale(1.01);
+    box-shadow: 0 0 12px 3px #ffe066aa, 0 0 20px 6px #fffbe6aa;
+    filter: brightness(1.07) drop-shadow(0 0 6px #ffe066aa);
+  }
+  50% {
+    transform: translate(0.5px, -0.5px) scale(1.015);
+    box-shadow: 0 0 16px 4px #ffe066cc, 0 0 24px 8px #fffbe6cc;
+    filter: brightness(1.12) drop-shadow(0 0 8px #ffe066cc);
+  }
+  80% {
+    transform: translate(-0.5px, 0.5px) scale(1.01);
+    box-shadow: 0 0 12px 3px #ffe066aa, 0 0 20px 6px #fffbe6aa;
+    filter: brightness(1.07) drop-shadow(0 0 6px #ffe066aa);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    box-shadow: 0 0 8px 2px #ffe06688, 0 0 16px 4px #fffbe688;
+    filter: brightness(1) drop-shadow(0 0 4px #ffe06688);
+  }
+}
+
+/* --- Tournament Bracket Styles --- */
+.bracket-match {
+  background: #181926;
+  color: #fff;
+  border-radius: 14px; /* Fixed: was #3ec6ff (invalid) */
+  margin-bottom: 16px;
+  padding: 10px 8px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  font-size: 1em;
+}
+.bracket-player {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.bracket-score {
+  color: #3ec6ff;
+  font-size: 1.1em;
+  margin-bottom: 2px;
+}
+.bracket-btn {
+  background: #3ec6ff;
+  color: #181926;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 10px;
+  margin: 2px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: bold;
+}
+#tournamentSetupPanel {
+  position: fixed;
+  /* Center horizontally with the hunt control panel */
+  left: 50%;
+  /* Vertically align with the hunt control panel */
+  top: 0;
+  /* Center the panel using transform */
+  transform: translate(-50%, 0);
+  width: 600px;
+  min-width: 0;
+  max-width: 96vw;
+  z-index: 10000;
+  box-shadow: 0 0 24px 4px #3ec6ff55, 0 0 0 3px #3ec6ff;
+  background: #181926;
+}
+#tournamentSetupPanel h2 {
+  font-family: 'Orbitron', monospace;
+  color: #3ec6ff;
+  text-shadow: 0 0 8px #3ec6ff99;
+}
+#tournamentSetupPanel table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  width: 100%;
+}
+#tournamentSetupPanel th {
+  color: #7ec6ff;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.05em;
+  padding-bottom: 6px;
+}
+#tournamentSetupPanel td {
+  padding: 0 4px;
+}
+.tournament-player-input, .tournament-slot-input {
+  width: 98%;
+  background: #181926;
+  border: 2px solid #3ec6ff;
+  border-radius: 8px;
+  color: #3ec6ff;
+  font-family: 'Orbitron', monospace;
+  font-size: 1em;
+  padding: 6px 10px;
+  margin-bottom: 2px;
+  outline: none;
+  transition: border 0.2s;
+}
+.tournament-player-input:focus, .tournament-slot-input:focus {
+  border: 2px solid #ffd700;
+}
+.tournament-slot-suggestions {
+  position: absolute;
+  background: #232b3e;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0004;
+  z-index: 10003;
+  width: 90%;
+  max-height: 120px;
+  overflow-y: auto;
+  color: #fff;
+  font-size: 1em;
+}
+.tournament-slot-suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #fff;
+}
+.tournament-slot-suggestion-item:hover {
+  background: #3ec6ff;
+  color: #181926;
+}
+.bracket-winner {
+  box-shadow: 0 0 18px 4px #3efcff, 0 0 0 4px #3ec6ff;
+  border-radius: 14px !important;
+  outline: 2.5px solid #3efcff;
+  filter: drop-shadow(0 0 8px #3efcff);
+  transition: box-shadow 0.3s, outline 0.3s;
+}
+.bracket-loser {
+  box-shadow: 0 0 18px 4px #ff3e8e, 0 0 0 4px #ff3e8e;
+  border-radius: 14px !important;
+  outline: 2.5px solid #ff3e8e;
+  filter: drop-shadow(0 0 8px #ff3e8e);
+  opacity: 0.7;
+  transition: box-shadow 0.3s, outline 0.3s, opacity 0.3s;
+}
+
+#tournamentBracketPanel {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  width: 600px;
+  min-width: 0;
+  max-width: 96vw;
+  z-index: 10000;
+  transition: opacity 0.5s;
+  opacity: 0;
+  pointer-events: none;
+}
+#tournamentBracketPanel.slide-in-right {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+#tournamentBracketPanel.slide-out-right {
+  transform: translate(-50%, 0);
+  opacity: 0;
+  pointer-events: none;
+}
+#tournamentBracketPanel.slide-out-left {
+  transform: translate(-50%, 0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slot Picker Modal Styles */
+#slotPickerModal {
+  animation: fadeInUp 0.5s;
+}
+#slotPickerSpinner img {
+  box-shadow: 0 2px 8px #3ec6ff88;
+  border-radius: 12px;
+  background: #181926;
+}
+#slotPickerSpinner {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#slotPickerResult img {
+  box-shadow: 0 4px 18px #3ec6ff88;
+  border-radius: 14px;
+  background: #181926;
+}
+#slotPickerResult {
+  animation: fadeInUp 0.7s;
+}
+#slotProviderFilters label {
+  background: #232b3e;
+  border-radius: 8px;
+  padding: 4px 10px;
+  color: #7ec6ff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+}
+#slotProviderFilters label:hover {
+  background: #3ec6ff;
+  color: #181926;
+}
+#slotProviderFilters input[type=checkbox] {
+  accent-color: #3ec6ff;
+  margin-right: 4px;
+}
+
+/* Slot Picker Spinning Animation - Improved visuals */
+@keyframes slotSpin {
+  0%   { transform: rotate(-10deg) scale(1.05); filter: brightness(1.2) blur(0.5px); }
+  30%  { transform: rotate(10deg) scale(1.12); filter: brightness(1.3) blur(1.5px); }
+  60%  { transform: rotate(-8deg) scale(1.09); filter: brightness(1.2) blur(1px); }
+  100% { transform: rotate(0deg) scale(1.05); filter: brightness(1.2) blur(0.5px); }
+}
+.slot-picker-spinning img {
+  animation: slotSpin 0.18s cubic-bezier(.4,2,.6,1) infinite;
+  box-shadow: 0 0 32px 8px #3ec6ffcc, 0 0 0 4px #3ec6ff44;
+  outline: 3px solid #3ec6ff;
+  outline-offset: 2px;
+  background: linear-gradient(120deg, #232b3e 60%, #3ec6ff22 100%);
+}
+.slot-picker-spinning {
+  transition: background 0.3s;
+  background: linear-gradient(90deg, #232b3e 60%, #3ec6ff22 100%);
+  border-radius: 18px;
+  padding: 8px 0 8px 0;
+}
+
+/* Slot Picker Glow (after spin) */
+.slot-picker-glow img {
+  box-shadow: 0 0 32px 8px #3ec6ffcc, 0 0 0 4px #3ec6ff44;
+  outline: 3px solid #3ec6ff;
+  outline-offset: 2px;
+  background: linear-gradient(120deg, #232b3e 60%, #3ec6ff22 100%);
+  animation: none !important;
+  filter: none !important;
+}
+.slot-picker-glow {
+  background: linear-gradient(90deg, #232b3e 60%, #3ec6ff22 100%);
+  border-radius: 18px;
+  padding: 8px 0 8px 0;
+  transition: none;
+}
+
+/* Floating Slot Picker Card styles */
+#floatingSlotPickerCard {
+  background: #232b3e;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px #000a;
+  padding: 18px;
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 95vw;
+  max-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 240px; /* moved 50px lower from 114px */
+  right: 32px;
+  z-index: 10020;
+  overflow: hidden;
+}
+#floatingSlotPickerSpinner {
+  width: 180px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.floating-slot-spinning img,
+.floating-slot-glow img {
+  width: 170px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+.floating-slot-spinning img {
+  box-shadow: 0 2px 18px #3ec6ff88;
+  animation: slotSpin 0.18s cubic-bezier(.4,2,.6,1) infinite;
+}
+.floating-slot-glow img {
+  box-shadow: 0 0 48px 12px #3ec6ffcc,0 0 0 6px #3ec6ff44;
+  outline: 4px solid #3ec6ff;
+  outline-offset: 2px;
+  animation: none;
+}
+
+/* --- Sidebar Styles (fixed right) --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  bottom: 10px;
+  left: auto;
+  width: 340px;
+  min-height: 400px;
+  max-height: 95vh;
+  background: rgba(24, 25, 38, 0.98);
+  box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
+  z-index: 9999;
+  padding: 24px 18px 12px 18px;
+  overflow: hidden;
+  border-radius: 24px;
+  transition: transform 1.2s cubic-bezier(.4,2,.6,1), opacity 0.7s cubic-bezier(.4,2,.6,1);
+  transform: translateX(120%);
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar-section.avg-be {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 10px 16px;
+}
+.sidebar-section.profit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px;
+}
+.sidebar-profit-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+.sidebar-profit-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+.sidebar-profit-col:last-child {
+  align-items: flex-end;
+}
+.sidebar-row {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  width: 100%;
+}
+
+/* --- Controls Pill Styles --- */
+.controls-pill {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+  color: #181f36;
+  font-weight: bold;
+  font-size: 1.08em;
+  padding: 10px 24px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  margin-left: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s, background 0.2s;
+  z-index: 100;
+  user-select: none;
+}
+.controls-pill-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.controls-categories {
+  display: none !important;
+  position: absolute;
+  left: 0;
+  top: 110%;
+  background: #232b3e;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #0008;
+  padding: 10px 0;
+  min-width: 220px;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 101;
+  animation: fadeInUp 0.3s;
+}
+.controls-pill.active .controls-categories {
+  display: flex !important;
+}
+.controls-category-btn {
+  background: none;
+  border: none;
+  color: #3ec6ff;
+  font-weight: bold;
+  font-size: 1.08em;
+  padding: 10px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s, color 0.2s;
+  margin: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.controls-category-btn:hover, .controls-category-btn.active {
+  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
+  color: #181f36;
+}
+
+/* --- Controls Expanded Card --- */
+.controls-expanded-card {
+  display: none !important;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #232b3e;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px #000a;
+  padding: 32px 32px 24px 32px;
+  min-width: 340px;
+  min-height: 240px;
+  max-width: 98vw;
+  max-height: 90vh;
+  z-index: 10050;
+  animation: fadeInUp 0.4s cubic-bezier(.4,2,.6,1);
+  transition: opacity 0.3s, visibility 0.3s;
+  overflow-y: auto;
+}
+.controls-expanded-card.active {
+  display: block !important;
+}
+.controls-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: #181926;
+  color: #3ec6ff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #3ec6ff33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.controls-close-btn:hover {
+  background: #3ec6ff;
+  color: #181926;
+}
+.controls-expanded-content {
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+}
+
+/* Hide original controls by default (they will be shown in expanded card) */
+#bonus-hunt-controls,
+#tournamentMatchControl,
+#tournamentSetupPanel,
+#slotPickerModal {
+  display: none !important;
+}
+.controls-expanded-card.slide-in {
+  animation: fadeInUp 0.4s cubic-bezier(.4,2,.6,1);
+}
+.controls-expanded-card.slide-out {
+  animation: none;
+}
