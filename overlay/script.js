@@ -608,25 +608,13 @@
     // --- Smooth carousel animation ---
     let isCarouselAnimating = false;
     function animateCarouselToIndex(newIndex) {
-      if (isCarouselAnimating || newIndex === carouselIndex) return;
-      const bonus3dCarousel = document.getElementById('bonus3dCarousel');
-      const track = bonus3dCarousel.querySelector('.card-3d-track');
-      if (!track) {
-        carouselIndex = newIndex;
-        updateBonusList(false);
-        return;
-      }
+      if (isCarouselAnimating || slots.length < 1) return;
+      let n = slots.length;
+      newIndex = ((newIndex % n) + n) % n; // wrap around
       isCarouselAnimating = true;
-      const slotWidth = 120;
-      const gap = 0;
-      const containerWidth = 360;
-      const currentOffset = (containerWidth / 2) - (slotWidth / 2) - (carouselIndex * (slotWidth + gap));
-      const nextOffset = (containerWidth / 2) - (slotWidth / 2) - (newIndex * (slotWidth + gap));
-      track.style.transition = 'transform 0.7s cubic-bezier(.22,1,.36,1)';
-      track.style.transform = `translateX(${nextOffset}px)`;
+      carouselIndex = newIndex;
+      updateBonusList(false); // re-render to update active class and window
       setTimeout(() => {
-        carouselIndex = newIndex;
-        updateBonusList(false); // re-render to update active class
         isCarouselAnimating = false;
       }, 700);
     }
@@ -636,41 +624,66 @@
       // 3D Carousel for Bonus List
       const bonus3dCarousel = document.getElementById('bonus3dCarousel');
       bonus3dCarousel.innerHTML = '';
-      const n = slots.length;
-      const visibleSlots = 3; // always show 3 (centered)
+      let n = slots.length;
       const slotWidth = 120;
       const gap = 0;
+      let displaySlots = [];
+      let displayActive = 1; // index of active card in displaySlots
+
+      if (n === 0) {
+        displaySlots = [null, null, null];
+        displayActive = 1;
+        carouselIndex = 0;
+      } else if (n === 1) {
+        displaySlots = [null, slots[0], null];
+        displayActive = 1;
+        carouselIndex = 0;
+      } else if (n === 2) {
+        // Loop for 2 slots: [slot0, slot1, slot0] or [slot1, slot0, slot1]
+        displaySlots = [
+          slots[(carouselIndex + n - 1) % n],
+          slots[carouselIndex % n],
+          slots[(carouselIndex + 1) % n]
+        ];
+        displayActive = 1;
+        carouselIndex = carouselIndex % n;
+      } else {
+        // n >= 3, always show 3 slots, loop around
+        carouselIndex = ((carouselIndex % n) + n) % n; // ensure positive
+        displaySlots = [
+          slots[(carouselIndex + n - 1) % n],
+          slots[carouselIndex],
+          slots[(carouselIndex + 1) % n]
+        ];
+        displayActive = 1;
+      }
+
       const track = document.createElement('div');
       track.className = 'card-3d-track';
-      track.style.width = `${n * slotWidth}px`;
+      track.style.width = `${displaySlots.length * slotWidth}px`;
 
-      if (n > 0) {
-        for (let i = 0; i < n; i++) {
-          const slot = slots[i];
-          const div = document.createElement('div');
-          div.className = 'card-3d-slot' + (i === carouselIndex ? ' active' : '');
+      for (let i = 0; i < displaySlots.length; i++) {
+        const slot = displaySlots[i];
+        const div = document.createElement('div');
+        div.className = 'card-3d-slot' + (i === displayActive ? ' active' : '');
+        if (slot) {
           div.innerHTML = `
             <img class="card-3d-img${slot.super ? ' super-glow' : ''}" src="${slot.image}" alt="${slot.name}">
             <div class="card-3d-bet${slot.super ? ' super-vibrate' : ''}">€${slot.bet.toFixed(2)}</div>
           `;
           div.title = slot.name;
-          track.appendChild(div);
-        }
-        // Center the active card
-        const containerWidth = 360; // .card-3d width
-        const offset = (containerWidth / 2) - (slotWidth / 2) - (carouselIndex * (slotWidth + gap));
-        track.style.transform = `translateX(${offset}px)`;
-        track.style.transition = isCarouselAnimating ? 'transform 0.7s cubic-bezier(.22,1,.36,1)' : '';
-      } else {
-        for (let i = 0; i < 3; i++) {
-          const div = document.createElement('div');
-          div.className = 'card-3d-slot';
+        } else {
           div.style.background = '#232b3e';
           div.style.border = '2px dashed #3ec6ff22';
-          track.appendChild(div);
         }
-        track.style.transform = `translateX(0px)`;
+        track.appendChild(div);
       }
+
+      // Center the active card
+      const containerWidth = 360;
+      const offset = (containerWidth / 2) - (slotWidth / 2) - (displayActive * (slotWidth + gap));
+      track.style.transform = `translateX(${offset}px)`;
+      track.style.transition = isCarouselAnimating ? 'transform 0.7s cubic-bezier(.22,1,.36,1)' : '';
       bonus3dCarousel.appendChild(track);
 
       // Best & Worst Slot logic
