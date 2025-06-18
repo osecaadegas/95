@@ -296,7 +296,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             buran_percent: "1st deposit cashback up to 20€",
             buran_condition: "+15% cashback for losses over 100€ monthly",
             arena_code: "Code: secaadegas",
-            arena_condition: "use my code for in-game rewards"
+            arena_condition: "use my code for in-game rewards",
+            rollingslots_percent: "No Deposit",
+            rollingslots_condition: "40x free spins"
         },
         pt: {
             everything_here: "Tudo o que você precisa está aqui",
@@ -311,7 +313,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             buran_percent: "Cashback de até 20€ no 1º depósito",
             buran_condition: "+15% de cashback para perdas acima de 100€ por mês",
             arena_code: "Código: secaadegas",
-            arena_condition: "use meu código para recompensas no jogo"
+            arena_condition: "use meu código para recompensas no jogo",
+            rollingslots_percent: "Sem Depósito",
+            rollingslots_condition: "40x rodadas grátis"
         }
     };
 
