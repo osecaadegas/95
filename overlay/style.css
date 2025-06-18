@@ -1,1323 +1,1059 @@
-/* --- Sidebar Color Variables --- */
-:root {
-  --sidebar-bg: linear-gradient(135deg, #232e4d 80%, #181f36 100%);
-  --sidebar-border: #3ec6ff;
-  --sidebar-card-bg: #232e4d;
-  --sidebar-label-bg: #3ec6ff;
-  --sidebar-label-color: #fff;
-  --sidebar-pill-bg: #181f36;
-  --sidebar-pill-bet: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);
-  --sidebar-pill-payout: linear-gradient(90deg, #5ce1e6cc 0%, #3ec6ffcc 100%);
-  --sidebar-pill-xwin: linear-gradient(90deg, #3ec6ffcc 0%, #5ce1e6cc 100%);
-  --sidebar-progress-bar: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
-}
-#watermark {
-  position: fixed;
-  bottom: 18px;
-  right: 23px;
-  font-size: 2.0em;
-  color: #3ec6ff33;
-  font-family: 'Orbitron', Arial, sans-serif;
-  pointer-events: none;
-  user-select: none;
-  z-index: 99999;
-  letter-spacing: 2px;
-  font-weight: bold;
-  text-shadow: 0 2px 12px #0008;
-}
-
-/* --- Sidebar Section Cards --- */
-.sidebar-section {
-  background: var(--sidebar-card-bg);
-  border-radius: 14px;
-  padding: 14px 16px;
-  box-shadow: 0 2px 12px #3ec6ff33;
-  border: 1.5px solid var(--sidebar-border);
-  margin-bottom: 18px;
-}
-
-/* --- Sidebar Header --- */
-.sidebar-section.header {
-  background: linear-gradient(90deg, var(--sidebar-label-bg) 0%, #5ce1e6 100%);
-  color: var(--sidebar-label-color);
-  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
-  font-size: 1.18em;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-bottom: 22px;
-  box-shadow: 0 2px 16px #3ec6ff55;
-  border: none;
-  min-height: 20px !important;
-  padding: 6px 10px !important;
-}
-
-/* --- Sidebar Title --- */
-.sidebar-title {
-  font-size: 1em !important;
-  padding: 0 2px !important;
-  color: #181f36;
-  font-family: 'Orbitron', 'Segoe UI', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-}
-
-/* --- Sidebar Labels --- */
-.sidebar-label {
-  color: var(--sidebar-label-bg);
-  font-weight: bold;
-  font-size: 0.78em !important;
-  margin-bottom: 0 !important;
-  padding: 0 2px !important;
-  background: none;
-  letter-spacing: 1px;
-  font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-}
-
-/* --- Sidebar Values --- */
-.sidebar-value {
-  color: #fff;
-  font-size: 0.88em !important;
-  font-weight: bold;
-  margin-bottom: 0;
-  padding: 0 !important;
-}
-
-/* --- Sidebar Box (AVG/BE) --- */
-.sidebar-box {
-  background: var(--sidebar-pill-bg);
-  border-radius: 8px;
-  padding: 2px 0 !important;
-  text-align: center;
-}
-
-/* --- Progress Bar --- */
-.sidebar-progress {
-  background: var(--sidebar-pill-bg);
-  border-radius: 8px;
-  height: 10px;
-  margin-top: 6px;
-  position: relative;
-  width: 100%;
-}
-.sidebar-progress-bar {
-  background: var(--sidebar-progress-bar);
-  height: 100%;
-  border-radius: 8px;
-  width: 0%;
-  transition: width 0.7s cubic-bezier(.77,0,.18,1);
-}
-.sidebar-progress-text {
-  position: absolute;
-  top: -16px;
-  right: 0;
-  color: #fff;
-  font-size: 0.85em;
-}
-
-/* --- Best & Worst Pill --- */
-.sidebar-best-worst-main-pill {
-  display: block;
-  width: 100%;
-  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
-  color: #181f36;
-  font-weight: bold;
-  font-size: 1.08em;
-  padding: 10px 0 10px 0;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  text-align: center;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-  border: none;
-  user-select: none;
-  text-shadow: 0 1px 6px #fff4;
-}
-
-/* --- Bonus List Pill: Centered with Flex --- */
-.sidebar-section.bonus-list .sidebar-label {
-  display: block;
-  width: 100%;
-  background: linear-gradient(90deg, #3ec6ff 0%, #5ce1e6 100%);
-  color: #181f36;
-  font-weight: bold;
-  font-size: 1.08em;
-  padding: 10px 0 10px 0;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  text-align: center;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-  border: none;
-  user-select: none;
-  text-shadow: 0 1px 6px #fff4;
-}
-
-/* --- Center Bonus List Section --- */
-.sidebar-section.bonus-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* --- Discord Section --- */
-.sidebar-section.discord {
-  background: var(--sidebar-pill-bg) !important;
-  border: 2px solid var(--sidebar-border) !important;
-  box-shadow: 0 2px 16px #3ec6ff33 !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* --- Discord Offers Editable --- */
-#discordOffersEditable {
-  background: var(--sidebar-card-bg) !important;
-  border-radius: 10px !important;
-  border: 1.5px solid var(--sidebar-border) !important;
-  color: #b6eaff !important;
-  font-size: 1.08em !important;
-  padding: 12px 14px !important;
-  box-shadow: 0 2px 12px #3ec6ff22 !important;
-  max-width: 260px !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  min-height: 32px !important;
-  max-height: 38px !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-}
-
-/* --- General Styles --- */
 body {
-  background: url('https://i.imgur.com/3ppFPQm.jpeg') no-repeat center center fixed;
-  background-size: cover;
   margin: 0;
-  font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
+  /* Soft blue/gray gradient with subtle vignette */
+  background: 
+    radial-gradient(ellipse at 70% 100%, rgba(180,200,220,0.45) 0%, rgba(24,26,32,0.10) 80%),
+    linear-gradient(120deg, #ecf4fc 0%, #e3ecf3 60%, #b5c7d3 100%);
+  color: #f3f4f6;
+  min-height: 100vh;
 }
-.index-bar {
+
+.overlay-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #23243a 0%, #3a2d4a 60%, #1a1c2e 100%);
+  border-radius: 22px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.22), 0 1.5px 0 0 #00e1ff inset;
+  padding: 0.85rem 2.2rem;
+  margin: 1.5rem 2rem 0.5rem 2rem;
+  min-height: 68px;
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.navbar-left, .navbar-center, .navbar-right {
   display: flex;
   align-items: center;
-  background: linear-gradient(90deg, #181926 0%, #22304a 100%);
-  border-radius: 32px;
-  padding: 12px 24px;
-  margin: 8px auto 32px auto;
-  max-width: 1850px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
-  color: #fff;
-  font-size: 18px;
-  gap: 24px;
+  gap: 1.2rem;
 }
-.icon-group {
+
+.navbar-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #23243a;
+  box-shadow: 0 2px 8px 0 rgba(0,225,255,0.13);
+  border: 2px solid #00e1ff;
+}
+
+.streamer-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #00e1ff;
+  text-shadow: 0 1px 8px #23243a;
+}
+
+.twitch-link {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.2rem 0.9rem;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #9147ff 60%, #00e1ff 100%);
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(145,71,255,0.13);
+  border: none;
+}
+.twitch-link:hover {
+  background: linear-gradient(90deg, #00e1ff 60%, #9147ff 100%);
+  color: #23243a;
+}
+
+.current-time {
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  color: #00e1ff;
+  background: rgba(36, 38, 48, 0.65);
+  padding: 0.2rem 1.1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 1px 6px 0 rgba(0,225,255,0.08);
+}
+
+.navbar-link, .aware-link {
+  color: #b0b3b8;
+  font-size: 0.95rem;
+  text-decoration: none;
+  margin-left: 0.8rem;
+  transition: color 0.2s;
+  border-radius: 8px;
+  padding: 0.2rem 0.7rem;
+  background: rgba(0,225,255,0.07);
+}
+.navbar-link:hover, .aware-link:hover {
+  color: #00e1ff;
+  background: rgba(0,225,255,0.18);
+}
+
+.main-layout {
+  flex: 1;
   display: flex;
-  gap: 18px;
-  align-items: center;
-  background: rgba(0,0,0,0.15);
-  border-radius: 24px;
-  padding: 6px 18px;
+  flex-direction: row;
+  height: 0;
+  min-height: 0;
+  position: relative; /* ensure children can be absolutely positioned */
 }
-.icon-group i {
-  color: #444;
-  font-size: 22px;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: color 0.2s, opacity 0.2s;
-}
-.icon-group i.active {
-  color: #fff;
-  opacity: 1;
-}
-.divider {
-  width: 1px;
-  height: 36px;
-  background: #444;
-  margin: 0 24px;
-  opacity: 0.4;
-}
-.section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: bold;
-  font-size: 18px;
-}
-.section .fa-play {
-  color: #2ecc40;
-  background: #181926;
-  border-radius: 50%;
-  padding: 4px;
-  font-size: 18px;
-}
-.section .fa-arrow-right {
-  color: #b0b0ff;
-  background: #181926;
-  border-radius: 50%;
-  padding: 4px;
-  font-size: 18px;
-}
-.section-purple {
-  background: #6c3bbf;
-  color: #fff;
-  border-radius: 18px;
-  padding: 6px 18px;
-  font-size: 16px;
-  margin: 0 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-purple .fa-globe {
-  color: #fff;
-  font-size: 16px;
-}
-.datetime-section {
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  background: rgba(0,0,0,0.15);
-  border-radius: 18px;
-  padding: 6px 18px;
-  margin: 0 12px;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-}
-.aware-section {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-}
-.aware-section .fa-pause-circle {
-  color: #fff;
-  font-size: 18px;
-  margin: 0 6px;
-}
-/* Sidebar styles */
+
 .sidebar {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 70px;
-  right: 16px;
-  bottom: 10px;
-  left: auto;
-  width: 340px;
-  min-height: 400px;
-  max-height: 95vh;         /* Sidebar will never exceed 80% of viewport height */
-  background: rgba(24, 25, 38, 0.98);
-  box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
-  z-index: 9999;
-  padding: 24px 18px 12px 18px;
-  overflow: hidden;         /* Prevent both vertical and horizontal scroll/overflow */
+  align-items: center;
+  gap: 0.25rem; /* was 0.6rem, reduced for less spacing */
+  background: linear-gradient(135deg, #23243a 0%, #2d2e4a 100%);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px 0 rgba(0,225,255,0.13), 0 1.5px 0 0 #9147ff inset;
+  padding: 0.7rem 0.7rem;
+  margin: 0;
+  min-width: 112px;
+  width: 112px;
+  height: 440px;
+  max-height: 440px;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  justify-content: flex-start;
+  backdrop-filter: blur(6px);
+}
+
+.sidebar-twitch-chat {
+  margin-top: auto;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.info-twitch-chat {
+  margin-top: auto;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.sidebar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  background: linear-gradient(135deg, #23243a 0%, #2d2e4a 100%);
+  color: #00e1ff;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 0.4rem;
+  width: 88px;
+  height: 88px;
+  box-shadow: 0 2px 10px 0 rgba(0,225,255,0.13);
+  font-size: 1.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+  justify-content: center;
+  border: 2px solid #23243a;
+}
+.sidebar-btn:hover, .sidebar-btn.active {
+  background: linear-gradient(135deg, #00e1ff 0%, #9147ff 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.07);
+  border: 2px solid #00e1ff;
+}
+.sidebar-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.2rem;
+}
+.sidebar-btn span:last-child {
+  font-size: 1.7rem;
+  margin-top: 0.2rem;
+  letter-spacing: 1px;
+}
+
+.sidebar-ad {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 88px;
+}
+.ad-upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  background: #23243a;
+  color: #00e1ff;
+  border-radius: 50%;
+  font-size: 3.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: 4px dashed #00e1ff;
+  margin-bottom: 0.6rem;
+  transition: background 0.18s, color 0.18s;
+}
+.ad-upload-label:hover {
+  background: #00e1ff;
+  color: #23243a;
+}
+.ad-image-preview {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 rgba(0,225,255,0.13);
+  margin-top: 0.2rem;
+  border: 4px solid #00e1ff;
+}
+
+.middle-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.1rem;
+  background: linear-gradient(135deg, #23243a 0%, #2d2e4a 100%);
   border-radius: 24px;
-  transition: transform 1.2s cubic-bezier(.4,2,.6,1), opacity 0.7s cubic-bezier(.4,2,.6,1);
-  transform: translateX(120%);
+  box-shadow: 0 6px 24px 0 rgba(0,225,255,0.13);
+  padding: 2rem 1.5rem;
+  margin: 0;
+  min-width: 0;
+  max-width: none;
+  width: 400px;
+  height: 420px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  transition: box-shadow 0.2s;
+  justify-content: flex-start;
+  border: 2px solid #00e1ff;
+  backdrop-filter: blur(6px);
+}
+.middle-panel-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #00e1ff;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 8px #23243a;
+}
+
+.middle-panel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.7rem;
+}
+
+.middle-actions-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.middle-checkbox-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.middle-input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.05rem;
+  color: #f3f4f6;
+  width: 100%;
+  gap: 0.5rem;
+}
+.middle-input-label.left,
+.middle-input-label.right {
+  align-items: flex-start;
+  width: 48%;
+  min-width: 0;
+}
+.middle-input-label.left {
+  align-items: flex-start;
+}
+.middle-input-label.right {
+  align-items: flex-end;
+}
+
+.middle-input-label.left .middle-input,
+.middle-input-label.right .middle-input {
+  width: 100%;
+  min-width: 0;
+  max-width: 120px;
+  font-size: 1rem;
+  padding: 0.4rem 0.7rem;
+}
+
+.middle-input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid #23272f;
+  background: #23272f;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 0.2rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.middle-input:focus {
+  border: 1.5px solid #9147ff;
+}
+
+.middle-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #f3f4f6;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.middle-checkbox input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #9147ff;
+  margin-right: 0.3rem;
+}
+
+.middle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #23272f;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 16px;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.13);
+  margin-top: 1.2rem;
+  justify-content: center;
+  width: 100%;
+}
+.middle-btn.small-btn {
+  width: 120px;
+  min-width: 0;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.98rem;
+  margin: 0; /* remove extra margin */
+  display: flex;
+  justify-content: center;
+}
+.middle-btn:hover {
+  background: #9147ff;
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+}
+.middle-icon {
+  font-size: 1.2rem;
+}
+
+.main-content {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: linear-gradient(135deg, #23243a 0%, #2d2e4a 100%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0,225,255,0.13), 0 1.5px 0 0 #00e1ff inset;
+  padding: 2rem 1.5rem;
+  margin: 1.5rem 2rem 1.5rem 0;
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  transition: transform 0.7s cubic-bezier(.4,1.4,.6,1), opacity 0.3s;
+  transform: translateX(110%);
   opacity: 0;
   pointer-events: none;
+  backdrop-filter: blur(6px);
 }
-.sidebar.active {
+.info-panel.info-panel--visible {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
 }
-.sidebar-section {
-  background: rgba(34, 48, 74, 0.92);
-  border-radius: 14px;
-  margin-bottom: 16px;
-  padding: 14px 16px;
-  box-shadow: 0 2px 8px #0002;
+
+.info-section {
+  margin-bottom: 0.5rem;
 }
-.sidebar-section.header {
+
+.stats {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: none;
-  box-shadow: none;
-  padding: 0;
-  margin-bottom: 12px;
-}
-.sidebar-title {
-  flex: unset;
-  text-align: center;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  color: #3ec6ff;         /* Restore readable blue */
-  font-size: 1.2em;
-  font-weight: bold;
-  background: none;
-  border: none;
-  outline: none;
-  cursor: text;
-  font-family: 'Orbitron', 'Segoe UI', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-}
-/* Optional: Make sure the span inside the title is also readable */
-#huntNumber {
-  color: #fff;
-  font-weight: normal;
-}
-.sidebar-section.avg-be {
-  display: flex;
-  gap: 18px;
   justify-content: space-between;
-  padding: 10px 16px;
+  gap: 1.5rem;
+  font-size: 1.1rem;
 }
-.sidebar-row {
-  display: flex;
-  gap: 18px;
-  width: 100%;
+.info-label {
+  color: #b0b3b8;
+  font-weight: 500;
+  margin-right: 0.3rem;
 }
-.sidebar-box {
-  background: #22304a;
-  border-radius: 8px;
-  padding: 8px 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.sidebar-label {
-  font-size: 0.95em;
-  color: #a0b8e0;
-  margin-bottom: 2px;
-  letter-spacing: 1px;
-  font-family: 'Montserrat', Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-}
-.sidebar-value {
-  font-size: 1.15em;
-  font-weight: bold;
+.info-value {
   color: #fff;
+  font-weight: 600;
 }
-.sidebar-section.profit {
-  padding: 12px 16px;
+
+.bars {
+  margin-top: 0.5rem;
+}
+.bar-labels {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  font-size: 0.98rem;
+  color: #b0b3b8;
+  margin-bottom: 0.3rem;
 }
-.sidebar-progress {
-  background: #181926;
-  border-radius: 8px;
+.bar-container {
+  position: relative;
   height: 18px;
-  width: 100%;
-  margin-bottom: 8px;
-  position: relative;
-  overflow: hidden;
-}
-.sidebar-progress-bar {
-  background: linear-gradient(90deg, #3ec6ff 0%, #6c3bbf 100%);
-  height: 100%;
-  width: 50%;
-  border-radius: 8px;
-  transition: width 0.4s cubic-bezier(.4,2,.6,1);
-}
-.sidebar-progress-text {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-size: 0.95em;
-  font-weight: bold;
-  pointer-events: none;
-}
-.sidebar-profit-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-}
-.sidebar-profit-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-}
-.sidebar-profit-col:last-child {
-  align-items: flex-end;
-}
-.sidebar-best-worst-main-pill {
-  background: #3ec6ff;
-  color: #181926;
-  font-weight: bold;
+  background: #23272f;
   border-radius: 12px;
-  padding: 4px 12px;
-  margin-bottom: 8px;
-  display: inline-block;
-  font-size: 1em;
-  letter-spacing: 1px;
-}
-.sidebar-section.bonus-list {
-  padding: 6px 10px 10px 10px;
-  min-height: 0;
-  height: 240px;            /* Adjust as needed for your design */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   overflow: hidden;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.10);
 }
-/* 3D Bonus List Carousel */
-@keyframes autoRun3d {
-  from { transform: perspective(800px) rotateY(-360deg);}
-  to   { transform: perspective(800px) rotateY(0deg);}
-}
-@keyframes animateBrightness {
-  10% { filter: brightness(1);}
-  50% { filter: brightness(0.1);}
-  90% { filter: brightness(1);}
-}
-.slot-best-card .slot-pills-top,
-.slot-worst-card .slot-pills-top {
+.bar {
+  height: 100%;
+  border-radius: 12px;
   position: absolute;
-  top: 8px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Added for vertical centering */
-  gap: 6px;
-  z-index: 3;
-  pointer-events: none;
+  top: 0; left: 0;
+  transition: width 0.3s;
 }
-
-.slot-best-card .slot-bet-pill,
-.slot-worst-card .slot-bet-pill,
-.slot-best-card .slot-x-pill,
-.slot-worst-card .slot-x-pill {
-  position: static !important;
-  transform: none !important;
-  margin: 0 !important;
-  font-size: 0.82em !important;
-  border-radius: 999px !important;
-  padding: 2px 8px !important;
-  min-width: 0;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  white-space: nowrap;
-  pointer-events: none;
-  line-height: 1.1;
+.target-bar {
+  background: linear-gradient(90deg, #9147ff 60%, #ff7ac3 100%);
+  z-index: 1;
 }
-
-.slot-best-card .slot-x-pill {
-  background: #3ec6ff;
-  color: #181926;
-}
-.slot-worst-card .slot-x-pill {
-  background: #ff3e3e;
-  color: #fff;
-}
-
-.slot-best-card .slot-paid-pill,
-.slot-worst-card .slot-paid-pill {
-  position: absolute !important;
-  bottom: 4px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  background: #3ec6ff;
-  color: #181926;
-  font-weight: bold;
-  border-radius: 999px;
-  padding: 2px 10px !important;
-  font-size: 0.82em !important;
-  box-shadow: 0 2px 8px #3ec6ff33;
+.profit-bar {
+  background: linear-gradient(90deg, #00e1ff 0%, #00ffb8 100%);
   z-index: 2;
-  white-space: nowrap;
-  pointer-events: none;
-  line-height: 1.1;
+  opacity: 0.7;
+  top: 0; left: 0;
 }
-.card-3d {
-  width: 100%;
-  max-width: 360px;
-  height: 180px;            /* Adjust for best fit */
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
+
+.info-section.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.7rem;
+}
+.info-btn {
+  flex: 1;
+  background: #23272f;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.13);
+  transition: background 0.18s, color 0.18s;
+}
+.info-btn.best {
+  background: #00e1ff;
+  color: #181a20;
+}
+.info-btn.worst {
+  background: #ff7ac3;
+  color: #181a20;
+}
+.info-btn:hover {
+  filter: brightness(1.08);
+}
+
+.bonus-list h4 {
+  /* Header bar style */
+  background: #1a1c22;
+  color: #9147ff;
+  font-size: 1.13rem;
+  font-weight: 700;
+  border-radius: 18px 18px 0 0;
+  margin: 0;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  /* Center text using flexbox */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-}
-.card-3d-track {
-  display: flex;
-  transition: transform 0.7s cubic-bezier(.22,1,.36,1);
-  will-change: transform;
-  align-items: center;
-}
-.card-3d-track.animating {
-  /* Optionally, you can add a pointer-events: none; to prevent interaction during animation */
-}
-.card-3d-slot {
-  width: 120px;
-  height: 160px;            /* Adjust for best fit */
-  margin: 0 0px;
-  background: #232b3e;
-  border: solid 2px #3ec6ff55;
-  border-radius: 0.7rem;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  opacity: 0.6;
-  transform: scale(0.88);
-  transition:
-    transform 0.7s cubic-bezier(.22,1,.36,1),
-    opacity 0.7s cubic-bezier(.22,1,.36,1),
-    border-color 0.7s;
-  position: relative;
-  z-index: 1;
-}
-.card-3d-slot.active {
-  opacity: 1;
-  transform: scale(1.08);
-  border-color: #3ec6ff;
-  z-index: 2;
-}
-/* Hide all others */
-.card-3d-slot.hidden {
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-.card-3d-img {
   width: 100%;
-  height: 100%;
-  object-fit: contain; /* Show full image */
-  border-radius: 0.7rem;
-  display: block;
-}
-.card-3d-bet {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  right: auto; /* Ensure no right offset */
-  transform: translateX(-50%);
-  min-width: 48px;
-  text-align: center;
-  border-radius: 8px;
-  padding: 3px 12px;
-  font-weight: bold;
-  font-size: 1em;
-  z-index: 20;
-  background: #d4a404;
-  color: #000;
-  box-shadow: 0 2px 8px #3ec6ff44;
-  opacity: 0.93;
-  pointer-events: none;
-  letter-spacing: 1px;
-}
-.card-3d-bet.super-vibrate {
-  animation: superGoldVibrate 1.2s cubic-bezier(.4,2,.6,1) infinite both;
-  border: 2px solid #ffd700;
-  background: #ffe066;
-  color: #181926;
-  box-shadow: 0 0 12px 2px #ffe06688, 0 0 24px 6px #fffbe688;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+  letter-spacing: 0.5px;
 }
 
-.card-3d-img.super-glow {
-  margin: 0; /* Remove margin so image fills the card */
-  box-sizing: border-box;
-  animation: superGoldVibrate 1.2s cubic-bezier(.4,2,.6,1) infinite both;
-  border: 2px solid #ffd700;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 0.7rem;
-  display: block;
-}
-/* Show bet value for super slots in carousel */
-.super-bet-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
-  color: #181926;
-  font-weight: bold;
-  font-size: 0.95em;
-  border-radius: 8px;
-  padding: 2px 10px 2px 10px;
-  box-shadow: 0 2px 8px #ffe06688;
-  z-index: 12;
-  text-align: center;
-  letter-spacing: 1px;
-  border: 1.5px solid #fffbe6;
-  opacity: 0.97;
-  line-height: 1.2;
-  pointer-events: none;
-}
-.sidebar-discord-text {
-  color: #fff;
-  font-size: 1em;
-  margin-top: 4px;
-}
-/* Bonus Hunt Controls Styles */
-.bonus-hunt-controls {
-  position: fixed;
-  left: 20%;
-  top: 20%;
-  transform: translate(-50%, -50%);
-  background: rgba(34, 48, 74, 0.97);
-  border-radius: 14px;
-  box-shadow: 0 8px 32px 0 #000a, 0 2px 8px #0002;
-  padding: 16px 16px 12px 16px;
-  z-index: 10000;
+/* Bonus List Section */
+.info-section.bonus-list {
+  /* Card container for the bonus list */
+  background: #23272f;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.13);
+  padding: 0;
+  margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 600px;
-  min-width: 0;
-  max-width: 96vw;
-  gap: 10px;
-  animation: fadeInUp 0.5s cubic-bezier(.4,2,.6,1);
-  opacity: 1;
-  transition: opacity 0.7s cubic-bezier(.4,2,.6,1), visibility 0.7s cubic-bezier(.4,2,.6,1);
-  visibility: visible;
-}
-.bonus-hunt-controls.hide {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.bonus-hunt-controls input[type="text"], .bonus-hunt-controls input[type="number"] {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1em;
-  outline: none;
-  background: #232b3e;
-  color: #fff;
-  transition: box-shadow 0.2s;
-}
-.bonus-hunt-controls input[type="text"]:focus, .bonus-hunt-controls input[type="number"]:focus {
-  box-shadow: 0 0 0 2px #3ec6ff;
-}
-.bonus-hunt-controls button {
-  background: #3ec6ff;
-  color: #181926;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 18px;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.bonus-hunt-controls button:hover {
-  background: #6c3bbf;
-  color: #fff;
-}
-.bonus-hunt-controls span {
-  color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-}
-.slot-suggestions {
-  background: #232b3e;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #0004;
-  margin-top: 2px;
-  max-height: 120px;
-  overflow-y: auto;
-  position: absolute;
-  z-index: 10001;
-  width: 200px;
-  display: none;
-}
-.slot-suggestion-item {
-  padding: 8px 12px;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1em;
-}
-.slot-suggestion-item:hover {
-  background: #3ec6ff;
-  color: #181926;
-}
-.slot-suggestion-item img {
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.hunt-slot-list {
-  width: 100%;
-  margin-top: 12px;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  overflow-x: hidden;       /* Prevent horizontal scroll */
-  background: none;
-  padding: 0;
-}
-.hunt-slot-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #22304a;
-  border-radius: 6px;
-  padding: 4px 8px;
-  color: #fff;
-  font-size: 1em;
-  min-width: 180px;
-  white-space: nowrap;
-}
-.hunt-slot-row button {
-  font-size: 1em;
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-left: 2px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.hunt-slot-row .edit-slot-btn:hover {
-  background: #3ec6ff;
-  color: #181926;
-}
-.hunt-slot-row .delete-slot-btn:hover {
-  background: #ff3e3e;
-  color: #fff;
-}
-.slot-suggestions {
-  width: 200px;
-}
-.best-worst-flex {
-  display: flex;
-  gap: 18px;
-  justify-content: center;
-  align-items: flex-end;
-  margin-bottom: 8px;
-}
-.slot-best-card, .slot-worst-card {
-  background: #232b3e;
-  border-radius: 14px;
-  padding: 10px 10px 8px 10px;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  width: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.slot-best-card .slot-label {
-  color: #3ec6ff;
-}
-.slot-worst-card .slot-label {
-  color: #ff3e3e;
-}
-.slot-best-card .slot-x {
-  background: #3ec6ff;
-  color: #181926;
-}
-.slot-worst-card .slot-x {
-  background: #ff3e3e;
-  color: #fff;
-}
-.slot-label {
-  font-size: 0.95em;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-.slot-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #3ec6ff44;
-  display: block;
-}
-.slot-name {
-  font-weight: bold;
-  color: #3ec6ff;
-  text-align: center;
-  margin: 6px 0 2px 0;
-  font-size: 1em;
-}
-.slot-bet, .slot-paid {
-  font-size: 0.95em;
-  color: #fff;
-  margin-bottom: 2px;
-}
-.slot-bet span, .slot-paid span {
-  color: #3ec6ff;
-}
-.slot-x {
-  font-size: 1.1em;
-  font-weight: bold;
-  padding: 2px 10px;
-  border-radius: 8px;
-  margin-top: 4px;
-  display: inline-block;
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translate(-50%, 30%);}
-  to   { opacity: 1; transform: translate(-50%, -50%);}
-}
-@keyframes superGoldVibrate {
-  0% {
-    transform: translate(0, 0) scale(1);
-    box-shadow: 0 0 8px 2px #ffe06688, 0 0 16px 4px #fffbe688;
-    filter: brightness(1) drop-shadow(0 0 4px #ffe06688);
-  }
-  20% {
-    transform: translate(-0.5px, 0.5px) scale(1.01);
-    box-shadow: 0 0 12px 3px #ffe066aa, 0 0 20px 6px #fffbe6aa;
-    filter: brightness(1.07) drop-shadow(0 0 6px #ffe066aa);
-  }
-  50% {
-    transform: translate(0.5px, -0.5px) scale(1.015);
-    box-shadow: 0 0 16px 4px #ffe066cc, 0 0 24px 8px #fffbe6cc;
-    filter: brightness(1.12) drop-shadow(0 0 8px #ffe066cc);
-  }
-  80% {
-    transform: translate(-0.5px, 0.5px) scale(1.01);
-    box-shadow: 0 0 12px 3px #ffe066aa, 0 0 20px 6px #fffbe6aa;
-    filter: brightness(1.07) drop-shadow(0 0 6px #ffe066aa);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-    box-shadow: 0 0 8px 2px #ffe06688, 0 0 16px 4px #fffbe688;
-    filter: brightness(1) drop-shadow(0 0 4px #ffe06688);
-  }
-}
-
-/* --- Center Best & Worst and Bonus List Sections --- */
-.sidebar-section.best-worst,
-.sidebar-section.bonus-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Pills for best/worst slot cards */
-.slot-pill {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #3ec6ff;
-  color: #181926;
-  font-weight: bold;
-  border-radius: 999px;
-  padding: 4px 16px;
-  font-size: 1em;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  z-index: 2;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.slot-bet-pill {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffd700;
-  color: #181926;
-  font-weight: bold;
-  border-radius: 999px;
-  padding: 4px 16px;
-  font-size: 1em;
-  box-shadow: 0 2px 8px #ffe06688;
-  z-index: 2;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.slot-paid-pill {
-  background: #3ec6ff;
-  color: #181926;
-  font-weight: bold;
-  border-radius: 999px;
-  padding: 4px 16px;
-  font-size: 1em;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  z-index: 2;
-  white-space: nowrap;
-  pointer-events: none;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.slot-x-pill {
-  position: absolute;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ff3e3e;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 999px;
-  padding: 3px 14px;
-  font-size: 0.95em;
-  box-shadow: 0 2px 8px #ff3e3e33;
-  z-index: 2;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.slot-best-card .slot-x-pill {
-  background: #3ec6ff;
-  color: #181926;
-}
-.slot-worst-card .slot-x-pill {
-  background: #ff3e3e;
-  color: #fff;
-}
-.slot-best-card, .slot-worst-card {
   position: relative;
-  padding: 0;
-  width: 100px;
-  min-height: 140px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #232b3e;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  margin: 0 4px;
+  min-height: 0;
+  max-height: 350px;
+  overflow: hidden;
 }
 
-/* --- Best/Worst Slot Card Image Fixed Size --- */
-.slot-best-card .slot-img-wrapper,
-.slot-worst-card .slot-img-wrapper {
-  width: 120px;
-  height: 140px;
+.bonus-list ul {
+  /* List inside the card, below the header bar */
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 1;
+  animation: bonus-carousel 12s linear infinite;
+  will-change: transform;
+  transition: none;
+  scrollbar-width: none;
+  overflow: visible !important;
+  height: auto;
   margin: 0;
-  padding: 0;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+}
+.bonus-list ul::-webkit-scrollbar {
+  display: none !important;
 }
 
-.slot-best-card .slot-img,
-.slot-worst-card .slot-img {
-  width: 120px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #3ec6ff44;
-  display: block;
+/* Carousel keyframes: move up to 50% of the list height (since we double the list) */
+@keyframes bonus-carousel {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
 }
 
-/* Pills inside image, top */
-.slot-best-card .slot-pills-top,
-.slot-worst-card .slot-pills-top {
-  position: absolute;
-  top: 8px;
-  left: 0;
+.discord-btn {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* Paid pill inside image, bottom */
-.slot-best-card .slot-paid-pill,
-.slot-worst-card .slot-paid-pill {
-  position: absolute !important;
-  bottom: 8px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  background: #3ec6ff;
-  color: #181926;
-  font-weight: bold;
-  border-radius: 999px;
-  padding: 3px 14px;
-  font-size: 0.95em;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  z-index: 2;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-/* Center label below image, minimal margin */
-.slot-label {
-  font-size: 0.95em;
-  font-weight: bold;
-  margin: 4px 0 0 0;
-  text-align: center;
-}
-
-/* Tournament Bracket Styles */
-.bracket-match {
-  background: #181926;
-  color: #fff;
-  border-radius: 14px; /* Fixed: was #3ec6ff (invalid) */
-  margin-bottom: 16px;
-  padding: 10px 8px;
-  min-width: 120px;
-  text-align: center;
-  box-shadow: 0 2px 8px #3ec6ff33;
-  font-size: 1em;
-}
-.bracket-player {
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-.bracket-score {
-  color: #3ec6ff;
-  font-size: 1.1em;
-  margin-bottom: 2px;
-}
-.bracket-btn {
-  background: #3ec6ff;
-  color: #181926;
+  background: linear-gradient(90deg, #00e1ff 60%, #9147ff 100%);
+  color: #181a20;
   border: none;
-  border-radius: 6px;
-  padding: 2px 10px;
-  margin: 2px;
+  border-radius: 16px;
+  padding: 0.9rem 0;
+  font-size: 1.18rem;
+  font-weight: 800;
+  margin-top: 0.7rem;
   cursor: pointer;
-  font-size: 0.95em;
-  font-weight: bold;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.18);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  transition: filter 0.18s, background 0.18s, color 0.18s;
+  /* Add text-shadow for better readability */
+  text-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 0 #fff;
 }
-#tournamentSetupPanel {
-  position: fixed;
-  /* Center horizontally with the hunt control panel */
-  left: 50%;
-  /* Vertically align with the hunt control panel */
-  top: 0;
-  /* Center the panel using transform */
-  transform: translate(-50%, 0);
-  width: 600px;
-  min-width: 0;
-  max-width: 96vw;
-  z-index: 10000;
-  box-shadow: 0 0 24px 4px #3ec6ff55, 0 0 0 3px #3ec6ff;
-  background: #181926;
+.discord-btn:hover {
+  filter: brightness(1.08);
+  background: linear-gradient(90deg, #9147ff 60%, #00e1ff 100%);
+  color: #181a20;
 }
-#tournamentSetupPanel h2 {
-  font-family: 'Orbitron', monospace;
-  color: #3ec6ff;
-  text-shadow: 0 0 8px #3ec6ff99;
+
+.middle-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #f3f4f6;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
 }
-#tournamentSetupPanel table {
-  border-collapse: separate;
-  border-spacing: 0 10px;
+.middle-checkbox input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #9147ff;
+  margin-right: 0.3rem;
+}
+
+.middle-input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.05rem;
+  color: #f3f4f6;
   width: 100%;
+  gap: 0.5rem;
 }
-#tournamentSetupPanel th {
-  color: #7ec6ff;
-  font-family: 'Orbitron', monospace;
-  font-size: 1.05em;
-  padding-bottom: 6px;
-}
-#tournamentSetupPanel td {
-  padding: 0 4px;
-}
-.tournament-player-input, .tournament-slot-input {
-  width: 98%;
-  background: #181926;
-  border: 2px solid #3ec6ff;
-  border-radius: 8px;
-  color: #3ec6ff;
-  font-family: 'Orbitron', monospace;
-  font-size: 1em;
-  padding: 6px 10px;
-  margin-bottom: 2px;
+.middle-input {
+  width: 180px;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid #23272f;
+  background: #23272f;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 0.2rem;
   outline: none;
   transition: border 0.2s;
 }
-.tournament-player-input:focus, .tournament-slot-input:focus {
-  border: 2px solid #ffd700;
-}
-.tournament-slot-suggestions {
-  position: absolute;
-  background: #232b3e;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #0004;
-  z-index: 10003;
-  width: 90%;
-  max-height: 120px;
-  overflow-y: auto;
-  color: #fff;
-  font-size: 1em;
-}
-.tournament-slot-suggestion-item {
-  padding: 8px 12px;
-  cursor: pointer;
-  color: #fff;
-}
-.tournament-slot-suggestion-item:hover {
-  background: #3ec6ff;
-  color: #181926;
-}
-.bracket-winner {
-  box-shadow: 0 0 18px 4px #3efcff, 0 0 0 4px #3ec6ff;
-  border-radius: 14px !important;
-  outline: 2.5px solid #3efcff;
-  filter: drop-shadow(0 0 8px #3efcff);
-  transition: box-shadow 0.3s, outline 0.3s;
-}
-.bracket-loser {
-  box-shadow: 0 0 18px 4px #ff3e8e, 0 0 0 4px #ff3e8e;
-  border-radius: 14px !important;
-  outline: 2.5px solid #ff3e8e;
-  filter: drop-shadow(0 0 8px #ff3e8e);
-  opacity: 0.7;
-  transition: box-shadow 0.3s, outline 0.3s, opacity 0.3s;
+.middle-input:focus {
+  border: 1.5px solid #9147ff;
 }
 
-#tournamentBracketPanel {
+.middle-panel-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.bonus-opening-btn {
+  align-self: unset;
+  margin-top: 0;
+}
+
+.slot-card {
   position: fixed;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%, 0);
-  width: 600px;
-  min-width: 0;
-  max-width: 96vw;
-  z-index: 10000;
-  transition: opacity 0.5s;
-  opacity: 0;
-  pointer-events: none;
-}
-#tournamentBracketPanel.slide-in-right {
-  transform: translate(-50%, 0);
-  opacity: 1;
-  pointer-events: auto;
-}
-#tournamentBracketPanel.slide-out-right {
-  transform: translate(-50%, 0);
-  opacity: 0;
-  pointer-events: none;
-}
-#tournamentBracketPanel.slide-out-left {
-  transform: translate(-50%, 0);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Slot Picker Modal Styles */
-#slotPickerModal {
-  animation: fadeInUp 0.5s;
-}
-#slotPickerSpinner img {
-  box-shadow: 0 2px 8px #3ec6ff88;
-  border-radius: 12px;
-  background: #181926;
-}
-#slotPickerSpinner {
-  min-height: 160px;
+  left: 24px;
+  bottom: 24px;
+  width: 420px;
+  height: 231px;
+  background: rgba(34,34,40,0.97);
+  border-radius: 42px;
+  box-shadow: 0 17px 67px 0 rgba(0,0,0,0.28);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
+  padding: 25px;
 }
-#slotPickerResult img {
-  box-shadow: 0 4px 18px #3ec6ff88;
+.slot-card img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 29px;
+  box-shadow: 0 4px 17px 0 rgba(0,0,0,0.18);
+}
+
+.money-section {
+  background: rgba(36, 38, 48, 0.97);
   border-radius: 14px;
-  background: #181926;
-}
-#slotPickerResult {
-  animation: fadeInUp 0.7s;
-}
-#slotProviderFilters label {
-  background: #232b3e;
-  border-radius: 8px;
-  padding: 4px 10px;
-  color: #7ec6ff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  user-select: none;
-}
-#slotProviderFilters label:hover {
-  background: #3ec6ff;
-  color: #181926;
-}
-#slotProviderFilters input[type=checkbox] {
-  accent-color: #3ec6ff;
-  margin-right: 4px;
-}
-
-/* Slot Picker Spinning Animation - Improved visuals */
-@keyframes slotSpin {
-  0%   { transform: rotate(-10deg) scale(1.05); filter: brightness(1.2) blur(0.5px); }
-  30%  { transform: rotate(10deg) scale(1.12); filter: brightness(1.3) blur(1.5px); }
-  60%  { transform: rotate(-8deg) scale(1.09); filter: brightness(1.2) blur(1px); }
-  100% { transform: rotate(0deg) scale(1.05); filter: brightness(1.2) blur(0.5px); }
-}
-.slot-picker-spinning img {
-  animation: slotSpin 0.18s cubic-bezier(.4,2,.6,1) infinite;
-  box-shadow: 0 0 32px 8px #3ec6ffcc, 0 0 0 4px #3ec6ff44;
-  outline: 3px solid #3ec6ff;
-  outline-offset: 2px;
-  background: linear-gradient(120deg, #232b3e 60%, #3ec6ff22 100%);
-}
-.slot-picker-spinning {
-  transition: background 0.3s;
-  background: linear-gradient(90deg, #232b3e 60%, #3ec6ff22 100%);
-  border-radius: 18px;
-  padding: 8px 0 8px 0;
-}
-
-/* Slot Picker Glow (after spin) */
-.slot-picker-glow img {
-  box-shadow: 0 0 32px 8px #3ec6ffcc, 0 0 0 4px #3ec6ff44;
-  outline: 3px solid #3ec6ff;
-  outline-offset: 2px;
-  background: linear-gradient(120deg, #232b3e 60%, #3ec6ff22 100%);
-  animation: none !important;
-  filter: none !important;
-}
-.slot-picker-glow {
-  background: linear-gradient(90deg, #232b3e 60%, #3ec6ff22 100%);
-  border-radius: 18px;
-  padding: 8px 0 8px 0;
-  transition: none;
-}
-
-/* Floating Slot Picker Card styles */
-#floatingSlotPickerCard {
-  background: #232b3e;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px #000a;
-  padding: 18px;
-  min-width: 300px;
-  min-height: 300px;
-  max-width: 95vw;
-  max-height: 60vh;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
   display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+}
+.money-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.money-label {
+  font-size: 1.08rem;
+  color: #b0b3b8;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.money-value {
+  font-size: 1.18rem;
+  color: #00e1ff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.money-row-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+  background: rgba(36, 38, 48, 0.97);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+  padding: 1.1rem 1.2rem;
+}
+.money-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  top: 240px; /* moved 50px lower from 114px */
-  right: 32px;
-  z-index: 10020;
+  border-radius: 12px;
+  padding: 0.7rem 0.5rem;
+  background: rgba(24, 26, 32, 0.92);
+}
+.money-display .money-label {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.5px;
+}
+.money-display .money-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.start-money .money-label,
+.start-money .money-value {
+  color: #00ffb8;
+}
+.stop-money .money-label,
+.stop-money .money-value {
+  color: #ff5c5c;
+}
+
+.info-section.bonus-list {
+  /* Card container for the bonus list */
+  background: #23272f;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.13);
+  padding: 0;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  min-height: 0;
+  max-height: 350px;
   overflow: hidden;
 }
-#floatingSlotPickerSpinner {
-  width: 180px;
-  height: 220px;
+
+.info-section.discord {
+  margin-bottom: 0.5rem;
+}
+
+.bonus-hunt-results {
+  background: rgba(36, 38, 48, 0.97);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+  color: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+}
+.bonus-hunt-results .bhr-label {
+  color: #b0b3b8;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+.bonus-hunt-results .bhr-value {
+  font-weight: 700;
+  color: #00e1ff;
+}
+.bonus-hunt-results .bhr-profit {
+  color: #00ffb8;
+}
+.bonus-hunt-results .bhr-loss {
+  color: #ff5c5c;
+}
+.bhr-compact {
+  font-size: 0.89rem;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  margin: 0;
+  padding: 0;
+  grid-gap: 0.07rem 0.2rem !important;
+}
+.bhr-compact .bhr-label {
+  color: #00e1ff; /* Make label letters blue/cyan */
+  font-weight: 700;
+  margin-right: 0.12em;
+  font-family: 'Inter', Arial, sans-serif;
+}
+.bhr-compact .bhr-value {
+  font-family: 'Inter', 'Consolas', monospace;
+  font-weight: 700;
+  color: #fff; /* Numbers white */
+}
+.bhr-compact .bhr-profit {
+  color: #00ffb8;
+}
+.bhr-compact .bhr-loss {
+  color: #ff5c5c;
+}
+
+/* Bonus List Slot Card Styling */
+.bonus-list li {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 1.2rem;
+  background: rgba(36, 38, 48, 0.18); /* almost unseen card */
+  border-radius: 18px;
+  border: 2px solid rgba(145, 71, 255, 0.13); /* subtle purple border */
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+  margin-bottom: 0.7rem;
+  padding: 0.4rem 0.7rem 0.4rem 0.4rem;
+  transition: background 0.18s, border 0.18s;
 }
-.floating-slot-spinning img,
-.floating-slot-glow img {
-  width: 170px;
-  height: 210px;
-  object-fit: cover;
+
+.bonus-list li:hover {
+  background: rgba(145, 71, 255, 0.10);
+  border: 2px solid #9147ff;
+}
+
+.bonus-list li .slot-img {
+  box-shadow: 0 2px 8px 0 rgba(145,71,255,0.13);
   border-radius: 16px;
+  border: 2px solid rgba(145,71,255,0.18);
+  margin-right: 1.2rem;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  background: #23272f;
 }
-.floating-slot-spinning img {
-  box-shadow: 0 2px 18px #3ec6ff88;
-  animation: slotSpin 0.18s cubic-bezier(.4,2,.6,1) infinite;
+
+.bonus-list li .slot-name {
+  font-size: 1.13rem;
+  font-weight: 700;
+  color: #9147ff;
+  margin-right: 1.2rem;
+  letter-spacing: 0.5px;
 }
-.floating-slot-glow img {
-  box-shadow: 0 0 48px 12px #3ec6ffcc,0 0 0 6px #3ec6ff44;
-  outline: 4px solid #3ec6ff;
-  outline-offset: 2px;
-  animation: none;
+
+.bonus-list li .slot-bet {
+  color: #00e1ff;
+  font-weight: 800;
+  margin-left: auto;
+  font-size: 1.08rem;
+  letter-spacing: 0.5px;
+  background: rgba(0,225,255,0.07);
+  border-radius: 8px;
+  padding: 0.18rem 0.7rem;
+}
+
+.bonus-list li.super-slot {
+  background: rgba(36, 38, 48, 0.18); /* same as normal */
+  border: 2.5px solid #ff9800; /* orange border */
+  box-shadow: 0 2px 12px 0 rgba(255, 152, 0, 0.13);
+  color: #ff9800;
+  animation: super-vibrate 0.7s infinite ease-in-out;
+}
+
+.bonus-list li.super-slot .slot-name {
+  color: #ff9800;
+}
+
+.bonus-list li.super-slot .slot-bet {
+  background: rgba(255, 152, 0, 0.10);
+  color: #ff9800;
+}
+
+@keyframes super-vibrate {
+  0%   { transform: translate(0, 0) rotate(0deg);}
+  10%  { transform: translate(-0.5px, 0.5px) rotate(-0.5deg);}
+  20%  { transform: translate(-1px, 0px) rotate(0.5deg);}
+  30%  { transform: translate(0.5px, 0.5px) rotate(0deg);}
+  40%  { transform: translate(0.5px, -0.5px) rotate(0.5deg);}
+  50%  { transform: translate(-0.5px, 0.5px) rotate(-0.5deg);}
+  60%  { transform: translate(-1px, 0px) rotate(0deg);}
+  70%  { transform: translate(0.5px, 0.5px) rotate(-0.5deg);}
+  80%  { transform: translate(-0.5px, -0.5px) rotate(0.5deg);}
+  90%  { transform: translate(1px, 0.5px) rotate(0deg);}
+  100% { transform: translate(0, 0) rotate(-0.5deg);}
+}
+
+@keyframes sidebar-btn-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(145,71,255,0.18), 0 2px 10px 0 rgba(0,0,0,0.13);
+  }
+  70% {
+    box-shadow: 0 0 0 22px rgba(145,71,255,0), 0 2px 10px 0 rgba(0,0,0,0.13);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(145,71,255,0.18), 0 2px 10px 0 rgba(0,0,0,0.13);
+  }
+}
+
+.sidebar-btn.active {
+  /* Remove background and color highlight */
+  /* background: #9147ff; */
+  /* color: #fff; */
+  /* Only pulse animation */
+  animation: sidebar-btn-pulse 1.3s infinite;
+  /* Keep transform for slight lift effect if desired: */
+  transform: translateY(-2px) scale(1.07);
+}
+
+.navbar-center {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  position: relative;
+}
+
+/* Image switcher styles */
+.navbar-switcher-img {
+  width: 150px;
+  height: 75px;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.22);
+  cursor: pointer;
+  margin-right: 0.7rem;
+  transition: box-shadow 0.18s, transform 0.18s;
+  object-fit: cover;
+}
+.navbar-switcher-img:hover {
+  box-shadow: 0 4px 28px 0 #9147ff;
+  transform: scale(1.10);
+}
+
+@media (max-width: 1100px) {
+  .info-panel {
+    min-width: 220px;
+    max-width: 100vw;
+    padding: 1.2rem 0.7rem;
+  }
+  .sidebar {
+    min-width: 120px;
+    width: 120px;
+    padding: 2.4rem 0.8rem;
+    height: 440px;
+    max-height: 440px;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  .sidebar, .info-panel {
+    position: static;
+    flex-direction: row;
+    min-width: unset;
+    width: 100%;
+    margin: 0.4rem 2rem;
+    border-radius: 999px;
+    padding: 0.5rem 0.5rem;
+    justify-content: center;
+    gap: 0.5rem;
+    top: unset;
+    left: unset;
+    transform: none;
+  }
+  .middle-panel {
+    flex-direction: row;
+    min-width: unset;
+    max-width: unset;
+    width: 100%;
+    margin: 0.4rem 2rem;
+    border-radius: 18px;
+    padding: 0.7rem 0.7rem;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .info-panel {
+    margin-bottom: 1.5rem;
+    max-width: unset;
+    max-height: unset;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar, .sidebar, .info-panel {
+    margin: 0.4rem;
+    padding: 0.7rem 0.3rem;
+    border-radius: 12px;
+  }
+  .main-content {
+    padding: 0 0.3rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .middle-panel {
+    width: 95vw;
+    height: 95vw;
+    min-width: 0;
+    min-height: 0;
+    padding: 1rem 0.5rem;
+  }
+}
+
+/* Slot Highlight Card (bottom left) is now bigger and has a colorful gradient background.
+   All sizing, border, and gradient are handled inline in JS for the .slotHighlightCard.
+   Each slot card is 160x190px, with pills and image as described.
+*/
+
+.osecaadegas95-name {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #00e1ff 0%, #9147ff 100%);
+  color: #fff;
+  padding: 0.18em 0.9em;
+  border-radius: 16px;
+  margin-left: 1.2rem;
+  letter-spacing: 1.5px;
+  box-shadow: 0 2px 12px 0 rgba(0,225,255,0.13);
+  text-shadow: 0 2px 8px #23243a, 0 1px 0 #fff;
+  border: 2px solid #00e1ff;
+  display: inline-block;
+}
+
+/* Make Be Gamble Aware link match the username style */
+.aware-link {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #00e1ff 0%, #9147ff 100%);
+  color: #fff !important;
+  padding: 0.18em 0.9em;
+  border-radius: 16px;
+  margin-left: 1.2rem;
+  letter-spacing: 1.5px;
+  box-shadow: 0 2px 12px 0 rgba(0,225,255,0.13);
+  text-shadow: 0 2px 8px #23243a, 0 1px 0 #fff;
+  border: 2px solid #00e1ff;
+  display: inline-block;
+  text-decoration: none;
+  transition: filter 0.18s, background 0.18s, color 0.18s;
+}
+.aware-link:hover {
+  filter: brightness(1.08);
+  background: linear-gradient(90deg, #9147ff 0%, #00e1ff 100%);
+  color: #fff !important;
 }

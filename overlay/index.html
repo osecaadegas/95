@@ -1,212 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>osecaadegas95 ovelay</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Streamer Overlay Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="index-bar">
-    <div class="icon-group">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <i class="fa-solid fa-people-arrows"></i>
-      <i class="fa-solid fa-cart-shopping"></i>
-    </div>
-    <div class="divider"></div>
-    <div class="section" id="mode-section" style="cursor:pointer;">
-      <i class="fa-solid fa-play"></i>
-      <span id="mode-text"></span>
-    </div>
-    <div class="divider"></div>
-    <div class="section" id="editable-section" style="cursor:pointer;">
-      <i class="fa-solid fa-arrow-right"></i>
-      <span id="editable-text">Bonus Hunt</span>
-    </div>
-    <div class="section-purple" id="twitch-section" style="cursor:pointer;">
-      <i class="fa-solid fa-globe"></i>
-      <span id="twitch-text">twitch.com/osecaadegas95</span>
-    </div>
-    <div class="datetime-section" id="datetime-section"></div>
-    <div class="aware-section">
-      BE GAMBLE AWARE
-      <i class="fa-regular fa-pause-circle"></i>
-      !Quem nao joga nao ganha!
-    </div>
-  </div>
+  <div class="overlay-container">
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <img src="https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png" alt="Logo" class="navbar-logo"/>
+        <!-- Replace Twitch login with static username -->
+        <span class="streamer-name osecaadegas95-name">Osecaadegas95</span>
+        <!-- Image Switcher Start (right after login button) -->
+        <a id="navbar-image-link" href="#" target="_blank" style="display:inline-block;">
+          <img id="navbar-image-switcher" src="https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png" alt="Switcher" class="navbar-switcher-img"/>
+        </a>
+        <!-- Image Switcher End -->
+      </div>
+      <div class="navbar-center">
+        <span id="current-time" class="current-time"></span>
+      </div>
+      <div class="navbar-right">
+        <a href="https://www.begambleaware.org/" target="_blank" class="aware-link">Be Gamble Aware</a>
+        <!-- Image switcher removed from here -->
+      </div>
+    </nav>
 
-  <!-- Bonus Hunt Tracker Controls (centered) -->
-  <div id="bonus-hunt-controls" class="bonus-hunt-controls">
-    <div id="huntCardInputs" style="display:flex;flex-direction:column;gap:10px;">
-      <!-- Row 1 -->
-      <div style="display:flex;gap:8px;">
-        <input type="text" id="slotSearch" placeholder="Search slot..." autocomplete="off" style="flex:1;min-width:0;">
-        <div id="slotSuggestions" class="slot-suggestions"></div>
-        <input type="number" id="slotBet" placeholder="Bet (€)" min="0.1" step="0.1" style="width:80px;">
-        <button id="showSlotUrlBtn" type="button" style="white-space:nowrap;">URL</button>
-        <input type="url" id="slotImageUrl" placeholder="Slot Image URL" style="width:180px;display:none;">
-        <button id="addSlotBtn" style="white-space:nowrap;"><i class="fa fa-plus"></i> Add Slot</button>
-      </div>
-      <!-- Row 2 -->
-      <div style="display:flex;gap:8px;">
-        <input type="number" id="startMoney" placeholder="Start (€)" min="0" step="0.01" style="flex:1;min-width:0;">
-        <input type="number" id="finishMoney" placeholder="Finish (€)" min="0" step="0.01" style="flex:1;min-width:0;">
-        <button id="finishHuntBtn" style="background:#ff3e3e;color:#fff;white-space:nowrap;"><i class="fa fa-flag-checkered"></i> Finish Hunt</button>
-      </div>
-      <!-- Row 3 ... -->
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span id="totalBonuses" style="flex:1;">0 Bonuses</span>
-        <input type="checkbox" id="superCheckbox" style="accent-color:#06aff8;"> Super
-        <button id="toggleEditSlotsBtn" style="background:#3ec6ff;color:#181926;border:none;border-radius:8px;padding:6px 18px;font-weight:bold;cursor:pointer;">Edit Slots</button>
-      </div>
-      <!-- Tournament Match Control Button (merged here) -->
-      <div style="display:flex;gap:8px;margin-top:8px;">
-        <button id="openMatchControlBtn" style="background:#3ec6ff;color:#181926;font-weight:bold;padding:12px 28px;border-radius:10px;border:none;font-size:1.1em;cursor:pointer;">Match Control</button>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:8px;">
-      <input type="url" id="discordBannerUrl" placeholder="Discord Banner URL" style="flex:1;min-width:0;display:none;">
-      <button id="setDiscordBannerBtn" style="background:#3ec6ff;color:#181926;border:none;border-radius:8px;padding:6px 18px;font-weight:bold;cursor:pointer;">Set Banner</button>
-    </div>
-    <div id="huntSlotList" class="hunt-slot-list" style="display:none;"></div>
-  </div>
-
-  <!-- Tournament Match Control Card -->
-  <div id="tournamentMatchControl" style="display:none;position:fixed;top:32px;left:32px;transform:none;background:#181926;padding:22px 18px;border-radius:14px;z-index:10004;box-shadow:0 4px 18px #3ec6ff88;width:260px;max-width:95vw;text-align:center;">
-    <div id="matchControlDragHandle" style="width:100%;height:18px;cursor:move;background:#232b3e;border-radius:8px 8px 0 0;margin-bottom:8px;"></div>
-    <div id="matchControlPlayers" style="font-size:1.1em;color:#3ec6ff;margin-bottom:12px;"></div>
-    <button id="matchControlBtn1" style="margin:6px 0 0 0;width:100%;background:#3ec6ff;color:#181926;font-weight:bold;padding:8px 0;border-radius:8px;border:none;font-size:1em;cursor:pointer;">Player 1</button>
-    <button id="matchControlBtn2" style="margin:8px 0 0 0;width:100%;background:#3ec6ff;color:#181926;font-weight:bold;padding:8px 0;border-radius:8px;border:none;font-size:1em;cursor:pointer;">Player 2</button>
-    <div id="matchControlPhase" style="color:#aaa;font-size:0.95em;margin-top:10px;"></div>
-    <button id="closeMatchControlBtn" style="margin-top:14px;width:100%;background:#232b3e;color:#3ec6ff;font-weight:bold;padding:6px 0;border-radius:8px;border:none;font-size:0.98em;cursor:pointer;">Close</button>
-  </div>
-
-  <!-- Slot Opener Panel -->
-  <div id="slotOpenerPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#232b3e;padding:32px 28px;border-radius:18px;z-index:10001;box-shadow:0 8px 32px #000a;width:380px;height:420px;min-width:380px;min-height:420px;max-width:90vw;max-height:90vh;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden;">
-    <div id="slotOpenerSlotInfo" style="text-align:center;margin-bottom:18px;">
-      <!-- Slot info will be injected here -->
-    </div>
-    <input type="number" id="slotOpenerPayInput" placeholder="How much did it pay?" min="0" step="0.01" style="width:180px;padding:10px 14px;border-radius:8px;border:none;font-size:1.1em;background:#181926;color:#fff;margin-bottom:16px;">
-    <br>
-    <button id="slotOpenerNextBtn" style="background:#3ec6ff;color:#181926;font-weight:bold;padding:10px 28px;border-radius:8px;border:none;font-size:1.1em;cursor:pointer;">Next</button>
-    <div id="slotOpenerProgress" style="margin-top:16px;color:#7ec6ff;font-size:1em;"></div>
-  </div>
-
-  <!-- Tournament Bracket Panel (NO CONTROL BUTTONS INSIDE) -->
-  <div id="tournamentBracketPanel"
-    style="display:none;position:fixed;top:50%;right:32px;left:auto;transform:translateY(-50%);background:#232b3e;padding:24px 12px;border-radius:18px;z-index:10001;box-shadow:0 8px 32px #000a;width:380px;min-width:260px;max-width:90vw;max-height:95vh;overflow:auto;">
-    <h2 style="color:#3ec6ff;text-align:center;margin-bottom:18px;">
-      Tournament Bracket
-    </h2>
-    <div id="bracket" style="display:flex;justify-content:center;gap:12px;">
-      <!-- Quarters -->
-      <div>
-        <div style="color:#fff;text-align:center;font-weight:bold;margin-bottom:8px;">Quarter Finals</div>
-        <div id="quarterMatches"></div>
-      </div>
-      <!-- Semis -->
-      <div>
-        <div style="color:#fff;text-align:center;font-weight:bold;margin-bottom:8px;">Semi Finals</div>
-        <div id="semiMatches"></div>
-      </div>
-      <!-- Final -->
-      <div>
-        <div style="color:#fff;text-align:center;font-weight:bold;margin-bottom:8px;">Final</div>
-        <div id="finalMatch"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tournament Setup Panel -->
-  <div id="tournamentSetupPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#181926;padding:32px 28px;border-radius:18px;z-index:10002;box-shadow:0 8px 32px #000a;width:480px;max-width:95vw;max-height:95vh;overflow:auto;">
-    <h2 style="color:#3ec6ff;text-align:center;margin-bottom:18px;">Player & Slot Setup</h2>
-    <table style="width:100%;color:#7ec6ff;margin-bottom:18px;">
-      <thead>
-        <tr>
-          <th style="text-align:left;">#</th>
-          <th style="text-align:left;">Player Name</th>
-          <th style="text-align:left;">Slot</th>
-        </tr>
-      </thead>
-      <tbody id="tournamentSetupRows"></tbody>
-    </table>
-    <button id="startTournamentBtn" style="width:100%;background:#3ec6ff;color:#181926;font-weight:bold;padding:12px 0;border-radius:8px;border:none;font-size:1.2em;cursor:pointer;margin-top:12px;">Start Tournament</button>
-  </div>
-
-  <!-- Bonus Hunt Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <div class="sidebar-section header" style="display: flex; align-items: center; gap: 12px;">
-      <span id="sidebarBlueBarTitleDisplay" style="flex:1;text-align:center;font-size:1.1em;"></span>
-      <div id="huntTitleEditable" class="sidebar-title" contenteditable="true" spellcheck="false" style="outline:none;">
-        Bonus Hunt/Opening <span id="huntNumber">#1</span>
-      </div>
-    </div>
-    <div class="sidebar-section avg-be">
-      <div class="sidebar-row">
-        <div class="sidebar-box">
-          <div class="sidebar-label">Avg</div>
-          <div class="sidebar-value" id="sidebarAvg">0x</div>
+    <!-- Main Content Layout -->
+    <div class="main-layout">
+      <!-- Left Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-ad">
+          <label for="ad-image-input" class="ad-upload-label">+</label>
+          <input type="file" id="ad-image-input" accept="image/*" style="display:none;">
+          <img id="ad-image-preview" class="ad-image-preview" style="display:none;" alt="Ad"/>
         </div>
-        <div class="sidebar-box">
-          <div class="sidebar-label">BE</div>
-          <div class="sidebar-value" id="sidebarBE">0x</div>
-        </div>
-      </div>
-    </div>
-    <div class="sidebar-section profit">
-      <div class="sidebar-progress">
-        <div class="sidebar-progress-bar" id="sidebarProgressBar"></div>
-        <div class="sidebar-progress-text" id="sidebarProgressText"></div>
-      </div>
-      <div class="sidebar-profit-row">
-        <div class="sidebar-profit-col">
-          <div class="sidebar-label">💰 Profit</div>
-          <div class="sidebar-value" id="sidebarProfit">0€</div>
-        </div>
-        <div class="sidebar-profit-col" style="align-items: flex-end;">
-          <div class="sidebar-label" style="text-align:right;">🎯 Target</div>
-          <div class="sidebar-value" id="sidebarTarget" style="text-align:right;">0€</div>
-        </div>
-      </div>
-    </div>
-    <div class="sidebar-section best-worst">
-      <div class="sidebar-best-worst-main-pill">🏆 Best & Worst Slot</div>
-      <div class="best-worst-flex">
-        <div id="sidebarBestSlot"></div>
-        <div id="sidebarWorstSlot"></div>
-      </div>
-    </div>
-    <div class="sidebar-section bonus-list">
-      <div class="sidebar-label">💰 Bonus List</div>
-      <div class="card-3d" id="bonus3dCarousel"></div>
-    </div>
-    <div class="sidebar-section discord">
-      <div id="sidebarBannerImageContainer" style="width:100%;text-align:center;margin-bottom:10px;display:none;">
-        <img id="sidebarBannerImage" src="" alt="Discord Banner" style="max-width:100%;border-radius:10px;box-shadow:0 2px 8px #3ec6ff33;">
-      </div>
-      <div class="sidebar-discord-text">Join our Discord for offers!</div>
-    </div>
-  </div>
-  <div id="watermark">OSECAADEGAS95</div>
-  <script src="script.js" defer></script>
+        <button class="sidebar-btn" id="bh-btn">
+          <span class="sidebar-icon">🔎</span>
+        </button>
+        <button class="sidebar-btn" id="bo-btn">
+          <span class="sidebar-icon">🎰</span>
+        </button>
+        <button class="sidebar-btn">
+          <span class="sidebar-icon">🏆</span>
+        </button>
+      </aside>
 
-  <!-- Slot Picker Modal -->
-  <div id="slotPickerModal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#232b3e;padding:32px 28px;border-radius:18px;z-index:10010;box-shadow:0 8px 32px #000a;width:420px;min-width:320px;max-width:95vw;max-height:95vh;overflow:auto;">
-    <h2 style="color:#3ec6ff;text-align:center;margin-bottom:18px;">Random Slot Picker</h2>
-    <div id="slotProviderFilters" style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;"></div>
-    <div id="slotPickerSpinner" style="height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
-      <!-- Spinning slot image/name will appear here -->
-    </div>
-    <div id="slotPickerResult" style="display:none;text-align:center;margin-bottom:12px;"></div>
-    <button id="spinSlotBtn" style="background:#3ec6ff;color:#181926;font-weight:bold;padding:10px 28px;border-radius:8px;border:none;font-size:1.1em;cursor:pointer;">Spin</button>
-    <button id="closeSlotPickerBtn" style="margin-left:12px;background:#232b3e;color:#3ec6ff;font-weight:bold;padding:10px 18px;border-radius:8px;border:none;font-size:1em;cursor:pointer;">Close</button>
-  </div>
+      <!-- Middle Panel (hidden by default, shown when BH is clicked) -->
+      <section class="middle-panel" id="middle-panel" style="display:none;">
+        <div class="middle-panel-title">BH Panel</div>
+        <div class="middle-panel-row">
+          <label class="middle-input-label left">
+            Start Money
+            <input type="number" id="start-money-input" class="middle-input" placeholder="Start Money" min="0" step="any" />
+          </label>
+          <label class="middle-input-label right">
+            Stop Money
+            <input type="number" id="stop-money-input" class="middle-input" placeholder="Stop Money" min="0" step="any" />
+          </label>
+        </div>
+        <div class="middle-panel-row">
+          <label class="middle-input-label left">
+            Slot Name
+            <input type="text" id="slot-name-input" class="middle-input" placeholder="Slot Name" />
+          </label>
+          <label class="middle-input-label right">
+            Bet Size
+            <input type="number" id="bet-size-input" class="middle-input" placeholder="Enter bet size" min="0" step="any" />
+          </label>
+        </div>
+        <div class="middle-panel-actions">
+          <div class="middle-checkbox-row">
+            <label class="middle-checkbox">
+              <input type="checkbox" id="super-checkbox" />
+              <span>Super</span>
+            </label>
+          </div>
+          <div class="middle-actions-row">
+            <button class="middle-btn small-btn" id="slot-img-url-btn" type="button">
+              <span class="middle-icon">🖼️</span>
+              <span>Slot Image</span>
+            </button>
+            <input type="url" id="slot-img-url-input" class="middle-input slot-img-url-input" placeholder="Paste image URL" style="display:none; width:180px; margin-right:1rem;" />
+            <button class="middle-btn small-btn" id="edit-slots-btn">
+              <span class="middle-icon">✏️</span>
+              <span>Edit Slots</span>
+            </button>
+            <button class="middle-btn small-btn" id="bonus-opening-btn">
+              <span class="middle-icon">▶️</span>
+              <span>Bonus Opening</span>
+            </button>
+          </div>
+        </div>
+      </section>
 
-  <!-- Floating Slot Picker Card (top right, below top bar) -->
-  <div id="floatingSlotPickerCard" style="display:none;position:fixed;top:64px;right:32px;z-index:10020;background:#232b3e;padding:18px 18px 18px 18px;border-radius:18px;box-shadow:0 8px 32px #000a;min-width:180px;min-height:180px;max-width:95vw;max-height:60vh;overflow:hidden;">
-    <div id="floatingSlotPickerSpinner" style="height:220px;width:180px;display:flex;align-items:center;justify-content:center;"></div>
+      <!-- Main Content Placeholder -->
+      <main class="main-content">
+        <!-- Add your main overlay content here -->
+      </main>
+
+      <!-- Right Info Panel -->
+      <aside class="info-panel">
+        <div class="money-row-main">
+          <div class="money-display start-money">
+            <span class="money-label">Start</span>
+            <span class="money-value" id="start-money-display-main">--</span>
+          </div>
+          <div class="money-display stop-money">
+            <span class="money-label">Stop</span>
+            <span class="money-value" id="stop-money-display-main">--</span>
+          </div>
+        </div>
+        <!-- Bonus Hunt Results Section -->
+        <div class="info-section bonus-hunt-results" id="bonus-hunt-results" style="margin-bottom:1rem;">
+          <!-- Results will be injected here by JS -->
+        </div>
+        <div class="info-section bonus-list">
+          <h4>Bonus List</h4>
+          <ul></ul> <!-- Infinite carousel will be applied to this list -->
+        </div>
+        <!-- Twitch Chat Embed at the bottom of the right sidebar -->
+        <div class="info-twitch-chat">
+          <iframe
+            src="https://www.twitch.tv/embed/osecaadegas95/chat?parent=https://osecaadegas.github.io/95/overlay/"
+            frameborder="0"
+            scrolling="no"
+            allowfullscreen
+            height="300"
+            width="100%"
+            style="border-radius: 10px; background: #181a20;"
+            title="Twitch Chat"
+          ></iframe>
+        </div>
+        <div class="info-section discord">
+          <a href="https://osecaadegas.github.io/95/" target="_blank" rel="noopener" class="discord-btn">Visit our Website</a>
+        </div>
+      </aside>
+    </div>
   </div>
 </body>
 </html>
-
