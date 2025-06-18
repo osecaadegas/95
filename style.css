@@ -378,7 +378,8 @@ a:hover, .footer-link:hover {
 .large-offer-image {
     width: 210px;
     height: 210px;
-    object-fit: contain;
+    object-fit: cover; /* changed from contain to cover */
+    object-position: center center; /* ensure center crop */
     border-radius: 8px;
     margin-bottom: 10px;
     border: 2px solid #6ec1e444;
@@ -387,6 +388,9 @@ a:hover, .footer-link:hover {
     margin-left: auto;
     margin-right: auto;
     background: #16213e; /* Match card background */
+    aspect-ratio: 1 / 1; /* always square */
+    max-width: 100%;
+    max-height: 210px;
 }
 .offer-card .offer-details .offer-percentage,
 .offer-card .offer-details .offer-freespins {
@@ -985,8 +989,11 @@ html, body {
     .large-offer-image {
         width: 90vw;
         max-width: 220px;
-        height: auto;
-        max-height: 180px;
+        height: 90vw;
+        max-height: 220px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        object-position: center center;
     }
     .media-row > * {
         min-width: 0 !important;
@@ -1233,4 +1240,54 @@ html, body {
         width: 96vw !important;
         max-width: 98vw !important;
     }
+}
+.coming-soon-ribbon {
+    position: absolute;
+    top: 48px;
+    left: -54px;
+    width: 200px;
+    padding: 8px 0;
+    background: repeating-linear-gradient(
+        45deg,
+        #ffd700,
+        #ffd700 18px,
+        #ff2222 18px,
+        #ff2222 36px
+    );
+    color: #232a34;
+    font-weight: bold;
+    font-size: 1.08em;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #fff8, 0 0 2px #000a;
+    transform: rotate(-24deg);
+    z-index: 20;
+    box-shadow: 0 2px 12px #000a;
+    border-radius: 6px;
+    border: 2px solid #fff3;
+    pointer-events: none;
+    user-select: none;
+}
+.coming-soon-banner {
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    background: repeating-linear-gradient(
+        90deg,
+        #ffd700,
+        #ffd700 18px,
+        #ff2222 18px,
+        #ff2222 36px
+    );
+    color: #232a34;
+    font-weight: bold;
+    font-size: 1.08em;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #fff8, 0 0 2px #000a;
+    border-radius: 6px;
+    border: 2px solid #fff3;
+    box-shadow: 0 2px 12px #000a;
+    pointer-events: none;
+    user-select: none;
 }
