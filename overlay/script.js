@@ -67,160 +67,9 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-document.addEventListener('DOMContentLoaded', () => {
-  const bhBtn = document.getElementById('bh-btn');
-  const boBtn = document.getElementById('bo-btn');
-  const infoPanel = document.querySelector('.info-panel');
-  const middlePanel = document.getElementById('middle-panel');
-  let panelVisible = false;
-
-  // Helper to update info panel visibility with slide
-  function updateInfoPanelVisibility() {
-    const bhActive = bhBtn && bhBtn.classList.contains('active');
-    const boActive = boBtn && boBtn.classList.contains('active');
-    if (infoPanel) {
-      if (bhActive || boActive) {
-        infoPanel.classList.add('info-panel--visible');
-      } else {
-        infoPanel.classList.remove('info-panel--visible');
-      }
-    }
-  }
-
-  // Patch BH button logic
-  bhBtn.addEventListener('click', () => {
-    panelVisible = !panelVisible;
-    middlePanel.style.display = panelVisible ? 'flex' : 'none';
-    bhBtn.classList.toggle('active', panelVisible);
-    // Remove 'active' from all sidebar buttons except BH
-    if (panelVisible) {
-      document.querySelectorAll('.sidebar-btn').forEach(btn => {
-        if (btn !== bhBtn) btn.classList.remove('active');
-      });
-    }
-    updateInfoPanelVisibility();
-  });
-
-  const adInput = document.getElementById('ad-image-input');
-  const adPreview = document.getElementById('ad-image-preview');
-  const adLabel = document.querySelector('.ad-upload-label');
-
-  adInput.addEventListener('change', (e) => {
-    const file = adInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        adPreview.src = evt.target.result;
-        adPreview.style.display = 'block';
-        adLabel.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-  // Focus bet size after pressing Enter in slot name
-  const slotNameInput = document.getElementById('slot-name-input');
-  const betSizeInput = document.getElementById('bet-size-input');
-  if (slotNameInput && betSizeInput) {
-    slotNameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        betSizeInput.focus();
-      }
-    });
-  }
-
-  // Slot image URL button/input toggle
-  const slotImgUrlBtn = document.getElementById('slot-img-url-btn');
-  const slotImgUrlInput = document.getElementById('slot-img-url-input');
-  if (slotImgUrlBtn && slotImgUrlInput) {
-    slotImgUrlBtn.addEventListener('click', () => {
-      slotImgUrlBtn.style.display = 'none';
-      slotImgUrlInput.style.display = 'inline-block';
-      slotImgUrlInput.focus();
-    });
-    slotImgUrlInput.addEventListener('blur', () => {
-      slotImgUrlInput.style.display = 'none';
-      slotImgUrlBtn.style.display = 'inline-flex';
-    });
-    slotImgUrlInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        slotImgUrlInput.blur();
-      }
-    });
-  }
-
-  // --- Bonus Opening / BO Button Logic ---
-  const bonusOpenBtn = document.getElementById('bonus-opening-btn'); // "Bonus opening" button in BH panel
-  const bhPanel = document.getElementById('middle-panel'); // BH panel element
-
-  // Slot image URL (replace with your logic to get the actual image)
-  let slotImageUrl = '';
-  const slotImgInput = document.getElementById('slot-img-url-input');
-  if (slotImgInput) {
-    slotImgInput.addEventListener('input', (e) => {
-      slotImageUrl = e.target.value;
-    });
-  }
-
-  // Patch Bonus Opening button in BH panel
-  if (bonusOpenBtn) {
-    bonusOpenBtn.addEventListener('click', () => {
-      if (middlePanel) middlePanel.style.display = 'none';
-      showPayoutPanel();
-      // Set BO button as active, BH as inactive
-      if (boBtn) boBtn.classList.add('active');
-      if (bhBtn) bhBtn.classList.remove('active');
-      updateInfoPanelVisibility();
-      // --- Ensure slot highlight card updates immediately ---
-      setTimeout(updateSlotHighlightCard, 50);
-    });
-  }
-
-  // Hide info panel by default on load
-  if (infoPanel) infoPanel.classList.remove('info-panel--visible');
-
-  // --- Twitch Login/Logout Mockup ---
-  // REMOVE Twitch login logic, username span, and related code
-  // const twitchLoginBtn = document.getElementById('twitch-login-btn');
-  // const twitchUsernameSpan = document.getElementById('twitch-username');
-  // function mockTwitchLogin() { ... }
-  // if (twitchLoginBtn) { ... }
-
-  // Update Start/Stop Money display in right sidebar
-  const startMoneyInput = document.getElementById('start-money-input');
-  const stopMoneyInput = document.getElementById('stop-money-input');
-  const startMoneyDisplay = document.getElementById('start-money-display');
-  const stopMoneyDisplay = document.getElementById('stop-money-display');
-  const startMoneyDisplayMain = document.getElementById('start-money-display-main');
-  const stopMoneyDisplayMain = document.getElementById('stop-money-display-main');
-
-  function updateStartMoneyDisplays(val) {
-    const formatted = val ? `€${parseFloat(val).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : '--';
-    if (startMoneyDisplay) startMoneyDisplay.textContent = formatted;
-    if (startMoneyDisplayMain) startMoneyDisplayMain.textContent = formatted;
-  }
-  function updateStopMoneyDisplays(val) {
-    const formatted = val ? `€${parseFloat(val).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : '--';
-    if (stopMoneyDisplay) stopMoneyDisplay.textContent = formatted;
-    if (stopMoneyDisplayMain) stopMoneyDisplayMain.textContent = formatted;
-  }
-
-  if (startMoneyInput) {
-    startMoneyInput.addEventListener('input', () => {
-      updateStartMoneyDisplays(startMoneyInput.value);
-    });
-  }
-  if (stopMoneyInput) {
-    stopMoneyInput.addEventListener('input', () => {
-      updateStopMoneyDisplays(stopMoneyInput.value);
-    });
-  }
-
-  // --- Slot Database ---
-  const slotDatabase = [
-    
-    { name: "Sugar Twist", image: "https://mediumrare.imgix.net/3fbda3cb3022ebe5175f345c8bd6ff4b3cc305f28b2b10c21b5762f788908623?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+// --- Slot Database (Global) ---
+const slotDatabase = [
+  { name: "Sugar Twist", image: "https://mediumrare.imgix.net/3fbda3cb3022ebe5175f345c8bd6ff4b3cc305f28b2b10c21b5762f788908623?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "Rad Max", image: "https://mediumrare.imgix.net/912e93fcb0e5f52ee1f549d6b6ffcf21ba0847eef9c5003a28893274a6f1cb68?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Pray For Three", image: "https://mediumrare.imgix.net/1ea39d28bbd9237c659f60233fce9bdd9f1c46b934c5d3b311f1580dbcea7f74?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Duel at Dawn", image: "https://mediumrare.imgix.net/81223334b34083d375cd42c6df9f0a5414b817e8ca16b54dc3b63e05386fc44c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
@@ -971,25 +820,347 @@ document.addEventListener('DOMContentLoaded', () => {
   { name: "John Hunter And The Quest For Bermuda Riches", image: "https://mediumrare.imgix.net/844e20d524df66d1076a17665ef7d6e318d42c1c749bba24331dc7c16b0122e1?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "Star Bounty", image: "https://mediumrare.imgix.net/796ea48927702e14ae2006f5612031152016c2f7e4f4c7d13dc644189f10825b?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" }
   
-    // ...add more slots as needed
-  ];
+];
+
+// Tournament-related functions
+function initializeTournamentSlotSuggestions() {
+  const tournamentSlotInputs = document.querySelectorAll('.tournament-slot-input');
+  
+  tournamentSlotInputs.forEach((input, index) => {
+    const container = input.closest('.slot-input-container');
+    if (!container) return;
+    
+    // Create suggestion box for this input
+    let suggestionBox = document.createElement('div');
+    suggestionBox.className = 'tournament-slot-suggestion-box';
+    suggestionBox.style.display = 'none';
+    
+    container.appendChild(suggestionBox);
+    
+    input.addEventListener('input', function () {
+      const value = input.value.trim();
+      if (value.length < 3) {
+        suggestionBox.style.display = 'none';
+        return;
+      }
+      
+      // Make sure slotDatabase is available
+      if (typeof slotDatabase === 'undefined') return;
+      
+      const matches = slotDatabase.filter(slot =>
+        slot.name.toLowerCase().includes(value.toLowerCase())
+      ).slice(0, 6); // Limit to 6 for better UX in smaller boxes
+      
+      if (matches.length === 0) {
+        suggestionBox.style.display = 'none';
+        return;
+      }
+      
+      suggestionBox.innerHTML = '';
+      matches.forEach(slot => {
+        const item = document.createElement('div');
+        item.className = 'tournament-slot-suggestion-item';
+        item.innerHTML = `
+          <span class="slot-suggestion-name">${slot.name}</span>
+          <span class="slot-suggestion-provider">${slot.provider}</span>
+        `;
+        
+        const selectSlot = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          input.value = slot.name;
+          suggestionBox.style.display = 'none';
+          input.dispatchEvent(new Event('input'));
+        };
+        
+        item.addEventListener('click', selectSlot);
+        item.addEventListener('mousedown', selectSlot);
+        
+        suggestionBox.appendChild(item);
+      });
+      
+      suggestionBox.style.display = 'block';
+    });
+    
+    input.addEventListener('blur', function () {
+      setTimeout(() => { suggestionBox.style.display = 'none'; }, 200);
+    });
+    
+    // Hide other suggestion boxes when this one gets focus
+    input.addEventListener('focus', function () {
+      tournamentSlotInputs.forEach((otherInput, otherIndex) => {
+        if (otherIndex !== index) {
+          const otherContainer = otherInput.closest('.slot-input-container');
+          const otherSuggestionBox = otherContainer ? otherContainer.querySelector('.tournament-slot-suggestion-box') : null;
+          if (otherSuggestionBox) {
+            otherSuggestionBox.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const bhBtn = document.getElementById('bh-btn');
+  const boBtn = document.getElementById('bo-btn');
+  const randomSlotBtn = document.getElementById('random-slot-btn');
+  const tournamentBtn = document.getElementById('tournament-btn'); // Trophy button
+  const infoPanel = document.querySelector('.info-panel');
+  const middlePanel = document.getElementById('middle-panel');
+  const randomSlotPanel = document.getElementById('random-slot-panel');
+  const tournamentPanel = document.getElementById('tournament-panel');
+  let panelVisible = false;
+  let randomSlotPanelVisible = false;
+  let tournamentPanelVisible = false;
+
+  // Helper to update info panel visibility with slide
+  function updateInfoPanelVisibility() {
+    const bhActive = bhBtn && bhBtn.classList.contains('active');
+    const boActive = boBtn && boBtn.classList.contains('active');
+    const randomSlotActive = randomSlotBtn && randomSlotBtn.classList.contains('active');
+    const tournamentActive = tournamentBtn && tournamentBtn.classList.contains('active');
+    
+    if (infoPanel) {
+      // Hide info panel when tournament panel is active, keep visible for others
+      if (tournamentActive) {
+        infoPanel.classList.remove('info-panel--visible');
+      } else if (bhActive || boActive || randomSlotActive) {
+        infoPanel.classList.add('info-panel--visible');
+      } else {
+        infoPanel.classList.remove('info-panel--visible');
+      }
+    }
+  }
+  // Patch BH button logic
+  bhBtn.addEventListener('click', () => {
+    panelVisible = !panelVisible;
+    middlePanel.style.display = panelVisible ? 'flex' : 'none';
+    bhBtn.classList.toggle('active', panelVisible);
+    
+    // Hide selected slot display when BH panel is closed
+    if (!panelVisible) {
+      hideSelectedSlot();
+    }
+    
+    // Hide random slot panel when BH is shown
+    const randomSlotPanel = document.getElementById('random-slot-panel');
+    if (randomSlotPanel && panelVisible) {
+      randomSlotPanel.style.display = 'none';
+    }
+    // Remove 'active' from all sidebar buttons except BH
+    if (panelVisible) {
+      document.querySelectorAll('.sidebar-btn').forEach(btn => {
+        if (btn !== bhBtn) btn.classList.remove('active');
+      });
+    }
+    updateInfoPanelVisibility();
+  });
+
+  // Random Slot Button Logic
+  if (randomSlotBtn && randomSlotPanel) {
+    randomSlotBtn.addEventListener('click', () => {
+      randomSlotPanelVisible = !randomSlotPanelVisible;
+      randomSlotPanel.style.display = randomSlotPanelVisible ? 'flex' : 'none';
+      randomSlotBtn.classList.toggle('active', randomSlotPanelVisible);
+      
+      // Hide BH panel when random slot is shown
+      if (randomSlotPanelVisible) {
+        middlePanel.style.display = 'none';
+        panelVisible = false;
+        hideSelectedSlot(); // Hide selected slot display when random slot panel opens
+      }
+      
+      // Remove 'active' from all sidebar buttons except random slot
+      if (randomSlotPanelVisible) {
+        document.querySelectorAll('.sidebar-btn').forEach(btn => {
+          if (btn !== randomSlotBtn) btn.classList.remove('active');
+        });
+      }
+      updateInfoPanelVisibility();
+    });
+  }
+
+  // Tournament Button Logic
+  if (tournamentBtn && tournamentPanel) {
+    let tournamentInitialized = false;
+    
+    tournamentBtn.addEventListener('click', () => {
+      tournamentPanelVisible = !tournamentPanelVisible;
+      tournamentPanel.style.display = tournamentPanelVisible ? 'flex' : 'none';
+      tournamentBtn.classList.toggle('active', tournamentPanelVisible);
+      
+      // Initialize tournament slot suggestions on first open
+      if (tournamentPanelVisible && !tournamentInitialized) {
+        initializeTournamentSlotSuggestions();
+        tournamentInitialized = true;
+      }
+      
+      // Hide other panels when tournament is shown
+      if (tournamentPanelVisible) {
+        middlePanel.style.display = 'none';
+        randomSlotPanel.style.display = 'none';
+        panelVisible = false;
+        randomSlotPanelVisible = false;
+        hideSelectedSlot(); // Hide selected slot display when tournament panel opens
+      }
+      
+      // Remove 'active' from all sidebar buttons except tournament
+      if (tournamentPanelVisible) {
+        document.querySelectorAll('.sidebar-btn').forEach(btn => {
+          if (btn !== tournamentBtn) btn.classList.remove('active');
+        });
+      }
+      updateInfoPanelVisibility();
+    });
+  }
+
+  const adInput = document.getElementById('ad-image-input');
+  const adPreview = document.getElementById('ad-image-preview');
+  const adLabel = document.querySelector('.ad-upload-label');
+
+  adInput.addEventListener('change', (e) => {
+    const file = adInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        adPreview.src = evt.target.result;
+        adPreview.style.display = 'block';
+        adLabel.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Focus bet size after pressing Enter in slot name
+  const slotNameInput = document.getElementById('slot-name-input');
+  const betSizeInput = document.getElementById('bet-size-input');
+  if (slotNameInput && betSizeInput) {
+    slotNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        betSizeInput.focus();
+      }
+    });
+  }
+
+  // Slot image URL button/input toggle
+  const slotImgUrlBtn = document.getElementById('slot-img-url-btn');
+  const slotImgUrlInput = document.getElementById('slot-img-url-input');
+  if (slotImgUrlBtn && slotImgUrlInput) {
+    slotImgUrlBtn.addEventListener('click', () => {
+      slotImgUrlBtn.style.display = 'none';
+      slotImgUrlInput.style.display = 'inline-block';
+      slotImgUrlInput.focus();
+    });
+    slotImgUrlInput.addEventListener('blur', () => {
+      slotImgUrlInput.style.display = 'none';
+      slotImgUrlBtn.style.display = 'inline-flex';
+    });
+    slotImgUrlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        slotImgUrlInput.blur();
+      }
+    });
+  }
+
+  // --- Bonus Opening / BO Button Logic ---
+  const bonusOpenBtn = document.getElementById('bonus-opening-btn'); // "Bonus opening" button in BH panel
+  const bhPanel = document.getElementById('middle-panel'); // BH panel element
+
+  // Slot image URL (replace with your logic to get the actual image)
+  let slotImageUrl = '';
+  const slotImgInput = document.getElementById('slot-img-url-input');
+  if (slotImgInput) {
+    slotImgInput.addEventListener('input', (e) => {
+      slotImageUrl = e.target.value;
+    });
+  }
+
+  // Patch Bonus Opening button in BH panel
+  if (bonusOpenBtn) {
+    bonusOpenBtn.addEventListener('click', () => {
+      if (middlePanel) middlePanel.style.display = 'none';
+      showPayoutPanel();
+      // Set BO button as active, BH as inactive
+      if (boBtn) boBtn.classList.add('active');
+      if (bhBtn) bhBtn.classList.remove('active');
+      updateInfoPanelVisibility();
+      // --- Ensure slot highlight card updates immediately ---
+      setTimeout(updateSlotHighlightCard, 50);
+    });
+  }
+
+  // Hide info panel by default on load
+  if (infoPanel) infoPanel.classList.remove('info-panel--visible');
+
+  // --- Twitch Login/Logout Mockup ---
+  // REMOVE Twitch login logic, username span, and related code
+  // const twitchLoginBtn = document.getElementById('twitch-login-btn');
+  // const twitchUsernameSpan = document.getElementById('twitch-username');
+  // function mockTwitchLogin() { ... }
+  // if (twitchLoginBtn) { ... }
+
+  // Update Start/Stop Money display in right sidebar
+  const startMoneyInput = document.getElementById('start-money-input');
+  const stopMoneyInput = document.getElementById('stop-money-input');
+  const startMoneyDisplay = document.getElementById('start-money-display');
+  const stopMoneyDisplay = document.getElementById('stop-money-display');
+  const startMoneyDisplayMain = document.getElementById('start-money-display-main');
+  const stopMoneyDisplayMain = document.getElementById('stop-money-display-main');
+
+  function updateStartMoneyDisplays(val) {
+    const formatted = val ? `€${parseFloat(val).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : '--';
+    if (startMoneyDisplay) startMoneyDisplay.textContent = formatted;
+    if (startMoneyDisplayMain) startMoneyDisplayMain.textContent = formatted;
+  }
+  function updateStopMoneyDisplays(val) {
+    const formatted = val ? `€${parseFloat(val).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : '--';
+    if (stopMoneyDisplay) stopMoneyDisplay.textContent = formatted;
+    if (stopMoneyDisplayMain) stopMoneyDisplayMain.textContent = formatted;
+  }
+
+  if (startMoneyInput) {
+    startMoneyInput.addEventListener('input', () => {
+      updateStartMoneyDisplays(startMoneyInput.value);
+    });
+  }
+  if (stopMoneyInput) {
+    stopMoneyInput.addEventListener('input', () => {
+      updateStopMoneyDisplays(stopMoneyInput.value);
+    });
+  }
 
   // --- Slot Name Suggestion Dropdown ---
   if (slotNameInput) {
     let suggestionBox = document.createElement('div');
     suggestionBox.style.position = 'absolute';
-    suggestionBox.style.background = '#23272f';
+    suggestionBox.style.background = 'linear-gradient(135deg, #23243a 0%, #2d2e4a 100%)';
     suggestionBox.style.color = '#fff';
-    suggestionBox.style.borderRadius = '8px';
-    suggestionBox.style.boxShadow = '0 2px 8px rgba(0,0,0,0.18)';
-    suggestionBox.style.zIndex = '1001';
+    suggestionBox.style.borderRadius = '12px';
+    suggestionBox.style.boxShadow = '0 4px 16px rgba(0,225,255,0.2)';
+    suggestionBox.style.border = '1px solid #00e1ff';
+    suggestionBox.style.zIndex = '1010';
     suggestionBox.style.display = 'none';
-    suggestionBox.style.maxHeight = '220px';
+    suggestionBox.style.maxHeight = '200px';
     suggestionBox.style.overflowY = 'auto';
-    suggestionBox.style.fontSize = '1rem';
-    suggestionBox.style.padding = '0.2rem 0';
+    suggestionBox.style.fontSize = '0.95rem';
+    suggestionBox.style.padding = '0.3rem 0';
+    suggestionBox.style.backdropFilter = 'blur(8px)';
+    suggestionBox.style.left = '0';
+    suggestionBox.style.top = '100%';
+    suggestionBox.style.width = '100%';
+    suggestionBox.style.marginTop = '0.3rem';
     suggestionBox.className = 'slot-suggestion-box';
-    document.body.appendChild(suggestionBox);
+    
+    // Append to the slot name input's parent container for proper positioning
+    const slotNameContainer = slotNameInput.closest('.middle-input-label');
+    if (slotNameContainer) {
+      slotNameContainer.style.position = 'relative';
+      slotNameContainer.appendChild(suggestionBox);
+    } else {
+      document.body.appendChild(suggestionBox);
+    }
 
     slotNameInput.addEventListener('input', function () {
       const value = slotNameInput.value.trim();
@@ -1009,42 +1180,51 @@ document.addEventListener('DOMContentLoaded', () => {
         const item = document.createElement('div');
         item.style.display = 'flex';
         item.style.alignItems = 'center';
-        item.style.padding = '0.4rem 1rem';
+        item.style.padding = '0.5rem 0.8rem';
         item.style.cursor = 'pointer';
+        item.style.borderRadius = '8px';
+        item.style.margin = '0.1rem 0.3rem';
+        item.style.transition = 'all 0.2s ease';
         item.innerHTML = `
-          <img src="${slot.image}" alt="${slot.name}" style="width:32px;height:32px;object-fit:cover;border-radius:6px;margin-right:0.7rem;">
+          <img src="${slot.image}" alt="${slot.name}" style="width:28px;height:28px;object-fit:cover;border-radius:6px;margin-right:0.6rem;border:1px solid #00e1ff;">
           <div>
-            <div style="font-weight:600;">${slot.name}</div>
-            <div style="font-size:0.92rem;color:#b0b3b8;">${slot.provider}</div>
+            <div style="font-weight:600;font-size:0.9rem;">${slot.name}</div>
+            <div style="font-size:0.8rem;color:#b0b3b8;">${slot.provider}</div>
           </div>
         `;
-        item.addEventListener('mousedown', function (e) {
+        // Handle both click and mousedown to ensure selection works
+        const selectSlot = function(e) {
           e.preventDefault();
+          e.stopPropagation();
           slotNameInput.value = slot.name;
           suggestionBox.style.display = 'none';
           slotNameInput.dispatchEvent(new Event('input'));
+          // Show selected slot in right-side display
+          showSelectedSlot(slot);
           // Focus bet size input after selecting a suggestion
-          if (betSizeInput) betSizeInput.focus();
-        });
+          if (betSizeInput) {
+            setTimeout(() => betSizeInput.focus(), 50);
+          }
+        };
+        
+        item.addEventListener('click', selectSlot);
+        item.addEventListener('mousedown', selectSlot);
         item.addEventListener('mouseover', function () {
-          item.style.background = '#9147ff';
+          item.style.background = 'linear-gradient(90deg, #9147ff 0%, #00e1ff 100%)';
+          item.style.transform = 'scale(1.02)';
         });
         item.addEventListener('mouseout', function () {
           item.style.background = 'transparent';
+          item.style.transform = 'scale(1)';
         });
         suggestionBox.appendChild(item);
       });
-      // Position the suggestion box below the input
-      const rect = slotNameInput.getBoundingClientRect();
-      suggestionBox.style.left = rect.left + window.scrollX + 'px';
-      suggestionBox.style.top = rect.bottom + window.scrollY + 'px';
-      suggestionBox.style.minWidth = rect.width + 'px';
       suggestionBox.style.display = 'block';
     });
 
     // Hide suggestions on blur
     slotNameInput.addEventListener('blur', function () {
-      setTimeout(() => { suggestionBox.style.display = 'none'; }, 100);
+      setTimeout(() => { suggestionBox.style.display = 'none'; }, 200);
     });
   }
 
@@ -1204,7 +1384,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function getSlotImage(slotName) {
     // Use the slotDatabase defined in this script
     const slot = slotDatabase.find(s => s.name.toLowerCase() === slotName.toLowerCase());
-    return slot ? slot.image : DEFAULT_SLOT_IMAGE;
+    const imageUrl = slot ? slot.image : DEFAULT_SLOT_IMAGE;
+    console.log(`Getting image for slot: ${slotName}, found: ${!!slot}, image: ${imageUrl}`);
+    return imageUrl;
   }
 
   // --- Hook up Bonus Opening button ---
@@ -1216,6 +1398,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showPayoutPanel();
     });
   }
+
+  // Hide selected slot by default
+  hideSelectedSlot();
 
   function renderBonusHuntResults() {
     const startBalance = parseFloat(document.getElementById('start-money-input')?.value) || 0;
@@ -1783,6 +1968,861 @@ document.addEventListener('DOMContentLoaded', () => {
       showEditSlotsPanel();
     });
   }
+
+  // --- Random Slot Picker Functionality ---
+  let currentRandomSlot = null;
+  let isShuffling = false;
+
+  function getFilteredSlots() {
+    const checkedProviders = Array.from(document.querySelectorAll('.provider-checkbox input:checked'))
+      .map(cb => cb.value);
+    
+    return slotDatabase.filter(slot => checkedProviders.includes(slot.provider));
+  }
+
+  function getRandomSlot() {
+    const filteredSlots = getFilteredSlots();
+    if (filteredSlots.length === 0) return null;
+    
+    const randomIndex = Math.floor(Math.random() * filteredSlots.length);
+    return filteredSlots[randomIndex];
+  }
+
+  function updateRandomSlotDisplay(slot) {
+    const slotCard = document.getElementById('random-slot-card');
+    const slotImage = slotCard.querySelector('.slot-image');
+    const slotName = slotCard.querySelector('.slot-name');
+    const slotProvider = slotCard.querySelector('.slot-provider');
+
+    if (slot) {
+      slotImage.src = slot.image;
+      slotImage.alt = slot.name;
+      slotName.textContent = slot.name;
+      slotProvider.textContent = slot.provider;
+      currentRandomSlot = slot;
+    } else {
+      slotImage.src = 'https://i.imgur.com/8E3ucNx.png';
+      slotName.textContent = 'No slots available';
+      slotProvider.textContent = 'Check filter settings';
+      currentRandomSlot = null;
+    }
+  }
+
+  function shuffleSlot() {
+    if (isShuffling) return;
+    
+    isShuffling = true;
+    const slotCard = document.getElementById('random-slot-card');
+    const shuffleBtn = document.getElementById('shuffle-slot-btn');
+    
+    slotCard.classList.add('shuffling');
+    shuffleBtn.textContent = '🎲 Shuffling...';
+    shuffleBtn.disabled = true;
+
+    // Shuffle multiple times for effect
+    let shuffleCount = 0;
+    const maxShuffles = 8;
+    
+    const shuffleInterval = setInterval(() => {
+      const randomSlot = getRandomSlot();
+      if (randomSlot) {
+        updateRandomSlotDisplay(randomSlot);
+      }
+      
+      shuffleCount++;
+      if (shuffleCount >= maxShuffles) {
+        clearInterval(shuffleInterval);
+        
+        setTimeout(() => {
+          slotCard.classList.remove('shuffling');
+          shuffleBtn.innerHTML = '<span class="middle-icon">🎲</span><span>Shuffle Slot</span>';
+          shuffleBtn.disabled = false;
+          isShuffling = false;
+        }, 300);
+      }
+    }, 100);
+  }
+
+  function useRandomSlot() {
+    if (!currentRandomSlot) return;
+    
+    // Fill the slot name input in the BH panel
+    const slotNameInput = document.getElementById('slot-name-input');
+    if (slotNameInput) {
+      slotNameInput.value = currentRandomSlot.name;
+      slotNameInput.dispatchEvent(new Event('input'));
+    }
+    
+    // Switch to BH panel
+    const bhBtn = document.getElementById('bh-btn');
+    const randomSlotBtn = document.getElementById('random-slot-btn');
+    const middlePanel = document.getElementById('middle-panel');
+    const randomSlotPanel = document.getElementById('random-slot-panel');
+    
+    if (bhBtn && middlePanel) {
+      // Hide random slot panel
+      randomSlotPanel.style.display = 'none';
+      randomSlotPanelVisible = false;
+      randomSlotBtn.classList.remove('active');
+      
+      // Show BH panel
+      middlePanel.style.display = 'flex';
+      panelVisible = true;
+      bhBtn.classList.add('active');
+      
+      // Focus bet size input
+      const betSizeInput = document.getElementById('bet-size-input');
+      if (betSizeInput) {
+        setTimeout(() => betSizeInput.focus(), 100);
+      }
+      
+      updateInfoPanelVisibility();
+    }
+  }
+
+  // Initialize random slot functionality
+  const shuffleBtn = document.getElementById('shuffle-slot-btn');
+  const useSlotBtn = document.getElementById('use-random-slot-btn');
+
+  if (shuffleBtn) {
+    shuffleBtn.addEventListener('click', shuffleSlot);
+  }
+
+  if (useSlotBtn) {
+    useSlotBtn.addEventListener('click', useRandomSlot);
+  }
+
+  // Provider filter change handler
+  document.addEventListener('change', (e) => {
+    if (e.target.matches('.provider-checkbox input')) {
+      // Update available slots count or show message if no slots available
+      const filteredSlots = getFilteredSlots();
+      if (filteredSlots.length === 0 && currentRandomSlot) {
+        updateRandomSlotDisplay(null);
+      }
+    }
+  });
+
+  // Initialize with a random slot
+  document.addEventListener('DOMContentLoaded', () => {
+    const initialSlot = getRandomSlot();
+    updateRandomSlotDisplay(initialSlot);
+  });
+
+  // Function to show selected slot in right-side display
+  function showSelectedSlot(slot) {
+    const selectedSlotDisplay = document.getElementById('selected-slot-display');
+    const selectedSlotImage = document.getElementById('selected-slot-image');
+    
+    if (selectedSlotDisplay && selectedSlotImage && slot) {
+      selectedSlotImage.src = slot.image || DEFAULT_SLOT_IMAGE;
+      selectedSlotImage.alt = slot.name;
+      
+      selectedSlotDisplay.style.display = 'flex';
+      selectedSlotDisplay.classList.add('visible');
+    }
+  }
+
+  // Function to hide selected slot display
+  function hideSelectedSlot() {
+    const selectedSlotDisplay = document.getElementById('selected-slot-display');
+    if (selectedSlotDisplay) {
+      selectedSlotDisplay.style.display = 'none';
+      selectedSlotDisplay.classList.remove('visible');
+    }
+  }
+
+  // Show selected slot when slot name input changes
+  if (slotNameInput) {
+    slotNameInput.addEventListener('input', function() {
+      const slotName = slotNameInput.value.trim();
+      if (slotName) {
+        const slot = slotDatabase.find(s => s.name.toLowerCase() === slotName.toLowerCase());
+        if (slot) {
+          showSelectedSlot(slot);
+        } else {
+          hideSelectedSlot();
+        }
+      } else {
+        hideSelectedSlot();
+      }
+    });
+    
+    slotNameInput.addEventListener('blur', function() {
+      // Keep the selected slot display visible even when input loses focus
+      // Only hide when the input is actually empty
+      const slotName = slotNameInput.value.trim();
+      if (!slotName) {
+        hideSelectedSlot();
+      }
+    });
+  }
+
+  // --- Tournament Bracket System ---
+let tournamentData = {
+  participants: [],
+  phases: [],
+  currentPhase: 0,
+  currentMatchIndex: 0,
+  isActive: false
+};
+
+function initializeTournament(participants) {
+  tournamentData.participants = participants;
+  tournamentData.isActive = true;
+  tournamentData.currentPhase = 0;
+  tournamentData.currentMatchIndex = 0;
+  
+  // Create tournament phases based on participant count
+  if (participants.length <= 2) {
+    // Direct final
+    tournamentData.phases = [
+      { name: 'Final', matches: createMatches(participants) }
+    ];
+  } else if (participants.length <= 4) {
+    // Semi-finals and final
+    tournamentData.phases = [
+      { name: 'Semi-Finals', matches: createMatches(participants) },
+      { name: 'Final', matches: [] }
+    ];
+  } else {
+    // Quarter-finals, semi-finals, and final
+    tournamentData.phases = [
+      { name: 'Quarter-Finals', matches: createMatches(participants) },
+      { name: 'Semi-Finals', matches: [] },
+      { name: 'Final', matches: [] }
+    ];
+  }
+  
+  showTournamentBracket();
+  updateTournamentDisplay();
+}
+
+function createMatches(participants) {
+  const matches = [];
+  for (let i = 0; i < participants.length; i += 2) {
+    if (i + 1 < participants.length) {
+      matches.push({
+        participant1: participants[i],
+        participant2: participants[i + 1],
+        winner: null
+      });
+    } else {
+      // Bye - participant automatically advances
+      matches.push({
+        participant1: participants[i],
+        participant2: null,
+        winner: participants[i]
+      });
+    }
+  }
+  return matches;
+}
+
+function showTournamentBracket() {
+  const tournamentBracket = document.getElementById('tournament-bracket');
+  const infoPanel = document.querySelector('.info-panel');
+  
+  if (tournamentBracket) {
+    tournamentBracket.style.display = 'block';
+    
+    // Hide tournament panel and show right sidebar
+    const tournamentPanel = document.getElementById('tournament-panel');
+    if (tournamentPanel) {
+      tournamentPanel.style.display = 'none';
+    }
+    
+    // Hide components we don't need during tournament
+    const bonusHuntResults = document.getElementById('bonus-hunt-results');
+    const bonusList = document.querySelector('.info-section.bonus-list');
+    const discordSection = document.querySelector('.info-section.discord');
+    const moneyRowMain = document.querySelector('.money-row-main');
+    
+    if (bonusHuntResults) bonusHuntResults.style.display = 'none';
+    if (bonusList) bonusList.style.display = 'none';
+    if (discordSection) discordSection.style.display = 'none';
+    if (moneyRowMain) moneyRowMain.style.display = 'none';
+    
+    // Make sure info panel is visible
+    if (infoPanel) {
+      infoPanel.classList.add('info-panel--visible');
+    }
+    
+    // Show tournament control panel
+    showTournamentControlPanel();
+  }
+}
+
+function showTournamentControlPanel() {
+  // Remove existing control panel if any
+  const existingPanel = document.getElementById('tournament-control-panel');
+  if (existingPanel) {
+    existingPanel.remove();
+  }
+  
+  // Create new control panel (no backdrop)
+  const controlPanel = document.createElement('div');
+  controlPanel.id = 'tournament-control-panel';
+  controlPanel.className = 'tournament-control-panel';
+  
+  // Initialize current match tracker
+  if (!tournamentData.currentMatchIndex) {
+    tournamentData.currentMatchIndex = 0;
+  }
+  
+  // Add to DOM immediately
+  document.body.appendChild(controlPanel);
+  
+  updateTournamentControlPanel();
+}
+
+function updateTournamentControlPanel() {
+  const controlPanel = document.getElementById('tournament-control-panel');
+  if (!controlPanel) return;
+  
+  const currentPhaseData = tournamentData.phases[tournamentData.currentPhase];
+  const currentMatch = currentPhaseData.matches[tournamentData.currentMatchIndex];
+  
+  if (!currentMatch) return;
+  
+  const matchNumber = tournamentData.currentMatchIndex + 1;
+  const totalMatches = currentPhaseData.matches.length;
+  
+  controlPanel.innerHTML = `
+    <div class="control-panel-title">Tournament Control</div>
+    <div class="tournament-controls">
+      <button class="tournament-nav-btn" id="prev-phase-btn" ${tournamentData.currentPhase === 0 ? 'disabled' : ''}>◀</button>
+      <span class="phase-indicator" id="phase-indicator">${tournamentData.currentPhase + 1}/${tournamentData.phases.length}</span>
+      <button class="tournament-nav-btn" id="next-phase-btn" ${tournamentData.currentPhase === tournamentData.phases.length - 1 ? 'disabled' : ''}>▶</button>
+    </div>
+    
+    <div class="match-control-section">
+      <div class="match-title">${currentPhaseData.name} - Match ${matchNumber}/${totalMatches}</div>
+      
+      <div class="match-participants-control">
+        <div class="participant-control">
+          <div class="participant-name">${currentMatch.participant1 ? currentMatch.participant1.player : 'BYE'}</div>
+          <div class="participant-slot">${currentMatch.participant1 ? currentMatch.participant1.slot : '-'}</div>
+          ${currentMatch.participant1 ? `
+            <div class="betting-inputs">
+              <input type="number" class="bet-input" id="bet1" placeholder="Bet" min="0" step="0.01" />
+              <input type="number" class="payout-input" id="payout1" placeholder="Payout" min="0" step="0.01" />
+              <div class="multiplier" id="multiplier1">x0.00</div>
+            </div>
+          ` : ''}
+        </div>
+        
+        <div class="vs-separator">VS</div>
+        
+        <div class="participant-control">
+          <div class="participant-name">${currentMatch.participant2 ? currentMatch.participant2.player : 'BYE'}</div>
+          <div class="participant-slot">${currentMatch.participant2 ? currentMatch.participant2.slot : '-'}</div>
+          ${currentMatch.participant2 ? `
+            <div class="betting-inputs">
+              <input type="number" class="bet-input" id="bet2" placeholder="Bet" min="0" step="0.01" />
+              <input type="number" class="payout-input" id="payout2" placeholder="Payout" min="0" step="0.01" />
+              <div class="multiplier" id="multiplier2">x0.00</div>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+      
+      <div class="match-controls">
+        <button class="match-nav-btn" id="prev-match-btn" ${tournamentData.currentMatchIndex === 0 ? 'disabled' : ''}>← Previous Match</button>
+        <button class="determine-winner-btn" id="determine-winner-btn">Determine Winner</button>
+        <button class="match-nav-btn" id="next-match-btn" ${tournamentData.currentMatchIndex === totalMatches - 1 ? 'disabled' : ''}>Next Match →</button>
+      </div>
+      
+      ${currentMatch.winner ? `
+        <div class="winner-display">
+          <div class="winner-crown">👑</div>
+          <div class="winner-text">Winner: ${currentMatch.winner.player}</div>
+        </div>
+      ` : ''}
+    </div>
+    
+    <div class="control-panel-actions">
+      <button class="control-panel-btn" id="advance-winners-btn">
+        <span>⚡</span>
+        <span>Advance Winners</span>
+      </button>
+      <button class="control-panel-btn danger" id="end-tournament-btn">
+        <span>🚪</span>
+        <span>End Tournament</span>
+      </button>
+    </div>
+  `;
+  
+  // Make sure the panel is visible
+  controlPanel.classList.add('active');
+  
+  // Add event listeners
+  addTournamentControlListeners();
+}
+
+function addTournamentControlListeners() {
+  // Betting input listeners
+  const bet1 = document.getElementById('bet1');
+  const payout1 = document.getElementById('payout1');
+  const bet2 = document.getElementById('bet2');
+  const payout2 = document.getElementById('payout2');
+  const multiplier1 = document.getElementById('multiplier1');
+  const multiplier2 = document.getElementById('multiplier2');
+  
+  function updateMultiplier(betInput, payoutInput, multiplierDisplay) {
+    const bet = parseFloat(betInput.value) || 0;
+    const payout = parseFloat(payoutInput.value) || 0;
+    const multiplier = bet > 0 ? (payout / bet) : 0;
+    multiplierDisplay.textContent = `x${multiplier.toFixed(2)}`;
+  }
+  
+  if (bet1 && payout1 && multiplier1) {
+    bet1.addEventListener('input', () => updateMultiplier(bet1, payout1, multiplier1));
+    payout1.addEventListener('input', () => updateMultiplier(bet1, payout1, multiplier1));
+  }
+  
+  if (bet2 && payout2 && multiplier2) {
+    bet2.addEventListener('input', () => updateMultiplier(bet2, payout2, multiplier2));
+    payout2.addEventListener('input', () => updateMultiplier(bet2, payout2, multiplier2));
+  }
+  
+  // Match navigation
+  const prevMatchBtn = document.getElementById('prev-match-btn');
+  const nextMatchBtn = document.getElementById('next-match-btn');
+  
+  if (prevMatchBtn) {
+    prevMatchBtn.addEventListener('click', () => {
+      if (tournamentData.currentMatchIndex > 0) {
+        tournamentData.currentMatchIndex--;
+        updateTournamentControlPanel();
+      }
+    });
+  }
+  
+  if (nextMatchBtn) {
+    nextMatchBtn.addEventListener('click', () => {
+      const currentPhaseData = tournamentData.phases[tournamentData.currentPhase];
+      if (tournamentData.currentMatchIndex < currentPhaseData.matches.length - 1) {
+        tournamentData.currentMatchIndex++;
+        updateTournamentControlPanel();
+      }
+    });
+  }
+  
+  // Determine winner
+  const determineWinnerBtn = document.getElementById('determine-winner-btn');
+  if (determineWinnerBtn) {
+    determineWinnerBtn.addEventListener('click', () => {
+      const currentPhaseData = tournamentData.phases[tournamentData.currentPhase];
+      const currentMatch = currentPhaseData.matches[tournamentData.currentMatchIndex];
+      
+      if (!currentMatch.participant1 || !currentMatch.participant2) {
+        // Handle BYE case
+        currentMatch.winner = currentMatch.participant1 || currentMatch.participant2;
+        updateTournamentControlPanel();
+        updateTournamentDisplay();
+        return;
+      }
+      
+      const bet1 = parseFloat(document.getElementById('bet1')?.value) || 0;
+      const payout1 = parseFloat(document.getElementById('payout1')?.value) || 0;
+      const bet2 = parseFloat(document.getElementById('bet2')?.value) || 0;
+      const payout2 = parseFloat(document.getElementById('payout2')?.value) || 0;
+      
+      if (bet1 <= 0 || bet2 <= 0) {
+        alert('Please enter valid bet amounts for both players');
+        return;
+      }
+      
+      const multiplier1 = payout1 / bet1;
+      const multiplier2 = payout2 / bet2;
+      
+      // Winner is the one with higher multiplier
+      if (multiplier1 > multiplier2) {
+        currentMatch.winner = currentMatch.participant1;
+      } else if (multiplier2 > multiplier1) {
+        currentMatch.winner = currentMatch.participant2;
+      } else {
+        alert('It\'s a tie! Please adjust the payouts.');
+        return;
+      }
+      
+      updateTournamentControlPanel();
+      updateTournamentDisplay();
+    });
+  }
+  
+  // Phase navigation
+  const prevPhaseBtn = document.getElementById('prev-phase-btn');
+  const nextPhaseBtn = document.getElementById('next-phase-btn');
+  
+  if (prevPhaseBtn) {
+    prevPhaseBtn.addEventListener('click', () => {
+      if (tournamentData.currentPhase > 0) {
+        tournamentData.currentPhase--;
+        tournamentData.currentMatchIndex = 0;
+        updateTournamentControlPanel();
+        updateTournamentDisplay();
+      }
+    });
+  }
+  
+  if (nextPhaseBtn) {
+    nextPhaseBtn.addEventListener('click', () => {
+      if (tournamentData.currentPhase < tournamentData.phases.length - 1) {
+        tournamentData.currentPhase++;
+        tournamentData.currentMatchIndex = 0;
+        updateTournamentControlPanel();
+        updateTournamentDisplay();
+      }
+    });
+  }
+  
+  // Main actions
+  const advanceBtn = document.getElementById('advance-winners-btn');
+  const endBtn = document.getElementById('end-tournament-btn');
+  
+  if (advanceBtn) {
+    advanceBtn.addEventListener('click', advanceWinners);
+  }
+  
+  if (endBtn) {
+    endBtn.addEventListener('click', endTournament);
+  }
+}
+
+function hideTournamentControlPanel() {
+  const controlPanel = document.getElementById('tournament-control-panel');
+  
+  if (controlPanel) {
+    controlPanel.classList.remove('active');
+    setTimeout(() => {
+      controlPanel.remove();
+    }, 400);
+  }
+}
+
+function updateTournamentDisplay() {
+  if (!tournamentData.isActive) return;
+  
+  const phaseTitle = document.getElementById('tournament-phase-title');
+  const phaseIndicator = document.getElementById('phase-indicator');
+  const bracketContent = document.getElementById('tournament-bracket-content');
+  const prevBtn = document.getElementById('prev-phase-btn');
+  const nextBtn = document.getElementById('next-phase-btn');
+  
+  const currentPhaseData = tournamentData.phases[tournamentData.currentPhase];
+  
+  if (phaseTitle) {
+    phaseTitle.textContent = `Tournament - ${currentPhaseData.name}`;
+  }
+  
+  if (phaseIndicator) {
+    phaseIndicator.textContent = `${tournamentData.currentPhase + 1}/${tournamentData.phases.length}`;
+  }
+  
+  if (prevBtn) {
+    prevBtn.disabled = tournamentData.currentPhase === 0;
+  }
+  
+  if (nextBtn) {
+    nextBtn.disabled = tournamentData.currentPhase === tournamentData.phases.length - 1;
+  }
+  
+  // Render current phase matches
+  if (bracketContent) {
+    if (currentPhaseData.name === 'Final' && currentPhaseData.matches.length === 1 && currentPhaseData.matches[0].winner) {
+      // Show champion
+      const winner = currentPhaseData.matches[0].winner;
+      bracketContent.innerHTML = `
+        <div class="tournament-champion">
+          <div class="champion-crown">👑</div>
+          <div class="champion-name">${winner.player}</div>
+          <div class="champion-slot">${winner.slot}</div>
+        </div>
+      `;
+    } else {
+      bracketContent.innerHTML = '';
+      currentPhaseData.matches.forEach((match, index) => {
+        const matchElement = createMatchElement(match, index, currentPhaseData.name === 'Final');
+        bracketContent.appendChild(matchElement);
+      });
+    }
+  }
+}
+
+function createMatchElement(match, index, isFinal = false) {
+  const matchDiv = document.createElement('div');
+  matchDiv.className = `tournament-match ${isFinal ? 'final-match' : ''}`;
+  
+  const matchNumber = index + 1;
+  const phasePrefix = isFinal ? 'Final' : `Match ${matchNumber}`;
+  
+  let participant1Html = '';
+  let participant2Html = '';
+  
+  if (match.participant1) {
+    participant1Html = `
+      <div class="match-participant ${match.winner === match.participant1 ? 'selected-winner' : ''} ${match.winner && match.winner !== match.participant1 ? 'eliminated' : ''}" 
+           data-participant="1" data-match="${index}">
+        <div class="participant-info">
+          <div class="participant-name">${match.participant1.player}</div>
+          <img src="${getSlotImage(match.participant1.slot)}" alt="${match.participant1.slot}" class="participant-slot-image" onerror="this.src='${DEFAULT_SLOT_IMAGE}'" />
+        </div>
+        <div class="winner-indicator">✓</div>
+      </div>
+    `;
+  }
+  
+  if (match.participant2) {
+    participant2Html = `
+      <div class="match-participant ${match.winner === match.participant2 ? 'selected-winner' : ''} ${match.winner && match.winner !== match.participant2 ? 'eliminated' : ''}" 
+           data-participant="2" data-match="${index}">
+        <div class="participant-info">
+          <div class="participant-name">${match.participant2.player}</div>
+          <img src="${getSlotImage(match.participant2.slot)}" alt="${match.participant2.slot}" class="participant-slot-image" onerror="this.src='${DEFAULT_SLOT_IMAGE}'" />
+        </div>
+        <div class="winner-indicator">✓</div>
+      </div>
+    `;
+  } else if (match.participant1) {
+    // Bye match
+    participant2Html = `
+      <div class="match-participant eliminated" style="opacity: 0.3; cursor: default;">
+        <div class="participant-info">
+          <div class="participant-name">BYE</div>
+          <div class="participant-slot">-</div>
+        </div>
+      </div>
+    `;
+  }
+  
+  matchDiv.innerHTML = `
+    <div class="match-header">${phasePrefix}</div>
+    <div class="match-participants">
+      ${participant1Html}
+      <div class="match-vs-separator">
+        <div class="vs-swords">⚔️</div>
+        <div class="vs-text">VS</div>
+      </div>
+      ${participant2Html}
+    </div>
+  `;
+  
+  // Add click handlers for selecting winners
+  const participants = matchDiv.querySelectorAll('.match-participant:not(.eliminated)');
+  participants.forEach(participant => {
+    if (!participant.textContent.includes('BYE')) {
+      participant.addEventListener('click', () => selectWinner(index, participant));
+    }
+  });
+  
+  return matchDiv;
+}
+
+function selectWinner(matchIndex, participantElement) {
+  const currentPhaseData = tournamentData.phases[tournamentData.currentPhase];
+  const match = currentPhaseData.matches[matchIndex];
+  
+  if (match.winner) return; // Winner already selected
+  
+  const participantNum = participantElement.dataset.participant;
+  const winner = participantNum === '1' ? match.participant1 : match.participant2;
+  
+  if (winner) {
+    match.winner = winner;
+    updateTournamentDisplay();
+  }
+}
+
+function advanceWinners() {
+  const currentPhaseData = tournamentData.phases[tournamentData.currentPhase];
+  
+  // Check if all matches in current phase have winners
+  const allMatchesComplete = currentPhaseData.matches.every(match => match.winner !== null);
+  
+  if (!allMatchesComplete) {
+    // Visual feedback instead of alert
+    const advanceBtn = document.getElementById('advance-winners-btn');
+    if (advanceBtn) {
+      const originalContent = advanceBtn.innerHTML;
+      advanceBtn.innerHTML = '<span>⚠️</span><span>Select All Winners First!</span>';
+      advanceBtn.style.background = 'linear-gradient(135deg, #ff5c5c 0%, #ff3b7a 100%)';
+      setTimeout(() => {
+        advanceBtn.innerHTML = originalContent;
+        advanceBtn.style.background = 'linear-gradient(135deg, #00e1ff 0%, #9147ff 100%)';
+      }, 2000);
+    }
+    return;
+  }
+  
+  // If this is the final phase, tournament is complete
+  if (tournamentData.currentPhase === tournamentData.phases.length - 1) {
+    // Show completion feedback in button
+    const advanceBtn = document.getElementById('advance-winners-btn');
+    if (advanceBtn) {
+      advanceBtn.innerHTML = '<span>🏆</span><span>Tournament Complete!</span>';
+      advanceBtn.style.background = 'linear-gradient(135deg, #ffd700 0%, #ff8c00 100%)';
+      advanceBtn.style.color = '#1a1b23';
+      advanceBtn.disabled = true;
+    }
+    return;
+  }
+  
+  // Advance to next phase
+  const nextPhaseIndex = tournamentData.currentPhase + 1;
+  const winners = currentPhaseData.matches.map(match => match.winner).filter(winner => winner !== null);
+  
+  tournamentData.phases[nextPhaseIndex].matches = createMatches(winners);
+  tournamentData.currentPhase = nextPhaseIndex;
+  
+  updateTournamentDisplay();
+}
+
+function endTournament() {
+  tournamentData.isActive = false;
+  tournamentData.participants = [];
+  tournamentData.phases = [];
+  tournamentData.currentPhase = 0;
+  tournamentData.currentMatchIndex = 0;
+  
+  const tournamentBracket = document.getElementById('tournament-bracket');
+  if (tournamentBracket) {
+    tournamentBracket.style.display = 'none';
+  }
+  
+  // Show back the components we hid during tournament
+  const bonusHuntResults = document.getElementById('bonus-hunt-results');
+  const bonusList = document.querySelector('.info-section.bonus-list');
+  const discordSection = document.querySelector('.info-section.discord');
+  const moneyRowMain = document.querySelector('.money-row-main');
+  
+  if (bonusHuntResults) bonusHuntResults.style.display = 'block';
+  if (bonusList) bonusList.style.display = 'block';
+  if (discordSection) discordSection.style.display = 'block';
+  if (moneyRowMain) moneyRowMain.style.display = 'flex';
+  
+  // Hide tournament control panel
+  hideTournamentControlPanel();
+  
+  // Show tournament panel again
+  const tournamentPanel = document.getElementById('tournament-panel');
+  if (tournamentPanel) {
+    tournamentPanel.style.display = 'flex';
+  }
+  
+  // Visual feedback
+  const endBtn = document.getElementById('end-tournament-btn');
+  if (endBtn) {
+    const originalContent = endBtn.innerHTML;
+    endBtn.innerHTML = '<span>✅</span><span>Tournament Ended</span>';
+    setTimeout(() => {
+      endBtn.innerHTML = originalContent;
+    }, 1500);
+  }
+}
+
+// Tournament button event handlers
+const startTournamentBtn = document.getElementById('start-tournament-btn');
+const resetTournamentBtn = document.getElementById('reset-tournament-btn');
+const prevPhaseBtn = document.getElementById('prev-phase-btn');
+const nextPhaseBtn = document.getElementById('next-phase-btn');
+
+if (startTournamentBtn) {
+  startTournamentBtn.addEventListener('click', () => {
+    const playerInputs = document.querySelectorAll('.player-input');
+    const slotInputs = document.querySelectorAll('.tournament-slot-input');
+    
+    let participants = [];
+    
+    for (let i = 0; i < playerInputs.length; i++) {
+      const playerName = playerInputs[i].value.trim();
+      const slotName = slotInputs[i].value.trim();
+      
+      if (playerName && slotName) {
+        participants.push({
+          player: playerName,
+          slot: slotName,
+          playerIndex: i + 1
+        });
+      }
+    }
+    
+    if (participants.length < 2) {
+      // Visual feedback instead of alert
+      startTournamentBtn.textContent = 'Need at least 2 players!';
+      startTournamentBtn.style.background = 'linear-gradient(135deg, #ff5c5c 0%, #ff3b7a 100%)';
+      setTimeout(() => {
+        startTournamentBtn.innerHTML = '<span class="middle-icon">🚀</span><span>Start Tournament</span>';
+        startTournamentBtn.style.background = '';
+      }, 2500);
+      return;
+    }
+    
+    // Visual feedback for successful start
+    startTournamentBtn.textContent = `Starting with ${participants.length} players...`;
+    startTournamentBtn.style.background = 'linear-gradient(135deg, #00ff7a 0%, #00e1ff 100%)';
+    
+    // Shuffle participants for randomness
+    for (let i = participants.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [participants[i], participants[j]] = [participants[j], participants[i]];
+    }
+    
+    setTimeout(() => {
+      initializeTournament(participants);
+      startTournamentBtn.innerHTML = '<span class="middle-icon">🚀</span><span>Start Tournament</span>';
+      startTournamentBtn.style.background = '';
+    }, 1000);
+  });
+}
+
+if (resetTournamentBtn) {
+  resetTournamentBtn.addEventListener('click', () => {
+    // Clear all player inputs
+    document.querySelectorAll('.player-input').forEach(input => {
+      input.value = '';
+    });
+    
+    // Clear all slot inputs
+    document.querySelectorAll('.tournament-slot-input').forEach(input => {
+      input.value = '';
+    });
+    
+    // End active tournament
+    if (tournamentData.isActive) {
+      endTournament();
+    }
+    
+    // Visual feedback
+    resetTournamentBtn.textContent = 'Reset Complete!';
+    resetTournamentBtn.style.background = 'linear-gradient(135deg, #00ff7a 0%, #00e1ff 100%)';
+    setTimeout(() => {
+      resetTournamentBtn.innerHTML = '<span class="middle-icon">🔄</span><span>Reset Tournament</span>';
+      resetTournamentBtn.style.background = '';
+    }, 1500);
+    
+    console.log('Tournament reset');
+  });
+}
+
+if (prevPhaseBtn) {
+  prevPhaseBtn.addEventListener('click', () => {
+    if (tournamentData.currentPhase > 0) {
+      tournamentData.currentPhase--;
+      updateTournamentDisplay();
+    }
+  });
+}
+
+if (nextPhaseBtn) {
+  nextPhaseBtn.addEventListener('click', () => {
+    if (tournamentData.currentPhase < tournamentData.phases.length - 1) {
+      tournamentData.currentPhase++;
+      updateTournamentDisplay();
+    }
+  });
+}
 });
 
 // Set your fallback slot image here:
