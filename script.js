@@ -286,13 +286,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         en: {
             everything_here: "Everything you need is here",
             offers: "OFFERS",
-            register_cashback: "Register and use the codes to get 15% cashback from me",
+            register_cashback: "Register to our brands for constant giveaways",
             sapphire_percent: "Open a Discord Ticket",
             sapphire_condition: "For a Gentle gift",
             oscarspin_percent: "1st deposit cashback up to 20€",
             oscarspin_condition: "No double accounts are covered",
-            infinity_percent: "+100% +200 Free Spins",
-            infinity_condition: "+15% cashback for losses over 100€ monthly",
+            vicibet_percent: "+100% +200 Free Spins",
+            vicibet_condition: "+15% cashback for losses over 100€ monthly",
             buran_percent: "1st deposit cashback up to 20€",
             buran_condition: "+15% cashback for losses over 100€ monthly",
             arena_code: "Code: secaadegas",
@@ -303,13 +303,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         pt: {
             everything_here: "Tudo o que você precisa está aqui",
             offers: "OFERTAS",
-            register_cashback: "Registe-se e use os códigos para receber 15% de cashback meu",
+            register_cashback: "Regista-te nas nossas marcas para sorteios constantes",
             sapphire_percent: "Abra um ticket no Discord",
             sapphire_condition: "Para um presente gentil",
             oscarspin_percent: "Cashback de até 20€ no 1º depósito",
             oscarspin_condition: "Contas duplicadas não são cobertas",
-            infinity_percent: "+100% +200 Rodadas Grátis",
-            infinity_condition: "+15% de cashback para perdas acima de 100€ por mês",
+            vicibet_percent: "+100% +200 Rodadas Grátis",
+            vicibet_condition: "+15% de cashback para perdas acima de 100€ por mês",
             buran_percent: "Cashback de até 20€ no 1º depósito",
             buran_condition: "+15% de cashback para perdas acima de 100€ por mês",
             arena_code: "Código: secaadegas",
@@ -323,7 +323,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const dict = translations[lang] || translations.en;
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (dict[key]) el.textContent = dict[key];
+            // Map old keys to new ones for compatibility
+            let mappedKey = key;
+            if (key === 'infinity_percent') mappedKey = 'vicibet_percent';
+            if (key === 'infinity_condition') mappedKey = 'vicibet_condition';
+            if (dict[mappedKey]) el.textContent = dict[mappedKey];
         });
         // Update toggle UI
         document.getElementById('lang-en')?.classList.toggle('active', lang === 'en');
