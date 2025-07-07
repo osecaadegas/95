@@ -1,3 +1,39 @@
+// Offer Info Modal Logic
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('offer-info-modal');
+  const card = document.getElementById('offer-info-card');
+  const closeBtn = document.getElementById('offer-info-close');
+  const nameEl = document.getElementById('offer-info-name');
+  const imgEl = document.getElementById('offer-info-image');
+  const claimBtn = document.getElementById('offer-info-claim');
+  const catEl = document.getElementById('offer-info-categories');
+  const bonusesEl = document.getElementById('offer-info-bonuses');
+  const vipEl = document.getElementById('offer-info-vip');
+  const paymentsEl = document.getElementById('offer-info-payments');
+
+  // Attach event to all info buttons
+  document.querySelectorAll('.info-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const offer = JSON.parse(this.getAttribute('data-offer'));
+      nameEl.textContent = offer.name;
+      imgEl.src = offer.image;
+      claimBtn.href = offer.claimUrl;
+      // Categories
+      let cats = '';
+      for (const [key, val] of Object.entries(offer.categories)) {
+        cats += `<div style="margin-bottom:4px;"><strong>${key}:</strong> ${val}</div>`;
+      }
+      catEl.innerHTML = cats;
+      // Show bonuses, VIP, payments
+      if (bonusesEl) bonusesEl.textContent = offer.bonuses || '';
+      if (vipEl) vipEl.textContent = offer.vip || '';
+      if (paymentsEl) paymentsEl.textContent = offer.payments || '';
+      modal.style.display = 'flex';
+    });
+  });
+  closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+  modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+});
 // --- CONFIGURE YOUR SUPABASE URL AND ANON KEY ---
 const SUPABASE_URL = 'https://oytxhozuqrxeebdlnawb.supabase.co'; // <-- replace with your real URL
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95dHhob3p1cXJ4ZWViZGxuYXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3ODU0OTEsImV4cCI6MjA2NDM2MTQ5MX0.G18pV_EFVfbtQd62tG_S-ED_TRjCptWp-C8dcO2GEEA';  // <-- replace with your real anon key
