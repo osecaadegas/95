@@ -136,7 +136,7 @@ const slotDatabase = [
   { name: "Wings of Horus", image: "https://mediumrare.imgix.net/506275b06b8a03b332c806dfffd1599f32c68b5674f112cdd04802470a968f7c?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Rise of Ymir", image: "https://mediumrare.imgix.net/63ecb7db83f55f800b6c3c057c13f8a80185d4b767500b264867ae07aeb10845?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Immortal Desire", image: "https://mediumrare.imgix.net/1a7de51973e9c1298b1fa58ffe6bdd9ddb02c9e2df2c1adf62c7ca4b63c0b06a?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
-  { name: "Dragons Domain", image: "https://mediumrare.imgix.net/b32ecba95ce52b451ff09fba9f89246ef4051abac52d250094627f0c5ef6c3e5?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
+  { name: "Dragon´s Domain", image: "https://mediumrare.imgix.net/b32ecba95ce52b451ff09fba9f89246ef4051abac52d250094627f0c5ef6c3e5?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Book of Time", image: "https://mediumrare.imgix.net/9bf10cb05301c16c0fb09d93ba8a973b834fbf76b5a37676878302e9c0e1d3d0?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Bouncy Bombs", image: "https://mediumrare.imgix.net/7f74559ba42c4b965d3f9809a77fbf366af4778bea4af823c9d661abe55302db?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
   { name: "Snow Slingers", image: "https://mediumrare.imgix.net/9048c86fad269aa7ff0abf63ee8c2ddc96f0bf4d5ae519231d40d85a65389986?w=180&h=236&fit=min&auto=format", provider: "Hacksaw" },
@@ -278,9 +278,6 @@ const slotDatabase = [
   { name: "Walk of Shame", image: "https://mediumrare.imgix.net/e9d1159dc4ec26b40a436c9f1c3bceae323c552dd1e5c206d6ab4c93a61ba7fe?w=180&h=236&fit=min&auto=format", provider: "No Limit" },
   { name: "Dragon Tribe ", image: "https://mediumrare.imgix.net/a2f7dabe8bc0947a89e80a60ba13b27814e5eef6bd1d45b4082c7310b9468463?w=180&h=236&fit=min&auto=format", provider: "No Limit" },
   { name: "Bounty Hunters", image: "https://mediumrare.imgix.net/1b3e19c5dadcd298327774785a0ef6dad6128a2ffd323637a85eb34ed859b3ef?w=180&h=236&fit=min&auto=format", provider: "No Limit" },
-  { name: "Lucky Barrel Tavern", image: "https://cdn.oscarstatic.com/images/game/uploads/softswiss.belatra-LuckyBarrelTavern.jpg", provider: "Belatra" },
-  { name: "Pirate Jackpots", image: "https://cdn.oscarstatic.com/images/game/uploads/softswiss.belatra-PirateJackpots_designed.jpg", provider: "Belatra" },
-  { name: "Big Wild Buffalo", image: "https://cdn.oscarstatic.com/images/game/uploads/softswiss.belatra-BigWildBuffalo_designed.jpg", provider: "Belatra" },
   { name: "Gold Rush With Johnny Cash", image: "https://cdn.oscarstatic.com/images/game/uploads/softswiss.softswiss-GoldRushWithJohnny_designed.jpg", provider: "Bgaming" },
   { name: "Ultimate Slot of America", image: "https://mediumrare.imgix.net/4e212f817a163d07b8d65cda3e07ec94e2dac06cc520b26ff98ed97d4b63e33d?q=85", provider: "Hacksaw" },
   { name: "Crabbys Gold", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiIzlYWupxTSBhZzJ13zkZyp3saTRA7eml9Q&s", provider: "Play n Go" },
@@ -406,7 +403,7 @@ const slotDatabase = [
   { name: "Sun of Egypt", image: "https://mediumrare.imgix.net/f480d50fed347d852024d7f19033e86ba083bcf747fac31eb4f9a67ae981a8c2?w=360&h=472&fit=min&auto=format", provider: "3Oaks" },
   { name: "Magic Apple2", image: "https://mediumrare.imgix.net/4005c84b0b69377b8e2c82f5d88c081abd84dffe35b7f07d13cff1bbcb8ca3f5?w=360&h=472&fit=min&auto=format", provider: "3Oaks" },  
   { name: "Sweet Bonanza 1000", image: "https://mediumrare.imgix.net/445d5df4246639bd20337a70ee328301f1d949f4d3c2bc60c9bd7a31fd3636de?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
-  { name: "Gates of Olymmpus SuperScatter", image: "https://mediumrare.imgix.net/73318f9e220e1637c4b11338d10f377cd997d0232636f5f5a1940167ad0451cd?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
+  { name: "Gates of Olympus SuperScatter", image: "https://mediumrare.imgix.net/73318f9e220e1637c4b11338d10f377cd997d0232636f5f5a1940167ad0451cd?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "Sugar Rush 1000", image: "https://mediumrare.imgix.net/14d5410c6cf4c303d291262a10e949dc14b0ac2eca2a7a730b0401919c01358e?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "Gates Of Olympus 1000", image: "https://mediumrare.imgix.net/8421465d345dc9f775ee55001e0337b80d86dd77f2de36e4cb3650a364210847?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "Brick House Bonanza", image: "https://mediumrare.imgix.net/39d97d426a8f9423aff8862c595c46dcd61dfb3b13f87d65d92fd0eecc5bec2a?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
@@ -819,7 +816,7 @@ const slotDatabase = [
   { name: "African Elephant", image: "https://mediumrare.imgix.net/69ee90c74482668dce88f06f91d216f4db0c703bbbc05c9837191a04320f9a48?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "John Hunter And The Quest For Bermuda Riches", image: "https://mediumrare.imgix.net/844e20d524df66d1076a17665ef7d6e318d42c1c749bba24331dc7c16b0122e1?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
   { name: "Star Bounty", image: "https://mediumrare.imgix.net/796ea48927702e14ae2006f5612031152016c2f7e4f4c7d13dc644189f10825b?w=180&h=236&fit=min&auto=format", provider: "Pragmatic Play" },
-    { name: "Bear´s Tricks", image: "https://imgproxy.belatra.games/hKJL-wnBwFckVTBwgposy9gHBXR8YbrzinJ4mq1hMa8/q:100/w:300/rt:fill/czM6Ly9iZWxhdHJhL21lZGlhL0dhbWUvcHJldmlldy82YzhlZDY2MC0wMGY5LTQ1OWItYTAwYi1lZDU4OTA3MzZkNzEvQmVhcnMtVHJpY2tzLS0zMDB4MzAwLS1CRUxBVFJBLnBuZw.webp", provider: "Belatra" },
+  { name: "Bear´s Tricks", image: "https://imgproxy.belatra.games/hKJL-wnBwFckVTBwgposy9gHBXR8YbrzinJ4mq1hMa8/q:100/w:300/rt:fill/czM6Ly9iZWxhdHJhL21lZGlhL0dhbWUvcHJldmlldy82YzhlZDY2MC0wMGY5LTQ1OWItYTAwYi1lZDU4OTA3MzZkNzEvQmVhcnMtVHJpY2tzLS0zMDB4MzAwLS1CRUxBVFJBLnBuZw.webp", provider: "Belatra" },
   { name: "Cyber Gypsies", image: "https://imgproxy.belatra.games/t8rJsSKwYQGsQ0LbVl3Nn4bpXYlmE7dznLOPp6cVVJg/q:100/w:300/rt:fill/czM6Ly9iZWxhdHJhL21lZGlhL0dhbWUvcHJldmlldy81NDVjYzIzZS1iZTYxLTQwNWYtOTRkYi1iMzNiOGM1NDU0ODEvQ3liZXItR3lwc2llcy0zMDB4MzAwLTIuMC5wbmc.webp", provider: "Belatra" },
   { name: "Mummy´s Mines", image: "https://imgproxy.belatra.games/QN7o98ey8oesi9bpqME8if8792cv6vt4GdKHlD66_Ug/q:100/w:300/rt:fill/czM6Ly9iZWxhdHJhL21lZGlhL0dhbWUvcHJldmlldy8wY2RiOGM1Mi02N2Y4LTQwZDMtOWUyOC0xZTMyMTEwYTVmNjQvTXVtbXlzX01pbmVzXzMwMHgzMDBfQkVMQVRSQS5wbmc.webp", provider: "Belatra" },
   { name: "Xing Fu Panda", image: "https://imgproxy.belatra.games/ercak5XY7xIpGWnLC_-rPBLodvBzZkcUqp21TVNksoQ/q:100/w:300/rt:fill/czM6Ly9iZWxhdHJhL21lZGlhL0dhbWUvcHJldmlldy8zZTBhODhiYi1lNjBkLTRjNGQtOWQyOC1kZmRjYmRhOGYwNWEvWElOR19GVV9QQU5EQV80MjDRhTQyMC1jLnBuZw.webp", provider: "Belatra" },
@@ -1342,6 +1339,7 @@ document.addEventListener('DOMContentLoaded', () => {
           li.innerHTML = `
             <img src="${imgSrc}" alt="${slotName}" class="slot-img">
             <span class="slot-name">${slotName}</span>
+            <span class="slot-payout">--</span>
             <span class="slot-bet">€${parseFloat(betSize).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
           `;
           // Highlight if super checkbox is checked
@@ -1566,11 +1564,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const bonusListUl = document.querySelector('.bonus-list ul');
     if (!bonusListUl) return;
     Array.from(bonusListUl.children)
-      .filter(li => !li.classList.contains('carousel-clone'))
+      // Remove the filter so it updates both original and carousel-clone items
+      //.filter(li => !li.classList.contains('carousel-clone'))
       .forEach(li => {
         const spans = li.querySelectorAll('span');
         if (spans[0] && spans[0].textContent === slotName) {
           li.dataset.payout = payout;
+          // Update payout span
+          const payoutSpan = li.querySelector('.slot-payout');
+          if (payoutSpan) {
+            payoutSpan.textContent = `€${parseFloat(payout).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+          }
         }
       });
     renderBonusHuntResults();
@@ -1786,19 +1790,21 @@ document.addEventListener('DOMContentLoaded', () => {
     slotHighlightCard = document.createElement('div');
     slotHighlightCard.style.position = 'fixed';
     slotHighlightCard.style.left = '24px';
-    slotHighlightCard.style.bottom = '24px';
+    slotHighlightCard.style.bottom = '8px';
     slotHighlightCard.style.width = '540px';
     slotHighlightCard.style.height = '210px';
-    slotHighlightCard.style.background = 'linear-gradient(135deg, #9147ff 0%, #00e1ff 100%)';
-    slotHighlightCard.style.borderRadius = '38px';
-    slotHighlightCard.style.boxShadow = '0 17px 67px 0 rgba(0,0,0,0.28)';
+    slotHighlightCard.style.background = 'linear-gradient(120deg, #23243a 0%, #3a2d4a 60%, #1a1c2e 100%)';
+    slotHighlightCard.style.borderRadius = '32px';
+    slotHighlightCard.style.boxShadow = '0 12px 48px 0 rgba(0,0,0,0.28), 0 2px 0 0 #00e1ff inset';
     slotHighlightCard.style.display = 'flex';
     slotHighlightCard.style.alignItems = 'center';
     slotHighlightCard.style.justifyContent = 'space-between';
     slotHighlightCard.style.zIndex = '1000';
-    slotHighlightCard.style.padding = '0 32px';
+    slotHighlightCard.style.padding = '0 38px';
     slotHighlightCard.style.gap = '0px';
-    slotHighlightCard.style.border = '3px solid #fff2';
+    slotHighlightCard.style.border = '2.5px solid #23243a';
+    slotHighlightCard.style.backdropFilter = 'blur(12px)';
+    slotHighlightCard.style.transition = 'box-shadow 0.3s, background 0.3s, border-radius 0.3s';
 
     // Pill colors
     const pillColors = {
@@ -2514,7 +2520,7 @@ function addTournamentControlListeners() {
       
       const bet1 = parseFloat(document.getElementById('bet1')?.value) || 0;
       const payout1 = parseFloat(document.getElementById('payout1')?.value) || 0;
-      const bet2 = parseFloat(document.getElementById('bet2')?.value) || 0;
+      const bet2 = parseFloat(document.getElementById('bet2')?.value) ||  0;
       const payout2 = parseFloat(document.getElementById('payout2')?.value) || 0;
       
       if (bet1 <= 0 || bet2 <= 0) {
